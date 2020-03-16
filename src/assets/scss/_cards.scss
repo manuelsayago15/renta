@@ -1,0 +1,78 @@
+/* ==============
+  Card
+===================*/
+
+.card {
+  border: none;
+  box-shadow: $shadow;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+      -webkit-column-gap: 30px;
+      -moz-column-gap: 30px;
+      column-gap: 30px;
+  }
+}
+
+.card-columns {
+  .card {
+    margin-bottom: 30px;
+  }
+}
+/* ==============
+  Card Renta Nacional
+===================*/
+
+
+.card-form-download {
+  .card-header {
+    background-color:white;
+  }
+  .card-header {
+
+  }
+  .card-title {
+    color: $primary;
+    font-size:1.5rem;
+    display: flex;
+    align-items: center;
+    margin:0px;
+    span[class^="renta-icon"] {
+      font-size:50px;
+      margin-right:10px;
+    }
+  }
+  ul.files-list {
+    list-style: none;
+    padding-left:0px;
+  }
+  .file-row {
+    display:flex; 
+    flex-direction: row;
+    justify-content:space-between;
+    &:hover, &:active, &:focus {
+      .link-name, .link-download {
+        color:darken( $primary, 20% );
+
+      }
+    }
+  }
+  .link-name {
+    margin-bottom:.5rem;
+    text-decoration: underline;
+  } 
+  .link-download {
+    color:$primary;
+    display: flex;
+    align-items: center;
+    *[class^="renta-icon"] {
+      font-size: 30px;
+    }
+  }
+  @include min-lg {
+    min-height: 380px;
+  }
+
+}

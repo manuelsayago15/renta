@@ -1,0 +1,65 @@
+.login-page {
+    display:flex;
+    flex-direction: row;
+
+
+
+    .left-contianer, .right-container {
+        height: 100vh;
+        width:100%;
+        @include min-lg {
+            width:50%;
+        }
+
+    }
+    .left-contianer {
+        display:none;
+        @include min-md {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .brand-wrap {
+       // height: 150px;
+    }
+    .right-container {
+        background-color:white;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-form-wrap {
+        max-width: 400px;
+        width:100%;
+    }
+    .switch-wrap {
+        display: flex;
+        justify-content: row;
+        .switch-group {
+            margin: 0px 10px
+        }
+    }
+    #passportInput {
+        display:none;
+    }
+    .redlabel {
+        color:$primary;
+        font-weight: bold;
+    }
+    h1.title {
+        font-size: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: 'Open Sans', sans-serif;
+        margin-bottom: 4rem;
+    }
+    .brand-movil {
+        display:block;
+        width: 150px;
+        margin:0 auto;
+        @include min-md {
+            display:none;
+        }
+    }
+}

@@ -1,0 +1,146 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import url('https://fonts.googleapis.com/css?family=Sarabun:400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+
+
+
+
+// Colors
+
+
+$primary: #f53030;
+$secundary: #5BC000;
+
+
+// Color variables
+$white: #ffffff;
+$success: #02a499;
+$info: #38a4f8;
+$warning: #f8b425;
+$danger: #ec4561;
+$dark: #2a3142;
+$muted: #9ca8b3;
+
+
+// Gray Colors
+$gray-100:                  #f8f9fa;
+$gray-200:                  #e9ecef;
+$gray-300:                  #dee2e6;
+$gray-400:                  #ced4da;
+$gray-500:                  #adb5bd;
+$gray-600:                  #6c757d;
+$gray-700:                  #495057;
+$gray-800:                  #343a40;
+$gray-900:                  #212529;
+
+$bg-body: #f8f8fa;
+//$left-bar: #333547;
+$left-bar: #fff;
+
+$topbar-background: #ececf1;
+$topbar-search-background: #e0e0ea;
+$footer-background: #f1f2f5;
+
+$font-family: 'Open Sans', sans-serif;
+$font-family-secondary: 'Sarabun', sans-serif;
+
+
+$shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
+
+$base-font: 14px;
+
+// Width variables
+$width: 100%;
+
+// Height variables
+$height: 100%;
+
+$leftbar-menu-color: #6B8087;
+$leftbar-menu-hover-color: rgb(49, 57, 59);
+$leftbar-menu-active-color: #FF5259;
+
+
+// prefixer
+
+$prefixes: "webkit", "moz", "ms", "o", "none";
+@mixin prefix($property, $arguments) {
+ @each $prefix in $prefixes {
+   @if $prefix == "none" {
+     #{$property}: $arguments;
+   } @else {
+     -#{$prefix}-#{$property}: $arguments;
+   } 
+ }
+}
+
+//Screen sizes
+$screen-extra-small: 320px;
+//bootstraps 4 breaks point - 
+$screen-small: 576px;
+$screen-middle: 768px;
+$screen-large: 992px;
+$screen-extralarge: 1200px;
+
+$element-size-sm: 1em;
+$element-size-md: 1.5em;
+$element-size-lg: 2em;
+$element-size-xl: 4em; 
+
+// Extra Small devices (landscape phones, 320 and up)
+@mixin min-xs {
+    @media (min-width: $screen-extra-small) {
+        @content;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin min-sm {
+    @media (min-width: $screen-small) {
+        @content;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin min-md {
+    @media (min-width: $screen-middle) {
+        @content;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@mixin min-lg {
+    @media (min-width: $screen-large) {
+        @content;
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@mixin min-xl {
+    @media (min-width: $screen-extralarge) {
+        @content;
+    }
+}
+
+// special size 
+@mixin min-sp {
+    @media (min-width: 993px) {
+        @content;
+    }
+}
+
+@mixin ie {
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    @content;
+
+    }
+}
+// custom 
+@mixin min-custom($custom) {
+    @media (min-width: $custom) {
+        @content;
+    }
+}
+

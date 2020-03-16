@@ -1,0 +1,43 @@
+/* ==============
+  Form-Upload
+===================*/
+/* Dropzone */
+.dropzone {
+  min-height: 230px;
+  border: 2px dashed rgba(0, 0, 0, 0.3);
+  background: $white;
+  border-radius: 6px;
+
+  .dz-message {
+    font-size: 30px;
+  }
+
+  .dropzone-preview-template {
+    position: relative;
+  }
+
+  .dz-preview {
+    min-height: 0;
+    margin: 0 0 0.7em;
+
+    .dz-progress {
+      border: solid 1px grey;
+      top: 9px;
+      left: 72px;
+    }
+    .dz-success-mark,
+    .dz-error-mark {
+      top: -11px;
+      right: -25px;
+      left: inherit;
+      margin: 0;
+      font-size: 2em;
+    }
+  }
+
+  .dz-preview.dz-nofile-preview {
+    margin-left: 35px;
+  }
+
+  
+}
