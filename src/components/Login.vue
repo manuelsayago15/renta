@@ -1,62 +1,64 @@
 <template>
-    <div class="right-container" id="main">
-    	<img src="../assets/images/bg-login.jpg">
-    	<div class="left-contianer" :style="{ backgroundImage: 'url(' + backgroundImg + ')' }" style="background-position-center right; background-size: cover;">
-	        <div class="brand-wrap"><img class="logo" src="/assets/images/logo-blanco.png" alt="Logo renta nacional"></div>
+	<div class="login-page">
+		<div class="left-contianer" :style="{ backgroundImage: 'url(' + require('../assets/images/bg-login.jpg') + ')' }" style="background-position-center right; background-size: cover;">
+        	<div class="brand-wrap"><img class="logo" src="../assets/images/logo-blanco.png" alt="Logo renta nacional"></div>
+    	</div>
+    	<div class="right-container" id="main">
+	        <div class="login-form-wrap">
+	            <div class="brand-movil"><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
+	            <h1 class="title">Portal intermediarios</h1>
+	            <form form method="post" >
+	                <div class="form-group" id="form-group-rut">
+	                    <div class="switch-wrap">
+	                      <label class="rut redlabel" for="rut">RUT</label>
+	                      <div class="switch-group">
+	                        <input type="checkbox" id="checkLogin" switch="none">
+	                        <label for="checkLogin" data-on-label="" data-off-label=""></label>
+	                      </div>
+	                      <label class="passport" for="passport">Pasaporte</label>
+	                    </div>
+	                    <input class="form-control" type="text" id="rutInput" name="rut" placeholder="RUT"  maxlength="12" onkeypress="return isNumber(event)"  >
+	                    <input class="form-control" type="text" id="passportInput" name="passport" placeholder="Pasaporte">
+	                  </div>
+	                  
+	                <div class="form-group">
+	                    <label for="password">Contraseña</label>
+	                    <input class="form-control" type="password" id="passwordInput" name="password" >
+	                </div>
+	                <div class="form-group row m-t-20">
+	                    <div class="col-sm-6">
+	                        <div class="custom-control custom-checkbox">
+	                            <input class="custom-control-input" type="checkbox" id="customControlInline">
+	                            <label class="custom-control-label" for="customControlInline">Recordar contraseña</label>
+	                        </div>
+	                    </div>
+
+	                    <div class="col-sm-6 text-right">
+	                       <!--  <button class="btn btn-primary w-md waves-effect waves-light" type="button" id="entrar">Ingresar</button>-->
+	                       
+	                        <input class="btn btn-primary  w-md waves-effect waves-light" onclick="addSpinner($('body'))" type="submit" value="Ingresar">
+	                    </div>
+	                </div>
+	                <div class="form-group m-t-10 mb-0 row">
+	                    <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
+	                </div>
+	                <div  class="alert alert-danger alert-dismissible fade show" role="alert">
+	                    <b>Por favor, valide (los) siguiente(s) error(es):</b>
+	                    <ul>
+	                        <li> </li>
+	                    </ul>
+	                </div>
+	                <div id="alert" class="" role="alert">
+	                    <b id="message"></b>
+	                    <ul id="errors">
+
+	                    </ul>
+	                </div>
+	            </form>
+	        </div>
 	    </div>
-        <div class="login-form-wrap">
-            <div class="brand-movil"><img src="assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
-            <h1 class="title">Portal intermediarios</h1>
-            <form form method="post" >
-                <div class="form-group" id="form-group-rut">
-                    <div class="switch-wrap">
-                      <label class="rut redlabel" for="rut">RUT</label>
-                      <div class="switch-group">
-                        <input type="checkbox" id="checkLogin" switch="none">
-                        <label for="checkLogin" data-on-label="" data-off-label=""></label>
-                      </div>
-                      <label class="passport" for="passport">Pasaporte</label>
-                    </div>
-                    <input class="form-control" type="text" id="rutInput" name="rut" placeholder="RUT"  maxlength="12" onkeypress="return isNumber(event)"  >
-                    <input class="form-control" type="text" id="passportInput" name="passport" placeholder="Pasaporte">
-                  </div>
-                  
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input class="form-control" type="password" id="passwordInput" name="password" >
-                </div>
-                <div class="form-group row m-t-20">
-                    <div class="col-sm-6">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="customControlInline">
-                            <label class="custom-control-label" for="customControlInline">Recordar contraseña</label>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 text-right">
-                       <!--  <button class="btn btn-primary w-md waves-effect waves-light" type="button" id="entrar">Ingresar</button>-->
-                       
-                        <input class="btn btn-primary  w-md waves-effect waves-light" onclick="addSpinner($('body'))" type="submit" value="Ingresar">
-                    </div>
-                </div>
-                <div class="form-group m-t-10 mb-0 row">
-                    <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
-                </div>
-                <div  class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <b>Por favor, valide (los) siguiente(s) error(es):</b>
-                    <ul>
-                        <li> </li>
-                    </ul>
-                </div>
-                <div id="alert" class="" role="alert">
-                    <b id="message"></b>
-                    <ul id="errors">
-
-                    </ul>
-                </div>
-            </form>
-        </div>
-    </div>
+	</div>
+    
 </template>
 
 <script>
@@ -132,7 +134,10 @@
               this.error = error
               console.log(error)
             });
-        }
+        },
+
+
+        //Login Methods
 
 
       },
