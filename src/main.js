@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Dashboard from './Dashboard.vue';
 import Login from './components/Login.vue';
+import Intermediario from './components/dashboard/Intermediario.vue';
 import '../src/assets/css/test.css';
 import '../src/assets/scss/style.scss';
 import '../src/assets/css/developers.css';
@@ -24,6 +25,7 @@ Vue.use(VueRouter);
 const routes = [
 	{ path: '/', name: 'login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
+	{ path: '/intermediario', component: Intermediario },
 ];
 
 const router = new VueRouter({

@@ -7,7 +7,7 @@
 	        <div class="login-form-wrap">
 	            <div class="brand-movil"><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
 	            <h1 class="title">Portal intermediarios</h1>
-	            <form form method="post" v-on:submit.prevent="iniciarSesion()">
+	            <form form method="post" v-on:submit="iniciarSesion()">
 	                <div class="form-group" id="form-group-rut">
 	                    <div class="switch-wrap">
 	                      <label class="rut redlabel" for="rut">RUT</label>
@@ -36,7 +36,7 @@
 	                    <div class="col-sm-6 text-right">
 	                       <!--  <button class="btn btn-primary w-md waves-effect waves-light" type="button" id="entrar">Ingresar</button>-->
 	                       
-	                        <input class="btn btn-primary  w-md waves-effect waves-light" @click="addSpinner()" type="submit" value="Ingresar">
+	                        <input class="btn btn-primary  w-md waves-effect waves-light"  type="submit" value="Ingresar">
 	                    </div>
 	                </div>
 	                <div class="form-group m-t-10 mb-0 row">
@@ -66,6 +66,12 @@
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     import backgroundImg from '../assets/images/bg-login.jpg'
+    //import $ from 'jquery'
+     
+    // Importamos JQuery
+	const $ = require('jquery')
+	// Lo declaramos globalmente
+	window.$ = $
      
     Vue.use(VueAxios, axios)
 
@@ -115,7 +121,7 @@
 			});
         },
 
-        test() {
+        /*test() {
             const session_url = 'http://10.156.160.21:8000/api/login'
             var identificacion = '27052222';
             var password = 123;
@@ -132,21 +138,21 @@
             .then(response => {
               console.log('SUCCESS')
               console.log(response.data)
-              /*this.$store.dispatch('signin', response.data)*/
+              //this.$store.dispatch('signin', response.data)
             }).catch(error => {
               console.log('FAILURE')
               console.log(identificacion);
               this.error = error
               console.log(error)
             });
-        },
+        },*/
 
 
         //Login Methods
         iniciarSesion: function() {
             var errors = [];
-            
             if (this.validarCamposVacios()) {
+            console.log("got in");
               if (this.rut != "") {
                 var rut =this.rut;
                 var dig_ver;
@@ -202,6 +208,7 @@
           var id_empresa=resp.user.id_empresa;
           var id_oficina=resp.oficina[0].id;
           console.log(this.password);
+          console.log(nombre_logueado);
 				})
 				.catch(function(){
 				  console.log('FAILURE!!');
@@ -297,12 +304,12 @@
 
       },
 
-      addSpinner: function(el, static_pos){
+      /*addSpinner: function(el, static_pos){
         var spinner = el.children('.spinner');
         if (spinner.length && !spinner.hasClass('spinner-remove')) return null;
           !spinner.length && (spinner = $('<div class="spinner' + (static_pos ? '' : ' spinner-absolute') + '"/>').appendTo(el));
           animateSpinner(spinner, 'add');
-      },
+      },*/
 
       mounted () {
 
