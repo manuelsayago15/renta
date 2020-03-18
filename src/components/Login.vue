@@ -7,7 +7,7 @@
 	        <div class="login-form-wrap">
 	            <div class="brand-movil"><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
 	            <h1 class="title">Portal intermediarios</h1>
-	            <form form method="post" >
+	            <form form method="post" v-on:submit.prevent="iniciarSesion()">
 	                <div class="form-group" id="form-group-rut">
 	                    <div class="switch-wrap">
 	                      <label class="rut redlabel" for="rut">RUT</label>
@@ -36,7 +36,7 @@
 	                    <div class="col-sm-6 text-right">
 	                       <!--  <button class="btn btn-primary w-md waves-effect waves-light" type="button" id="entrar">Ingresar</button>-->
 	                       
-	                        <input class="btn btn-primary  w-md waves-effect waves-light" onclick="addSpinner($('body'))" type="submit" value="Ingresar">
+	                        <input class="btn btn-primary  w-md waves-effect waves-light" @click="addSpinner()" type="submit" value="Ingresar">
 	                    </div>
 	                </div>
 	                <div class="form-group m-t-10 mb-0 row">
@@ -177,7 +177,7 @@
 		        const formData = new FormData();
 		        formData.append('identificacion', rut_no_dig_ver);
 		        formData.append('password', this.password);
-		        formData.append('dig_verificador', this.dig_verificador);
+		        formData.append('dig_verificador', dig_ver);
 
 				axios.post('http://10.156.160.21:8000/api/login/', formData, {
 				/*data: {
@@ -191,16 +191,25 @@
 				 }*/
 
 				}
-				).then(function(){
+				).then(resp => {
 				  console.log('SUCCESS!!');
+          var arrDatos = [];
+          var id = resp.user.id;
+          var rut_logueado = resp.user.identificacion;
+          var dv_logueado = resp.user.dig_verificador;
+          var id_tipo_usuario=resp.user.id_tipo_usuario;
+          var nombre_logueado=resp.user.nombres+" "+resp.user.apellidos;
+          var id_empresa=resp.user.id_empresa;
+          var id_oficina=resp.oficina[0].id;
+          console.log(this.password);
 				})
 				.catch(function(){
 				  console.log('FAILURE!!');
 				});
            	
-                var dominio = 'http://10.156.160.21:8000/api/'; //direccion de la api para consumir
+                //var dominio = 'http://10.156.160.21:8000/api/'; //direccion de la api para consumir
                // $('#content').html('<div class="loading"><img src="assets/images/loader.gif"/><br/></div>');
-                $.ajax({
+                /*$.ajax({
                     url: dominio + 'login',
                     dataType: 'json',
                     type: 'POST',
@@ -266,7 +275,7 @@
                        // $('#content').fadeToggle();
                        removeSpinner($('body'))
                     }
-                }); 
+                }); */
                 return false;
             }
         },
@@ -288,7 +297,14 @@
 
       },
 
-      mounted: {
+      addSpinner: function(el, static_pos){
+        var spinner = el.children('.spinner');
+        if (spinner.length && !spinner.hasClass('spinner-remove')) return null;
+          !spinner.length && (spinner = $('<div class="spinner' + (static_pos ? '' : ' spinner-absolute') + '"/>').appendTo(el));
+          animateSpinner(spinner, 'add');
+      },
+
+      mounted () {
 
       },
 
