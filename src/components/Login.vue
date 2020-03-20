@@ -8,52 +8,53 @@
 	            <div class="brand-movil"><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
 	            <h1 class="title">Portal intermediarios</h1>
 	            <form form method="post" v-on:submit="iniciarSesion()">
-	                <div class="form-group" id="form-group-rut">
-	                    <div class="switch-wrap">
-	                      <label class="rut redlabel" for="rut">RUT</label>
-	                      <div class="switch-group">
-	                        <input type="checkbox" id="checkLogin" switch="none">
-	                        <label for="checkLogin" data-on-label="" data-off-label=""></label>
-	                      </div>
-	                      <label class="passport" for="passport">Pasaporte</label>
-	                    </div>
-	                    <input class="form-control" type="text" id="rutInput" name="rut" placeholder="RUT"  maxlength="12" onkeypress="return isNumber(event)"  >
-	                    <input class="form-control" type="text" id="passportInput" name="passport" placeholder="Pasaporte">
-	                  </div>
+                <div class="form-group" id="form-group-rut">
+                    <div class="switch-wrap">
+                      <label class="rut redlabel" for="rut">RUT</label>
+                      <div class="switch-group">
+                        <input type="checkbox" @click="rutOrPassport" id="checkLogin" switch="none">
+                        <label for="checkLogin" data-on-label="" data-off-label=""></label>
+                      </div>
+                      <label class="passport" for="passport">Pasaporte</label>
+                    </div>
+                    <input class="form-control" v-show="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT"  maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
+                    <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte">
+                </div>
 	                  
-	                <div class="form-group">
-	                    <label for="password">Contraseña</label>
-	                    <input class="form-control" type="password" id="passwordInput" name="password" >
-	                </div>
-	                <div class="form-group row m-t-20">
-	                    <div class="col-sm-6">
-	                        <div class="custom-control custom-checkbox">
-	                            <input class="custom-control-input" type="checkbox" id="customControlInline">
-	                            <label class="custom-control-label" for="customControlInline">Recordar contraseña</label>
-	                        </div>
-	                    </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input class="form-control" type="password" id="passwordInput" name="password" >
+                </div>
 
-	                    <div class="col-sm-6 text-right">
-	                       <!--  <button class="btn btn-primary w-md waves-effect waves-light" type="button" id="entrar">Ingresar</button>-->
-	                       
-	                        <input class="btn btn-primary  w-md waves-effect waves-light"  type="submit" value="Ingresar">
-	                    </div>
-	                </div>
-	                <div class="form-group m-t-10 mb-0 row">
-	                    <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
-	                </div>
-	                <div  class="alert alert-danger alert-dismissible fade show" role="alert">
-	                    <b>Por favor, valide (los) siguiente(s) error(es):</b>
-	                    <ul>
-	                        <li> </li>
-	                    </ul>
-	                </div>
-	                <div id="alert" class="" role="alert">
-	                    <b id="message"></b>
-	                    <ul id="errors">
+                <div class="form-group row m-t-20">
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" id="customControlInline">
+                            <label class="custom-control-label" for="customControlInline">Recordar contraseña</label>
+                        </div>
+                    </div>
 
-	                    </ul>
-	                </div>
+                    <div class="col-sm-6 text-right">
+                       <!--  <button class="btn btn-primary w-md waves-effect waves-light" type="button" id="entrar">Ingresar</button>-->
+                       
+                        <input class="btn btn-primary  w-md waves-effect waves-light"  type="submit" value="Ingresar">
+                    </div>
+                </div>
+                <div class="form-group m-t-10 mb-0 row">
+                    <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
+                </div>
+                <div  class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <b>Por favor, valide (los) siguiente(s) error(es):</b>
+                    <ul>
+                        <li> </li>
+                    </ul>
+                </div>
+                <div id="alert" class="" role="alert">
+                    <b id="message"></b>
+                    <ul id="errors">
+
+                    </ul>
+                </div>
 	            </form>
 	        </div>
 	    </div>
@@ -81,6 +82,8 @@
         return {
             data: '',
             resp: '',
+            clicked: true,
+            loginSelected: 0,
             //backgroundImg: '../assets/images/bg-login.jpg',
 
             //Login data
@@ -287,6 +290,23 @@
             }
         },
 
+        rutOrPassport: function() {
+          console.log("I'm here");
+          if (this.clicked == true) {
+            this.clicked = false;
+            console.log(this.clicked);
+          }else {
+            this.clicked = true;
+          }
+
+          if (this.clicked == false){
+            this.loginSelected = 1;
+            //console.log(this.loginSelected);
+          }else if(this.clicked == true){
+            this.loginSelected = 0;
+          }
+        },
+
         validarCamposVacios: function() {
 
             if (((this.rut) || (this.pasaporte)) && (this.password)) {
@@ -302,6 +322,81 @@
             }
         },
 
+        // Permitir sólo números en el imput
+        isNumber: function(evt) {
+            var charCode = evt.which ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode === 75) return false;
+
+            return true;
+        },
+
+        checkRut: function(rut) {
+
+            // Obtiene el valor ingresado quitando puntos y guión.
+            var valor = this.clean(this.rut);
+            //console.log(valor);
+            // Divide el valor ingresado en dígito verificador y resto del RUT.
+            var cuerpo = valor.slice(0, -1);
+            //console.log(cuerpo);
+            var dv = valor.slice(-1).toUpperCase();
+            //console.log(dv);
+            
+            // Separa con un Guión el cuerpo del dígito verificador.
+            this.rut = this.format(this.rut);
+
+            // Calcular Dígito Verificador "Método del Módulo 11"
+            var suma = 0;
+            var multiplo = 2;
+
+            // Para cada dígito del Cuerpo
+            for (var i = 1; i <= cuerpo.length; i++) {
+                // Obtener su Producto con el Múltiplo Correspondiente
+                var index = multiplo * valor.charAt(cuerpo.length - i);
+
+                // Sumar al Contador General
+                suma = suma + index;
+
+                // Consolidar Múltiplo dentro del rango [2,7]
+                if (multiplo < 7) {
+                    multiplo = multiplo + 1;
+                } else {
+                    multiplo = 2;
+                }
+            }
+
+            // Calcular Dígito Verificador en base al Módulo 11
+            var dvEsperado = 11 - (suma % 11);
+
+            // Casos Especiales (0 y K)
+            dv = dv == "K" ? 10 : dv;
+            dv = dv == 0 ? 11 : dv;
+
+            // Validar que el Cuerpo coincide con su Dígito Verificador
+            if (dvEsperado != dv) {
+               //alert("El RUT ingresado Es  INCORRECTO .");
+                return false;
+            } else {
+                //alert("El RUT ingresado Es CORRECTO.");
+                return true;
+            }
+        },
+
+        format: function(rut) {
+            rut = this.clean(this.rut)
+
+            var result = rut.slice(-4, -1) + '-' + rut.substr(rut.length - 1)
+            for (var i = 4; i < rut.length; i += 3) {
+                result = rut.slice(-3 - i, -i) + '.' + result
+            }
+
+            return result
+        },
+
+        clean: function(rut) {
+            return typeof rut === 'string' ?
+            rut.replace(/^0+|[^0-9kK]+/g, '').toUpperCase() : ''
+        }
+
       },
 
       /*addSpinner: function(el, static_pos){
@@ -313,6 +408,7 @@
 
       mounted () {
 
+
       },
 
       watch: {
@@ -321,12 +417,12 @@
 
       computed: {
       	imageUrl: function() {
-			return "url("+ this.backgroundImg + ")";
-		}
+    			return "url("+ this.backgroundImg + ")";
+    		}
       }
 
 
-    }
+  }
 
 </script>
 

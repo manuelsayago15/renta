@@ -422,4 +422,16 @@
     import VueAxios from 'vue-axios'
 
     Vue.use(VueAxios, axios)
+
+    export default {
+      name: 'app',
+      data () {
+        return {
+
+        }
+      },
+    
+
+    }
+
 </script>
