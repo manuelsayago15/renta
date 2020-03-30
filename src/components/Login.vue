@@ -5,17 +5,18 @@
     	</div>
     	<div class="right-container" id="main">
 	        <div class="login-form-wrap">
+            <button @click="onUpload"></button>
 	            <div class="brand-movil"><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
 	            <h1 class="title">Portal intermediarios</h1>
-	            <form form method="post" v-on:submit="iniciarSesion()">
+	            <form form method="post" @submit.prevent="iniciarSesion()">
                 <div class="form-group" id="form-group-rut">
                     <div class="switch-wrap">
-                      <label class="rut redlabel" for="rut">RUT</label>
+                      <label class="rut" :class="{redlabel:loginSelected == 0}" for="rut">RUT</label>
                       <div class="switch-group">
                         <input type="checkbox" @click="rutOrPassport" id="checkLogin" switch="none">
                         <label for="checkLogin" data-on-label="" data-off-label=""></label>
                       </div>
-                      <label class="passport" for="passport">Pasaporte</label>
+                      <label class="passport" :class="{redlabel:loginSelected == 1}" for="passport">Pasaporte</label>
                     </div>
                     <input class="form-control" v-show="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT"  maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
                     <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte">
@@ -23,7 +24,7 @@
 	                  
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input class="form-control" type="password" id="passwordInput" name="password" >
+                    <input class="form-control" type="password" v-model="password" id="passwordInput" name="password" >
                 </div>
 
                 <div class="form-group row m-t-20">
@@ -42,6 +43,7 @@
                 </div>
                 <div class="form-group m-t-10 mb-0 row">
                     <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
+                    <button @click="test"></button>
                 </div>
                 <div  class="alert alert-danger alert-dismissible fade show" role="alert">
                     <b>Por favor, valide (los) siguiente(s) error(es):</b>
@@ -87,12 +89,20 @@
             //backgroundImg: '../assets/images/bg-login.jpg',
 
             //Login data
-            identificacion: '27052222',
-            password: '123',
-            dig_verificador: 'K',
+            identificacion: '',
+            password: '',
+            dig_verificador: '',
             rut: '',
             pasaporte: '',
-            errors: []
+            errors: [],
+            arrDatos: [],
+            id: '',
+            rut_logueado: '',
+            dv_logueado: '',
+            id_tipo_usuario: '',
+            nombre_logueado: '',
+            id_empresa: '',
+            id_oficina: ''
         }
       },
       methods:{
@@ -150,12 +160,14 @@
             });
         },*/
 
-
+        test: function(){
+          this.$router.push('./intermediario');
+        },
         //Login Methods
         iniciarSesion: function() {
             var errors = [];
             if (this.validarCamposVacios()) {
-            console.log("got in");
+              console.log("got in");
               if (this.rut != "") {
                 var rut =this.rut;
                 var dig_ver;
@@ -187,111 +199,77 @@
 		        formData.append('identificacion', rut_no_dig_ver);
 		        formData.append('password', this.password);
 		        formData.append('dig_verificador', dig_ver);
+            console.log("before axios");
+            console.log(rut_no_dig_ver);
+            console.log(this.password);
+            console.log(dig_ver);
+    				axios.post('http://10.156.160.21:8000/api/login/', formData, {
+    				/*data: {
+    				    identificacion: this.identificacion,
+    				    password: this.password,
+    				    dig_verificador: this.dig_verificador
+    				},
+    				headers: {
+    				     //'Access-Control-Allow-Origin':'http://10.156.160.21:8000/',
+    				     'Content-Type': 'application/json'
+    				 }*/
 
-				axios.post('http://10.156.160.21:8000/api/login/', formData, {
-				/*data: {
-				    identificacion: this.identificacion,
-				    password: this.password,
-				    dig_verificador: this.dig_verificador
-				},
-				headers: {
-				     //'Access-Control-Allow-Origin':'http://10.156.160.21:8000/',
-				     'Content-Type': 'application/json'
-				 }*/
+    				}
+    				).then(resp => {
+    				  
+              //console.log(resp);
+              //console.log(resp.data.user);
+              console.log(resp.data.user.tipo_documento);
+              //var arrDatos = [];
+              //this.id = resp.user.id;
+              this.rut_logueado = resp.data.user.identificacion;
+              console.log(this.rut_logueado);
+              this.dv_logueado = resp.data.user.dig_verificador;
+              this.id_tipo_usuario=resp.data.user.id_tipo_usuario;
+              this.nombre_logueado=resp.data.user.nombres+" "+resp.data.user.apellidos;
+              this.id_empresa=resp.data.user.id_empresa;
+              this.id_oficina=resp.data.oficina[0].id;
 
-				}
-				).then(resp => {
-				  console.log('SUCCESS!!');
-          var arrDatos = [];
-          var id = resp.user.id;
-          var rut_logueado = resp.user.identificacion;
-          var dv_logueado = resp.user.dig_verificador;
-          var id_tipo_usuario=resp.user.id_tipo_usuario;
-          var nombre_logueado=resp.user.nombres+" "+resp.user.apellidos;
-          var id_empresa=resp.user.id_empresa;
-          var id_oficina=resp.oficina[0].id;
-          console.log(this.password);
-          console.log(nombre_logueado);
-				})
-				.catch(function(){
-				  console.log('FAILURE!!');
-				});
-           	
-                //var dominio = 'http://10.156.160.21:8000/api/'; //direccion de la api para consumir
-               // $('#content').html('<div class="loading"><img src="assets/images/loader.gif"/><br/></div>');
-                /*$.ajax({
-                    url: dominio + 'login',
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {
-                        identificacion: rut_no_dig_ver,
-                        password: $('#passwordInput').val(),
-                        dig_verificador: dig_ver
-                    },
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    crossDomain: true,
-                    success: function(resp) {
-                       
-                        var arrDatos = [];
-                        var id = resp.user.id;
-                        var rut_logueado = resp.user.identificacion;
-                        var dv_logueado = resp.user.dig_verificador;
-                        var id_tipo_usuario=resp.user.id_tipo_usuario;
-                        var nombre_logueado=resp.user.nombres+" "+resp.user.apellidos;
-                        var id_empresa=resp.user.id_empresa;
-                        var id_oficina=resp.oficina[0].id;
+              
+              window.sessionStorage.setItem('token', resp.token);
+              window.localStorage.setItem('token', JSON.stringify(resp.token));
+              window.localStorage.setItem('id_oficina', JSON.stringify(this.id_oficina));
+              window.localStorage.setItem('id_tipo_usuario', JSON.stringify(this.id_tipo_usuario));
+              window.localStorage.setItem('nombre_logueado', JSON.stringify(this.nombre_logueado));
+              window.localStorage.setItem('id_empresa', JSON.stringify(this.id_empresa));
+              window.localStorage.setItem('rutLogueado', JSON.stringify(this.rut_logueado));
+              window.localStorage.setItem('dvLogueado', JSON.stringify(this.dv_logueado));
+              window.localStorage.setItem('oficina', JSON.stringify(resp.oficina));
 
-                        window.sessionStorage.setItem('token', resp.token);
-                        window.localStorage.setItem('token', JSON.stringify(resp.token));
-                        window.localStorage.setItem('id_oficina', JSON.stringify(id_oficina));
-                        window.localStorage.setItem('id_tipo_usuario', JSON.stringify(id_tipo_usuario));
-                        window.localStorage.setItem('nombre_logueado', JSON.stringify(nombre_logueado));
-                        window.localStorage.setItem('id_empresa', JSON.stringify(id_empresa));
-                        window.localStorage.setItem('rutLogueado', JSON.stringify(rut_logueado));
-                        window.localStorage.setItem('dvLogueado', JSON.stringify(dv_logueado));
-                        window.localStorage.setItem('oficina', JSON.stringify(resp.oficina));
-                        $('#content').fadeIn(1000000);
-                        if(id_tipo_usuario=='1'){
-                            window.location = './page-dashboard/gerente-sucursal.html';
-                        }
-                        if(id_tipo_usuario=='11'){
-                            window.location = './page-dashboard/gerente-zonal.html';
-                        }
-                        if(id_tipo_usuario=='2'){
-                            window.location = './page-dashboard/ejecutivo.html';
-                        }
-                        if(id_tipo_usuario=='3'){
-                            window.location = './page-dashboard/intermediario.html';
-                        }
-                        if(id_tipo_usuario=='4'){
-                            window.location = './page-admin/admin-liquidadores.html';
-                        }
-                       
-                    },
-                    error: function(resp) {
-                        var errors = [];
-                        errors.push('<li>Credenciales inválidas.</li>');
-                        $('#alert').show();
-                        $('#message').show();
-                        $('#errors').show();
-                        $('#alert').addClass("alert alert-danger alert-dismissible fade show");
-                        $('#message').html("Por favor, valide (los) siguiente(s) error(es):");
-                        $('#errors').html(errors);
-                        $('#rutInput').val("");
-                        $('#passportInput').val("");
-                        $('#passwordInput').val("");
-                       // $('#content').fadeToggle();
-                       removeSpinner($('body'))
-                    }
-                }); */
-                return false;
+              if(this.id_tipo_usuario=='1'){
+                window.location = './page-dashboard/gerente-sucursal.html';
+              }
+              if(this.id_tipo_usuario=='11'){
+                window.location = './page-dashboard/gerente-zonal.html';
+              }
+              if(this.id_tipo_usuario=='2'){
+                window.location = './page-dashboard/ejecutivo.html';
+              }
+              if(this.id_tipo_usuario=='3'){
+                //window.location = './page-dashboard/intermediario.html';
+                this.$router.push('./intermediario');
+              }
+              if(this.id_tipo_usuario=='4'){
+                window.location = './page-admin/admin-liquidadores.html';
+              }
+
+              console.log('SUCCESS!!');
+    				})
+    				.catch(error => {
+    				  console.log('FAILURE!!');
+              console.log(error);
+    				});
+            return false;
             }
         },
 
         rutOrPassport: function() {
-          console.log("I'm here");
+          //console.log("I'm here");
           if (this.clicked == true) {
             this.clicked = false;
             console.log(this.clicked);
