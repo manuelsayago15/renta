@@ -5,7 +5,6 @@
     	</div>
     	<div class="right-container" id="main">
 	        <div class="login-form-wrap">
-            <button @click="onUpload"></button>
 	            <div class="brand-movil"><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta nacional"></div>
 	            <h1 class="title">Portal intermediarios</h1>
 	            <form form method="post" @submit.prevent="iniciarSesion()">
@@ -43,7 +42,6 @@
                 </div>
                 <div class="form-group m-t-10 mb-0 row">
                     <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
-                    <button @click="test"></button>
                 </div>
                 <div  class="alert alert-danger alert-dismissible fade show" role="alert">
                     <b>Por favor, valide (los) siguiente(s) error(es):</b>
@@ -230,7 +228,7 @@
               this.id_empresa=resp.data.user.id_empresa;
               this.id_oficina=resp.data.oficina[0].id;
 
-              
+
               window.sessionStorage.setItem('token', resp.token);
               window.localStorage.setItem('token', JSON.stringify(resp.token));
               window.localStorage.setItem('id_oficina', JSON.stringify(this.id_oficina));

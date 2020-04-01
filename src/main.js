@@ -4,6 +4,7 @@ import App from './App.vue';
 import Dashboard from './Dashboard.vue';
 import Login from './components/Login.vue';
 import Intermediario from './components/dashboard/Intermediario.vue';
+import Perfil from './components/perfil/Perfil.vue';
 //import Topbar from '@/components/Topbar'
 import '../src/assets/css/test.css';
 import '../src/assets/scss/style.scss';
@@ -42,6 +43,7 @@ const routes = [
 	{ path: '/', name: 'login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/intermediario', name: 'Intermediario', component: Intermediario },
+	{ path: '/perfil', name: 'Perfil', component: Perfil },
 
 ];
 
