@@ -1,8 +1,8 @@
 <template>
 	<div id="wrapper">
-    	<Topbar></Topbar>
-    	<SideMenu></SideMenu>
-        <div class="content-page">
+		<Topbar></Topbar>
+		<SideMenu></SideMenu>
+		<div class="content-page">
             <div class="content p-0">
               <div class="container-fluid">
                 <div class="page-title-box p-0 pt-1">
@@ -52,6 +52,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="card card--dashboard">
@@ -65,11 +66,12 @@
                              <!--  <li class="nav-item"><a class="nav-link nav-link--dashboard active" href="#ventas-categorias-uf" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab">UF</a></li>-->
                             </ul>
                           </div>
+
                         </div>
                         <div class="tab-content" id="ventas-categorias-tabs-content">
                           <div class="bar-chart tab-pane fade show active" role="tabpanel" aria-labelledby="ventas-categorias-tab" id="ventas-categorias-todos">
-                             <canvas id="ventas-categorias-chart"></canvas> 
-                          </div>
+                            <canvas id="ventas-categorias-chart"></canvas> 
+                         </div>
                         </div>
                       </div>
                     </div>
@@ -83,8 +85,8 @@
                           </div>
                           <div class="col-lg-6">
                             <ul class="nav nav-pills justify-content-end" role="tablist" id="ventas-ultimos-dias-tabs">
-                             <!--  <li class="nav-item"><a class="nav-link nav-link--dashboard active" href="#ventas-ultimos-dias-uf" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">UF</a></li>-->
-                             </ul>
+                              <!--  <li class="nav-item"><a class="nav-link nav-link--dashboard active" href="#ventas-ultimos-dias-uf" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">UF</a></li>-->
+                            </ul>
                           </div>
                         </div>
                         <div class="tab-content" id="ventas-ultimos-dias-content">
@@ -94,18 +96,18 @@
                         </div>
                         <div class="row pt-1">
                           <div class="col-sm-6 col-lg-12 col-xl-6">
-                            <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-up.svg">
+                            <div class="d-flex"><img class="img-fluid" src="/assets/images/icon-up.svg">
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Mayor Venta</h5>
-                                <p class="m-0"><span id="fecha_mayor"></span>&nbsp;<span id="unidad_mayor"></span><span id="cantidad_mayor"></span></p>
+                                <p class="m-0"><span id="fecha_mayor"></span>&nbsp;<b><span id="unidad_mayor"></span><span id="cantidad_mayor"></span></b></p>
                               </div>
                             </div>
                           </div>
                           <div class="col-sm-6 col-lg-12 col-xl-6">
-                            <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-down.svg">
+                            <div class="d-flex"><img class="img-fluid" src="/assets/images/icon-down.svg">
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Menor Venta</h5>
-                                <p class="m-0"><span id="fecha_menor"></span>&nbsp;<span id="unidad_menor"></span><span id="cantidad_menor"></span></p>
+                                <p class="m-0"><span id="fecha_menor"></span>&nbsp;<b><span id="unidad_menor"></span><span id="cantidad_menor"></span></b></p>
                               </div>
                             </div>
                           </div>
@@ -116,47 +118,38 @@
                 </div>
                 <div class="card card--dashboard">
                   <div class="card-body card-body--dashboard">
-                    <h4 class="header-title m-0 font-weight-bold">Últimas propuestas</h4>
-                    <div class="table-responsive mb-0">
-                      <table class="table table-striped table-small-font table-sm" id="top-intermediarios" style="width: 100%">
-                        <thead>
-                          <tr>
-                            <th class="text-center" data-priority="1">Id Propuesta</th>
-                            <th class="text-center" data-priority="2">Fecha</th>
-                            <th class="text-center" data-priority="2">Plan</th>
-                            <th class="text-center" data-priority="1">Cliente</th>
-                            <th class="text-center" data-priority="3">Prima Neta</th>
-                            <th class="text-center" data-priority="1">Estado</th>
-                            <th class="text-center" data-priority="3">Tipo</th>
-                            <th class="text-center" data-priority="1">Días</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          
-                        </tbody>
-                      </table>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h4 class="header-title m-0 font-weight-bold">Top Corredores</h4>
+                      </div>
+                      <div class="col-lg-6">
+                        <ul class="nav nav-pills justify-content-end" role="tablist" id="topCorredores-tabs">
+                        
+                        </ul>
+                      </div>
                     </div>
+                    <div class="tab-content" id="topCorredores-content">
+                      <div class="bar-chart2 tab-pane fade show active" role="tabpanel" aria-labelledby="#topCorredores-uf-tab" id="topCorredores"> 
+                        <canvas id="topCorredores-chart"></canvas>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
             </div>
         </div>
-    </div>
+	</div>
 </template>
-
 <script>
-	import Vue from 'vue'
+  import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     Vue.use(VueAxios, axios)
-    //import Topbar from '@/components/Topbar'
-    //import SideMenu from '@/components/SideMenu'
 
     export default {
-      name: 'Intermediario',
-	  /*components:{
-
-	  },*/
+      name: 'AdminLiquidadores',
+    /*components:{
+    },*/
       data () {
         return {
 

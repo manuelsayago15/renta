@@ -3,9 +3,17 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Dashboard from './Dashboard.vue';
 import Login from './components/Login.vue';
-import Intermediario from './components/dashboard/Intermediario.vue';
-import Perfil from './components/perfil/Perfil.vue';
-//import Topbar from '@/components/Topbar'
+
+//Dashboard Components
+//import Intermediario from './components/dashboard/Intermediario.vue';
+import Intermediario from '@/components/dashboard/Intermediario';
+import GerenteSucursal from '@/components/dashboard/GerenteSucursal';
+import GerenteZonal from '@/components/dashboard/GerenteZonal';
+import Ejecutivo from '@/components/dashboard/Ejecutivo';
+import AdminLiquidadores from '@/components/admin/AdminLiquidadores';
+import Perfil from '@/components/perfil/Perfil';
+
+//Styles
 import '../src/assets/css/test.css';
 import '../src/assets/scss/style.scss';
 import '../src/assets/css/developers.css';
@@ -35,15 +43,19 @@ Vue.use(VueAxios, axios)
 
 Vue.use(VueRouter);
 
-//
+//Global Components
 Vue.component('Topbar', require('./components/Topbar.vue').default);
 Vue.component('SideMenu', require('./components/SideMenu.vue').default);
 
 const routes = [
 	{ path: '/', name: 'login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
-	{ path: '/intermediario', name: 'Intermediario', component: Intermediario },
 	{ path: '/perfil', name: 'Perfil', component: Perfil },
+	{ path: '/intermediario', name: 'Intermediario', component: Intermediario },
+	{ path: '/ejecutivo', name: 'Ejecutivo', component: Ejecutivo },
+	{ path: '/gerente-sucursal', name: 'GerenteSucursal', component: GerenteSucursal },
+	{ path: '/gerente-zonal', name: 'GerenteZonal', component: GerenteZonal },
+	{ path: '/admin-liquidadores', name: 'AdminLiquidadores', component: AdminLiquidadores },
 
 ];
 

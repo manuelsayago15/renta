@@ -12,13 +12,13 @@
                     <div class="switch-wrap">
                       <label class="rut" :class="{redlabel:loginSelected == 0}" for="rut">RUT</label>
                       <div class="switch-group">
-                        <input type="checkbox" @click="rutOrPassport" id="checkLogin" switch="none">
+                        <input type="checkbox" @click="rutOrPassport" v-on:change.prevent="limpiar_campos()" id="checkLogin" switch="none">
                         <label for="checkLogin" data-on-label="" data-off-label=""></label>
                       </div>
                       <label class="passport" :class="{redlabel:loginSelected == 1}" for="passport">Pasaporte</label>
                     </div>
                     <input class="form-control" v-show="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT"  maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
-                    <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte">
+                    <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte" v-on:keyup.prevent="limpiar_errors()">
                 </div>
 	                  
                 <div class="form-group">
@@ -43,16 +43,15 @@
                 <div class="form-group m-t-10 mb-0 row">
                     <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
                 </div>
-                <div  class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show" role="alert">
                     <b>Por favor, valide (los) siguiente(s) error(es):</b>
                     <ul>
-                        <li> </li>
+                      <li v-for="(error, i) in errors">{{error}}</li>
                     </ul>
                 </div>
                 <div id="alert" class="" role="alert">
                     <b id="message"></b>
                     <ul id="errors">
-
                     </ul>
                 </div>
 	            </form>
@@ -228,7 +227,7 @@
               this.id_empresa=resp.data.user.id_empresa;
               this.id_oficina=resp.data.oficina[0].id;
 
-
+              console.log(resp.token);
               window.sessionStorage.setItem('token', resp.token);
               window.localStorage.setItem('token', JSON.stringify(resp.token));
               window.localStorage.setItem('id_oficina', JSON.stringify(this.id_oficina));
@@ -240,20 +239,24 @@
               window.localStorage.setItem('oficina', JSON.stringify(resp.oficina));
 
               if(this.id_tipo_usuario=='1'){
-                window.location = './page-dashboard/gerente-sucursal.html';
+                //window.location = './page-dashboard/gerente-sucursal.html';
+                this.$router.push('./gerente-sucursal');
               }
               if(this.id_tipo_usuario=='11'){
-                window.location = './page-dashboard/gerente-zonal.html';
+                //window.location = './page-dashboard/gerente-zonal.html';
+                this.$router.push('./gerente-zonal');
               }
               if(this.id_tipo_usuario=='2'){
-                window.location = './page-dashboard/ejecutivo.html';
+                this.$router.push('./ejecutivo');
+                //window.location = './page-dashboard/ejecutivo.html';
               }
               if(this.id_tipo_usuario=='3'){
                 //window.location = './page-dashboard/intermediario.html';
                 this.$router.push('./intermediario');
               }
               if(this.id_tipo_usuario=='4'){
-                window.location = './page-admin/admin-liquidadores.html';
+                //window.location = './page-admin/admin-liquidadores.html';
+                this.$router.push('./admin-liquidadores');
               }
 
               console.log('SUCCESS!!');
@@ -297,6 +300,80 @@
                 this.errors.push("La contraseña es obligatoria");
             }
         },
+
+        limpiar_errors: function() {
+
+            this.errors = [];
+            this.errors.length = false;
+        },
+        limpiar_campos: function() {
+
+            this.errors = [];
+            this.rut = '';
+            this.pasaporte = '';
+            this.password = '';
+
+        },
+
+        validarRut: function() {
+            var rut =this.rut;
+            var dig_ver;
+            var rut_no_dig_ver=0;
+            this.errors = [];
+        
+            rut = rut.split(".").join("");
+            rut = rut.replace('-', '');
+
+            if (rut.length == 7)
+                rut_no_dig_ver = rut.substring(0, 6);
+            else if (rut.length == 8)
+                rut_no_dig_ver = rut.substring(0, 7);
+            else if (rut.length == 9)
+                rut_no_dig_ver = rut.substring(0, 8);
+
+            dig_ver = rut.charAt(rut.length - 1);
+
+            if(rut_no_dig_ver==0)
+            {
+                this.errors = [];
+                this.errors.push("Rut inválido");
+                this.rut='';
+                //this.rut.focus();
+            }
+
+           if(rut_no_dig_ver.length == 0 || rut_no_dig_ver.length > 8 )
+            {
+            this.errors = [];
+            this.errors.push("Rut introducido inválido");
+            this.rut='';
+            this.password='';
+            //this.rut.focus();
+          } 
+          else 
+             {
+              if(this.getDV(rut_no_dig_ver) == dig_ver)
+              {
+                return true;
+              }
+              else
+                {
+                    this.errors = [];
+                    this.errors.push("Rut introducido inválido");
+                    this.rut='';
+                    this.password='';
+                    //this.rut.focus();
+                }
+            }
+      },
+
+      getDV: function(numero) {
+        nuevo_numero = numero.toString().split("").reverse().join("");
+        for(i=0,j=2,suma=0; i < nuevo_numero.length; i++, ((j==7) ? j=2 : j++)) {
+            suma += (parseInt(nuevo_numero.charAt(i)) * j); 
+        }
+        n_dv = 11 - (suma % 11);
+        return ((n_dv == 11) ? 0 : ((n_dv == 10) ? "K" : n_dv));
+      },
 
         // Permitir sólo números en el imput
         isNumber: function(evt) {
@@ -355,6 +432,7 @@
                 //alert("El RUT ingresado Es CORRECTO.");
                 return true;
             }
+            this.validarRut();
         },
 
         format: function(rut) {
