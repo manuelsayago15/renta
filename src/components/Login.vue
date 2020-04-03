@@ -12,13 +12,13 @@
                     <div class="switch-wrap">
                       <label class="rut" :class="{redlabel:loginSelected == 0}" for="rut">RUT</label>
                       <div class="switch-group">
-                        <input type="checkbox" @click="rutOrPassport" v-on:change.prevent="limpiar_campos()" id="checkLogin" switch="none">
+                        <input type="checkbox" @click="rutOrPassport" id="checkLogin" switch="none">
                         <label for="checkLogin" data-on-label="" data-off-label=""></label>
                       </div>
                       <label class="passport" :class="{redlabel:loginSelected == 1}" for="passport">Pasaporte</label>
                     </div>
-                    <input class="form-control" v-show="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT"  maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
-                    <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte" v-on:keyup.prevent="limpiar_errors()">
+                    <input class="form-control" v-show="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT" v-on:change="validarRut()" maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
+                    <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte" v-on:keyup="limpiar_errors()">
                 </div>
 	                  
                 <div class="form-group">
@@ -43,7 +43,7 @@
                 <div class="form-group m-t-10 mb-0 row">
                     <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Olvidaste tu contraseña</a></div>
                 </div>
-                <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div v-if="errors.length > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
                     <b>Por favor, valide (los) siguiente(s) error(es):</b>
                     <ul>
                       <li v-for="(error, i) in errors">{{error}}</li>
@@ -163,6 +163,7 @@
         //Login Methods
         iniciarSesion: function() {
             var errors = [];
+            console.log(this.validarRut());
             if (this.validarCamposVacios()) {
               console.log("got in");
               if (this.rut != "") {
@@ -264,6 +265,8 @@
     				.catch(error => {
     				  console.log('FAILURE!!');
               console.log(error);
+              console.log(this.errors.length);
+              this.errors.push('Credenciales inválidas');
     				});
             return false;
             }
@@ -304,7 +307,7 @@
         limpiar_errors: function() {
 
             this.errors = [];
-            this.errors.length = false;
+            this.errors.length = 0;
         },
         limpiar_campos: function() {
 
@@ -348,6 +351,7 @@
             this.rut='';
             this.password='';
             //this.rut.focus();
+            return false;
           } 
           else 
              {
@@ -362,16 +366,17 @@
                     this.rut='';
                     this.password='';
                     //this.rut.focus();
+                    return false;
                 }
             }
       },
 
       getDV: function(numero) {
-        nuevo_numero = numero.toString().split("").reverse().join("");
-        for(i=0,j=2,suma=0; i < nuevo_numero.length; i++, ((j==7) ? j=2 : j++)) {
+        var nuevo_numero = numero.toString().split("").reverse().join("");
+        for(var i=0,j=2,suma=0; i < nuevo_numero.length; i++, ((j==7) ? j=2 : j++)) {
             suma += (parseInt(nuevo_numero.charAt(i)) * j); 
         }
-        n_dv = 11 - (suma % 11);
+        var n_dv = 11 - (suma % 11);
         return ((n_dv == 11) ? 0 : ((n_dv == 10) ? "K" : n_dv));
       },
 
@@ -432,7 +437,7 @@
                 //alert("El RUT ingresado Es CORRECTO.");
                 return true;
             }
-            this.validarRut();
+            //this.validarRut();
         },
 
         format: function(rut) {
