@@ -179,9 +179,40 @@
     },*/
       data () {
         return {
-
+          perfil: [],
         }
+
+       
       },
+
+       methods: {
+          profile() {
+            var token = JSON.parse(window.localStorage.getItem('token'));
+            const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            if (token === 0) {
+              this.$router.push('./');
+            }
+            console.log("rutLogueado");
+            console.log(rutLogueado);
+            console.log("Token");
+            console.log(token);
+            axios.get('http://200.91.27.159:8000/api/infousuario/'+ rutLogueado, {
+
+              params: {
+                          'token' : token
+                      }
+
+            }
+            ).then(response => {
+              console.log(response);
+              this.perfil = response.data;
+              console.log('SUCCESS!!');
+            })
+            .catch(error => {
+              console.log('FAILURE!!');
+            });
+          },
+        }
     
 
     }

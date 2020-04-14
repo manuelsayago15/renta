@@ -165,7 +165,7 @@
             var errors = [];
             console.log(this.validarRut());
             if (this.validarCamposVacios()) {
-              console.log("got in");
+              //console.log("got in");
               if (this.rut != "") {
                 var rut =this.rut;
                 var dig_ver;
@@ -197,10 +197,10 @@
 		        formData.append('identificacion', rut_no_dig_ver);
 		        formData.append('password', this.password);
 		        formData.append('dig_verificador', dig_ver);
-            console.log("before axios");
-            console.log(rut_no_dig_ver);
-            console.log(this.password);
-            console.log(dig_ver);
+            //console.log("before axios");
+            //console.log(rut_no_dig_ver);
+            //console.log(this.password);
+            //console.log(dig_ver);
     				axios.post('http://10.156.160.21:8000/api/login/', formData, {
     				/*data: {
     				    identificacion: this.identificacion,
@@ -215,22 +215,22 @@
     				}
     				).then(resp => {
     				  
-              //console.log(resp);
+              console.log(resp);
               //console.log(resp.data.user);
-              console.log(resp.data.user.tipo_documento);
+              //console.log(resp.data.user.tipo_documento);
               //var arrDatos = [];
               //this.id = resp.user.id;
               this.rut_logueado = resp.data.user.identificacion;
-              console.log(this.rut_logueado);
+              //console.log(this.rut_logueado);
               this.dv_logueado = resp.data.user.dig_verificador;
               this.id_tipo_usuario=resp.data.user.id_tipo_usuario;
               this.nombre_logueado=resp.data.user.nombres+" "+resp.data.user.apellidos;
               this.id_empresa=resp.data.user.id_empresa;
               this.id_oficina=resp.data.oficina[0].id;
 
-              console.log(resp.token);
-              window.sessionStorage.setItem('token', resp.token);
-              window.localStorage.setItem('token', JSON.stringify(resp.token));
+              //console.log(resp.data.token);
+              window.sessionStorage.setItem('token', resp.data.token);
+              window.localStorage.setItem('token', JSON.stringify(resp.data.token));
               window.localStorage.setItem('id_oficina', JSON.stringify(this.id_oficina));
               window.localStorage.setItem('id_tipo_usuario', JSON.stringify(this.id_tipo_usuario));
               window.localStorage.setItem('nombre_logueado', JSON.stringify(this.nombre_logueado));
@@ -238,7 +238,7 @@
               window.localStorage.setItem('rutLogueado', JSON.stringify(this.rut_logueado));
               window.localStorage.setItem('dvLogueado', JSON.stringify(this.dv_logueado));
               window.localStorage.setItem('oficina', JSON.stringify(resp.oficina));
-
+              console.log(window.localStorage);
               if(this.id_tipo_usuario=='1'){
                 //window.location = './page-dashboard/gerente-sucursal.html';
                 this.$router.push('./gerente-sucursal');
