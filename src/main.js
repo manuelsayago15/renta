@@ -12,6 +12,15 @@ import GerenteZonal from '@/components/dashboard/GerenteZonal';
 import Ejecutivo from '@/components/dashboard/Ejecutivo';
 import AdminLiquidadores from '@/components/admin/AdminLiquidadores';
 import Perfil from '@/components/perfil/Perfil';
+import FormularioWeb from '@/components/produccion/ingresoPropuestas/FormularioWeb';
+import DownloadForms from '@/components/produccion/ingresoPropuestas/DownloadForms';
+import UploadForms from '@/components/produccion/ingresoPropuestas/UploadForms';
+import ConsultaPolizas from '@/components/polizas/ConsultaPolizas';
+import CuotasMorosas from '@/components/cuotas-morosas/CuotasMorosas';
+import PolizasCanceladas from '@/components/polizas/PolizasCanceladas';
+import CotizacionesPendientes from '@/components/cotizaciones/CotizacionesPendientes';
+import BandejaPropuestas from '@/components/produccion/bandejaPropuestas/BandejaPropuestas';
+import SolicitudEndoso from '@/components/produccion/solicitudEndoso/SolicitudEndoso';
 
 //Styles
 import '../src/assets/css/test.css';
@@ -56,6 +65,14 @@ const routes = [
 	{ path: '/gerente-sucursal', name: 'GerenteSucursal', component: GerenteSucursal },
 	{ path: '/gerente-zonal', name: 'GerenteZonal', component: GerenteZonal },
 	{ path: '/admin-liquidadores', name: 'AdminLiquidadores', component: AdminLiquidadores },
+	{ path: '/consulta-polizas', name: 'ConsultaPolizas', component: ConsultaPolizas },
+	{ path: '/cuotas-morosas', name: 'CuotasMorosas', component: CuotasMorosas },
+	{ path: '/polizas', name: 'PolizasCanceladas', component: PolizasCanceladas },
+	{ path: '/formulario-web', name: 'FormularioWeb', component: FormularioWeb },
+	{ path: '/descarga-formularios', name: 'DownloadForms', component: DownloadForms },
+	{ path: '/carga-formularios', name: 'UploadForms', component: UploadForms },
+	{ path: '/bandeja-propuestas', name: 'BandejaPropuestas', component: BandejaPropuestas },
+	{ path: '/solicitud-endoso', name: 'SolicitudEndoso', component: SolicitudEndoso },
 
 ];
 
@@ -68,6 +85,7 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  routes,
   components: { App },
   render: h => h(App)
 })

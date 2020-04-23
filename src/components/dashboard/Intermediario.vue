@@ -117,7 +117,12 @@
                           </div>
                           <div class="col-lg-6">
                             <ul class="nav nav-pills justify-content-end" role="tablist" id="ventas-categorias-tabs">
-                               <li class="nav-item"><a class="nav-link nav-link--dashboard active" @click="fillData2(polizaventamonedas.data[0].moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab">{{polizaventamonedas.data[0].unidad}} </a></li>
+                               <li class="nav-item"><a class="nav-link nav-link--dashboard" 
+                               	:class="{active:clicked == 1}" @click="fillData2(polizaventamonedas.data[0].moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab">{{polizaventamonedas.data[0].unidad}} </a></li>
+                               <li class="nav-item"><a class="nav-link nav-link--dashboard" 
+                               	:class="{active:clicked == 2}" @click="fillData2(polizaventamonedas.data[1].moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab">{{polizaventamonedas.data[1].unidad}} </a></li>
+                               <li class="nav-item"><a class="nav-link nav-link--dashboard" 
+                               	:class="{active:clicked == 3}" @click="fillData2(polizaventamonedas.data[2].moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab">{{polizaventamonedas.data[2].unidad}} </a></li>
                                <li class="nav-item" v-if="polizaventamonedas.data[0].moneda == 0">
                                	<p id="ventas-categorias-todosp">No hay datos que mostrar.</p>
                                </li>
@@ -141,7 +146,12 @@
                           </div>
                           <div class="col-lg-6">
                             <ul class="nav nav-pills justify-content-end" role="tablist" id="ventas-ultimos-dias-tabs">
-                              <li class="nav-item"><a class="nav-link nav-link--dashboard active" @click="fillData(polizaventamonedas.data[0].moneda)" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">{{polizaventamonedas.data[0].unidad}}</a></li>
+                              <li class="nav-item"><a class="nav-link nav-link--dashboard" 
+                              	:class="{active:coin == 1}" @click="fillData(polizaventamonedas.data[0].moneda)" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">{{polizaventamonedas.data[0].unidad}}</a></li>
+                              <li class="nav-item"><a class="nav-link nav-link--dashboard" 
+                              	:class="{active:coin == 2}" @click="fillData(polizaventamonedas.data[1].moneda)" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">{{polizaventamonedas.data[1].unidad}}</a></li>
+                              <li class="nav-item"><a class="nav-link nav-link--dashboard" 
+                              	:class="{active:coin == 3}" @click="fillData(polizaventamonedas.data[2].moneda)" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">{{polizaventamonedas.data[2].unidad}}</a></li>
                              </ul>
                           </div>
                         </div>
@@ -155,7 +165,43 @@
                             <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-up.svg">
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Mayor Venta</h5>
-                                <p class="m-0"><span id="fecha_mayor"></span>&nbsp;<span id="unidad_mayor"></span><span id="cantidad_mayor"></span></p>
+                                <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[2].moneda == polizaventamonedas.data[0].moneda">
+                                	<span id="fecha_mayor" >
+                                		{{ edita_fecha(mayor[2].fecha_mayor) }}
+                                	</span>&nbsp;
+                                	<span id="unidad_mayor">
+                                		{{mayor[2].unidad}}
+                                		
+                                	</span>
+                                	<span id="cantidad_mayor">
+                                		{{mayor[2].prima_mayor}}
+                                	</span>
+                                </p>
+
+                                <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[1].moneda == polizaventamonedas.data[1].moneda">
+                                	<span id="fecha_mayor">
+                                		{{ edita_fecha(mayor[1].fecha_mayor) }}
+                                	</span>&nbsp;
+                                	<span id="unidad_mayor">
+                                		{{mayor[1].unidad}}
+                                	</span>
+                                	<span id="cantidad_mayor">
+                                		{{mayor[1].prima_mayor}}
+                                	</span>
+                                </p>
+
+                                <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[0].moneda == polizaventamonedas.data[2].moneda">
+                                	<span id="fecha_mayor">
+                                		{{ edita_fecha(mayor[0].fecha_mayor) }}
+                                	</span>&nbsp;
+                                	<span id="unidad_mayor">
+                                		{{mayor[0].unidad}}
+                                	</span>
+                                	<span id="cantidad_mayor">
+                                		{{mayor[0].prima_mayor}}
+                                	</span>
+                                </p>
+
                               </div>
                             </div>
                           </div>
@@ -163,7 +209,42 @@
                             <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-down.svg">
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Menor Venta</h5>
-                                <p class="m-0"><span id="fecha_menor"></span>&nbsp;<span id="unidad_menor"></span><span id="cantidad_menor"></span></p>
+                                <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[2].moneda == polizaventamonedas.data[0].moneda">
+                                	<span id="fecha_mayor" >
+                                		{{ edita_fecha(mayor[2].fecha_menor) }}
+                                	</span>&nbsp;
+                                	<span id="unidad_mayor">
+                                		{{mayor[2].unidad}}
+                                		
+                                	</span>
+                                	<span id="cantidad_mayor">
+                                		{{mayor[2].prima_menor}}
+                                	</span>
+                                </p>
+
+                                <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[1].moneda == polizaventamonedas.data[1].moneda">
+                                	<span id="fecha_mayor">
+                                		{{ edita_fecha(mayor[1].fecha_menor) }}
+                                	</span>&nbsp;
+                                	<span id="unidad_mayor">
+                                		{{mayor[1].unidad}}
+                                	</span>
+                                	<span id="cantidad_mayor">
+                                		{{mayor[1].prima_menor}}
+                                	</span>
+                                </p>
+
+                                <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[0].moneda == polizaventamonedas.data[2].moneda">
+                                	<span id="fecha_mayor">
+                                		{{ edita_fecha(mayor[0].fecha_menor) }}
+                                	</span>&nbsp;
+                                	<span id="unidad_mayor">
+                                		{{mayor[0].unidad}}
+                                	</span>
+                                	<span id="cantidad_mayor">
+                                		{{mayor[0].prima_menor}}
+                                	</span>
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -190,7 +271,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="prop in propuestas">
+                          <tr class="text-center" v-for="prop in propuestas">
                           	<td>{{prop.id_propuesta}}-{{prop.item}}</td>
                           	<td> {{ edita_fecha(prop.fecha) }}</td>
                           	<td>{{prop.id_plan}}</td>
@@ -213,17 +294,17 @@
                           	<td v-if="prop.tipo_propuesta === 'CFE'">
                           		<img title="Endoso" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/Endoso.png">
                           	</td>
-                          	<td v-if="cuentaDias(prop.fecha) >= 5">
+                          	<td class="text-center" v-if="cuentaDias(prop.fecha) >= 5">
                           		<div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
                           			<strong> {{cuentaDias(prop.fecha)}} </strong>
                           		</div>
                           	</td>
-                          	<td v-if="cuentaDias(prop.fecha) >= 0 && cuentaDias(prop.fecha) <= 2">
+                          	<td class="text-center" v-if="cuentaDias(prop.fecha) >= 0 && cuentaDias(prop.fecha) <= 2">
                           		<div style="background-color:#FBBC05; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
                           			<strong> {{cuentaDias(prop.fecha)}} </strong>
                           		</div>
                           	</td>
-                          	<td v-if="cuentaDias(prop.fecha) >= 3 && cuentaDias(prop.fecha) <= 4">
+                          	<td class="text-center" v-if="cuentaDias(prop.fecha) >= 3 && cuentaDias(prop.fecha) <= 4">
                           		<div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
                           			<strong> {{cuentaDias(prop.fecha)}} </strong>
                           		</div>
@@ -268,84 +349,116 @@
         	polizaVentas: [],
         	polizaUlt: [],
         	polizaventamonedas: [],
+        	polizaventarango: [],
         	dias: '',
+        	clicked: 1,
+        	coin: 1,
         }
       },
 
       mounted () {
-      	//this.fillData();
-      	//this.fillData2();
+      	//this.fillData(this.polizaventamonedas.data[2].moneda);
+      	//this.fillData2(this.polizaventamonedas.data[2].moneda);
       },
 
       methods:{
       	fillData2 (m) {
-      		console.log("prueba");
-      		console.log(this.polizaVentas.length);
+      		//console.log(this.polizaventamonedas.data[0].moneda);
+      		//console.log(this.polizaventamonedas.data[1].moneda);
+      		//console.log(this.polizaventamonedas.data[2].moneda);
+      		//console.log(this.polizaVentas.length);
+      		
+
+          	if(m == this.polizaventamonedas.data[0].moneda){
+            	this.clicked = 1;
+            	console.log(this.clicked);
+          	}else if (m == this.polizaventamonedas.data[1].moneda) {
+          		this.clicked = 2;
+          	}
+          	else if (m == this.polizaventamonedas.data[2].moneda) {
+          		this.clicked = 3;
+          	}
+
       		var polizaVent = this.polizaVentas.length;
       		var macroplan = Array(0);
             var total = Array(0);
       		for (var i=0;i<polizaVent;i++) {
-                if(this.polizaVentas.data[i].id_moneda==m){
-                	alert("hey");
-                   macroplan.push(this.polizaVentas.data[i].macroplan);
-                   total.push(this.polizaVentas.data[i].total);
+      			//console.log("test");
+      			//console.log(this.polizaVentas[0].id_moneda);
+      			//console.log(m);
+                if(this.polizaVentas[i].id_moneda==m){
+                   macroplan.push(this.polizaVentas[i].macroplan);
+                   total.push(this.polizaVentas[i].total);
                 }
             }
       		this.datacollection2 = {
-		      labels: [macroplan],
+		      labels: macroplan,
 		      datasets: [
 		        {
 		          label: '',
 		          backgroundColor: '#30658E',
-		          data: [total]
+		          data: total
 		        }
 		      ]
 		    }
       	},
 
       	fillData (m) {
-      			console.log("heylo");
-      			console.log(m);
+      			//console.log("heylo");
+      			//console.log(m);
+      		if(m == this.polizaventamonedas.data[0].moneda){
+            	this.coin = 1;
+          	}else if (m == this.polizaventamonedas.data[1].moneda) {
+          		this.coin = 2;
+          	}
+          	else if (m == this.polizaventamonedas.data[2].moneda) {
+          		this.coin = 3;
+          	}
+
       		var poliza = this.polizaUlt.data.length;
       		var dias = Array(0);
             var total = Array(0);
-      			console.log(poliza);
+      			//console.log(poliza);
       		for (var i=0;i<poliza;i++) {
-      			console.log(poliza);
-      			console.log(this.polizaUlt.data[i]);
+      			//console.log(poliza);
+      			//console.log(this.polizaUlt.data[i]);
                 if(this.polizaUlt.data[i].id_moneda==m){
                     dias.push(this.edita_fecha2(this.polizaUlt.data[i].fecha_proc));
                     total.push(this.polizaUlt.data[i].total);
-                	console.log(dias);
+                	//console.log(dias);
               }
             }
-        this.datacollection = {
-          labels: dias,
-          datasets: [
-            {
-              label: '',
-              backgroundColor: '#EDEEFA',
-              borderColor: '#30658E',
-              data: total
-            }, /*{
-              label: 'Data One',
-              backgroundColor: '#f87979',
-              data: [this.getRandomInt(), this.getRandomInt()]
-            }*/
-          ],
-          
-        }
+	        this.datacollection = {
+	          labels: dias,
+	          datasets: [
+	            {
+	              label: '',
+	              backgroundColor: '#EDEEFA',
+	              borderColor: '#30658E',
+	              data: total
+	            }, /*{
+	              label: 'Data One',
+	              backgroundColor: '#f87979',
+	              data: [this.getRandomInt(), this.getRandomInt()]
+	            }*/
+	          ],
+	          
+	        }
+	        this.menorMayor(m);
       },
-      getRandomInt () {
+      /*getRandomInt () {
         return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-      },
+      },*/
       test () {
-      	console.log(this.polizaUlt.data.length);
+      	/*console.log(this.polizaUlt.data.length);
       	console.log(this.polizaUlt.data);
       	console.log(this.propuestas);
       	console.log(this.polizaUlt);
-      	console.log(this.polizaVencimiento);
-      	this.fillData();
+      	console.log(this.polizaVencimiento);*/
+      	console.log(this.polizaventamonedas);
+      	console.log(this.polizaventamonedas.data);
+      	console.log(this.polizaVentas);
+      	//this.fillData2(this.polizaventamonedas.data[2].moneda);
       },
         propuestasData() {
 	        var token = JSON.parse(window.localStorage.getItem('token'));
@@ -366,6 +479,7 @@
 
 			}
 			).then(response => {
+				console.log("propuestas");
 				console.log(response);
 				this.propuestas = response.data;
 				console.log('SUCCESS!!');
@@ -393,6 +507,7 @@
 
 			}
 			).then(response => {
+				console.log('polizaVencimiento');
 				console.log(response);
 				this.polizaVencimiento = response.data;
 				console.log('SUCCESS!!');
@@ -420,10 +535,9 @@
 
 			}
 			).then(response => {
-				console.log(response);
 				console.log('polizaventas');
+				console.log(response);
 				this.polizaVentas = response.data;
-				this.fillData2();
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
@@ -437,9 +551,9 @@
 	        if (token === 0) {
 	        	this.$router.push('./');
 	        }
-	        console.log(rutLogueado);
-	        console.log("Token");
-	        console.log(token);
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
 	        let numero = 15
 			axios.get('http://200.91.27.159:8000/api/polizaultimasventas/'+ rutLogueado+'/'+numero, {
 
@@ -452,7 +566,6 @@
 				console.log(response);
 				this.polizaUlt = response.data;
 				console.log('polizaUlt');
-				this.fillData(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
@@ -478,11 +591,41 @@
 
 			}
 			).then(response => {
+				console.log('polizaventamonedas');
 				console.log(response);
 				this.polizaventamonedas = response.data;
-				console.log('polizaventamonedas');
-				console.log(this.polizaventamonedas.data);
-				console.log(this.polizaventamonedas.data[0].moneda);
+				//console.log(this.polizaventamonedas.data);
+				//console.log(this.polizaventamonedas.data[0].moneda);
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        menorMayor () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = 15
+			axios.get('http://200.91.27.159:8000/api/polizaventarango/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaventarango');
+				console.log(response);
+				this.polizaventarango = response.data;
+				console.log(this.polizaventarango.data);
+				//console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
@@ -561,6 +704,7 @@
       	this.vencimientos();
       	this.barChart();
       	this.lineChart();
+      	this.menorMayor();
       	this.polizaVentaMonedas();
     }
     

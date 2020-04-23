@@ -238,7 +238,7 @@
               window.localStorage.setItem('rutLogueado', JSON.stringify(this.rut_logueado));
               window.localStorage.setItem('dvLogueado', JSON.stringify(this.dv_logueado));
               window.localStorage.setItem('oficina', JSON.stringify(resp.oficina));
-              console.log(window.localStorage);
+              //console.log(window.localStorage);
               if(this.id_tipo_usuario=='1'){
                 //window.location = './page-dashboard/gerente-sucursal.html';
                 this.$router.push('./gerente-sucursal');
@@ -276,7 +276,7 @@
           //console.log("I'm here");
           if (this.clicked == true) {
             this.clicked = false;
-            console.log(this.clicked);
+            //console.log(this.clicked);
           }else {
             this.clicked = true;
           }

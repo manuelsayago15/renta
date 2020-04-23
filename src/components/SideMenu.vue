@@ -5,25 +5,42 @@
             <ul class="metismenu" id="side-menu">
               <li><a class="waves-effect waves-light" id="dashboard"><i class="renta-icon-deashboard"></i><span>Dashboard</span></a></li>
             
-                <div id="intermediarios" class="d-none">
+                <div id="intermediarios" class="">
                     
                   <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
                     <ul class="submenu">
                       <li><a href="javascript:void(0);"> <span>Ingreso de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
                         <ul class="submenu submenu-2">
-                          <li><a :href="'/propuestas/downloadForms'">Descarga de formularios</a></li>
-                          <li><a href="#">Formulario web</a></li>
-                          <li><a :href="'/propuestas/uploadForms'">Carga de formulario</a></li>
+                          <li v-if="this.id_userType == 3 || this.id_userType == 2
+                          		|| this.id_userType == 1 || this.id_userType == 11">
+                          	<router-link to="/descarga-formularios">
+                          		Descarga de formularios
+                          	</router-link>
+                          </li>
+                          <li v-if="this.id_userType == 3">
+                          	<router-link to="/formulario-web">
+                          		Formulario web
+                          	</router-link>
+                          </li>
+                          <li v-if="this.id_userType == 3">
+                          	<router-link to="/carga-formularios">
+                          		Carga de formulario
+                          	</router-link>
+                          </li>
                         </ul>
                       </li>
-                      <li > <a :href="'/page-bandejas-propuestas/intermediarios.html'">Bandeja de propuestas</a></li>
-                      <li> <a href="#">Solicitud de cotización</a></li>
+                      <li>
+                      	<router-link to="/bandeja-propuestas">
+                      		Bandeja de propuestas
+                      	</router-link>
+                      </li>
+                      <li> <router-link to="#">Solicitud de cotización</router-link></li>
                      <!--  <li> <a href="#">Bandeja de solicitudes <br>de cotización pendientes</a></li> -->
-                      <li> <a href="#">Renovación de pólizas</a></li>
+                      <li> <router-link to="#">Renovación de pólizas</router-link></li>
                       <!-- <li> <a href="#">Solicitud de inspección</a></li> -->
-                      <li> <a :href="'/page-endoso/solicitud-endoso.html'">Solicitud de endoso</a></li>
-                      <li> <a href="#">Cotización en línea</a></li>
-                      <li> <a href="#">Emisión en línea</a></li>
+                      <li> <router-link to="/solicitud-endoso">Solicitud de endoso</router-link></li>
+                      <li> <router-link to="#">Cotización en línea</router-link></li>
+                      <li> <router-link to="#">Emisión en línea</router-link></li>
                     </ul>
                   </li>
                   <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-wallet"></i><span>Cobranza  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
@@ -229,3 +246,43 @@
         </div>
     </div>
 </template>
+
+<script>
+  import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+    Vue.use(VueAxios, axios)
+    //import Topbar from '@/components/Topbar'
+    //import SideMenu from '@/components/SideMenu'
+
+    export default {
+      name: 'SideMenu',
+    /*components:{
+      Topbar,
+      SideMenu
+    },*/
+      data () {
+        return {
+        	dashboard: [],
+        	id_userType: ''
+        }
+
+       
+      },
+
+      methods: {
+
+      	dashboardProfile() {
+      		this.id_userType = JSON.parse(window.localStorage.getItem('id_tipo_usuario'));
+	        console.log(this.id_userType);
+	    },
+	  },
+
+	  created () {
+	  	this.dashboardProfile();
+	  }
+    
+
+    }
+
+</script>
