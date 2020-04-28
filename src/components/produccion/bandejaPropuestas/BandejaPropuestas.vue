@@ -36,434 +36,70 @@
                             <th class="text-center" data-priority="2">Fecha Ingreso</th>
                             <th class="text-center" data-priority="2">Plan</th>
                             <th class="text-center" data-priority="1">Cliente</th>
-                            <th class="text-center" data-priority="1">Adjuntos</th>
                             <th class="text-center" data-priority="3">Prima Neta</th>
+                            <th class="text-center" data-priority="3">Póliza-Ítem</th>
                             <th class="text-center" data-priority="1">Estado</th>
                             <th class="text-center" data-priority="3">Tipo</th>
                             <th class="text-center" data-priority="1">Dias</th>
-                            <th class="text-center" data-priority="3">Póliza-Ítem</th>
+                            <th class="text-center" data-priority="1">Adjuntos</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="text-center">123456789041</td>
-                            <td class="text-center">15-12-2019</td>
-                            <td class="text-center">12458</td>
-                            <td class="text-center">bsilvaserr13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">4567859</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
+                          <tr class="text-center" v-for="bandeja in bandejaProp">
                             <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
+                              {{ bandeja.id_propuesta }}-{{bandeja.item}}
                             </td>
-                            <td class="text-center">45789564215</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">758498564812</td>
-                            <td class="text-center">01-01-2020</td>
-                            <td class="text-center">85412</td>
-                            <td class="text-center">aalvarezroj13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">8541245</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
+                            <td class="text-center">{{ edita_fecha(bandeja.fecha) }}</td>
+                            <td class="text-center">{{ bandeja.id_plan }}</td>
+                            <td class="text-center">{{ bandeja.nombre_cliente }}</td>
+                            <td class="text-center">{{ bandeja.prima_neta }}</td>
                             <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
+                              {{ bandeja.id_poliza }}-{{bandeja.item}}
                             </td>
-                            <td class="text-center">85412564851</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">985465215298</td>
-                            <td class="text-center">18-11-2019</td>
-                            <td class="text-center">98564</td>
-                            <td class="text-center">LORENA GU 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">9865412</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
+                            <td class="text-center" v-if="bandeja.estatusitem === 'P' ">
+                              <span class="d-none">pendiente</span>
+                              <img class="img-fluid dt-icons" title="Pendiente" src="/src/assets/images/bandeja-iconos/pendiente.png"/>
                             </td>
-                            <td class="text-center">98564512350</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">150236098547</td>
-                            <td class="text-center">14-01-2020</td>
-                            <td class="text-center">52165</td>
-                            <td class="text-center">R NUNEZ R 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0597845</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
+                            <td v-if="bandeja.estatusitem === 'R'">
+                              <img title="Rechazado" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/eliminar.png">
                             </td>
-                            <td class="text-center">85412501298</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">952102387450</td>
-                            <td class="text-center">30-12-2019</td>
-                            <td class="text-center">02632</td>
-                            <td class="text-center">Kespina w 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0659854</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
+                            <td v-if="bandeja.tipo_propuesta === 'CF'">
+                              <img title="Carga formulario" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/formulario.png">
                             </td>
-                            <td class="text-center">85012501484</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">784152169852</td>
-                            <td class="text-center">04-01-2020</td>
-                            <td class="text-center">80451</td>
-                            <td class="text-center">13.000.000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">8040521</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
+                            <td v-if="bandeja.tipo_propuesta === 'FW'">
+                              <img title="Formulario web" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/web.png">
                             </td>
-                            <td class="text-center">05698745120</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">965218745236</td>
-                            <td class="text-center">28-12-2019</td>
-                            <td class="text-center">05978</td>
-                            <td class="text-center">Camila Valdes Poblet</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0897504</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
+                            <td v-if="bandeja.tipo_propuesta === 'CFE'">
+                              <img title="Endoso" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/Endoso.png">
                             </td>
-                            <td class="text-center">85415236985</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">541286798540</td>
-                            <td class="text-center">15-11-2019</td>
-                            <td class="text-center">50691</td>
-                            <td class="text-center">HUGO FERNANDES JIRON</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0895014</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
+                            <!--<td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/formulario.png"/></td>-->
+                            <td class="text-center" v-if="cuentaDias(bandeja.fecha) >= 5">
+                              <div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
+                                <strong> {{cuentaDias(bandeja.fecha)}} </strong>
+                              </div>
                             </td>
-                            <td class="text-center">74512659856</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">985412635412</td>
-                            <td class="text-center">26-10-2019</td>
-                            <td class="text-center">60904</td>
-                            <td class="text-center">bsilvaserr130000000</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0632015</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
+                            <td class="text-center" v-if="cuentaDias(bandeja.fecha) >= 0 && cuentaDias(bandeja.fecha) <= 2">
+                              <div style="background-color:#FBBC05; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
+                                <strong> {{cuentaDias(bandeja.fecha)}} </strong>
+                              </div>
                             </td>
-                            <td class="text-center">45213562874</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">451236528970</td>
-                            <td class="text-center">28-11-2019</td>
-                            <td class="text-center">90874</td>
-                            <td class="text-center">aalvarezroj13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0874509</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
+                            <td class="text-center" v-if="cuentaDias(bandeja.fecha) >= 3 && cuentaDias(bandeja.fecha) <= 4">
+                              <div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
+                                <strong> {{cuentaDias(bandeja.fecha)}} </strong>
+                              </div>
                             </td>
-                            <td class="text-center">96523487150</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">123456789041</td>
-                            <td class="text-center">15-12-2019</td>
-                            <td class="text-center">12458</td>
-                            <td class="text-center">bsilvaserr13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">4567859</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
+                            <td class="text-center" id="exampleModalCenter" v-if="bandeja.tipo_propuesta === 'CFE'"
+                             @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_cliente, 2)">
+                              <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
                             </td>
-                            <td class="text-center">45789564215</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">758498564812</td>
-                            <td class="text-center">01-01-2020</td>
-                            <td class="text-center">85412</td>
-                            <td class="text-center">aalvarezroj13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">8541245</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
+                            <td class="text-center" id="exampleModalCenter" v-if="bandeja.tipo_propuesta === 'CF'"
+                             @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 1)">
+                              <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
                             </td>
-                            <td class="text-center">85412564851</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">985465215298</td>
-                            <td class="text-center">18-11-2019</td>
-                            <td class="text-center">98564</td>
-                            <td class="text-center">LORENA GU 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">9865412</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
+                            <td class="text-center" id="exampleModalCenter" v-if="bandeja.tipo_propuesta === 'FW'"
+                             @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 3)">
+                              <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
                             </td>
-                            <td class="text-center">98564512350</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">150236098547</td>
-                            <td class="text-center">14-01-2020</td>
-                            <td class="text-center">52165</td>
-                            <td class="text-center">R NUNEZ R 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0597845</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85412501298</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">952102387450</td>
-                            <td class="text-center">30-12-2019</td>
-                            <td class="text-center">02632</td>
-                            <td class="text-center">Kespina w 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0659854</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85012501484</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">784152169852</td>
-                            <td class="text-center">04-01-2020</td>
-                            <td class="text-center">80451</td>
-                            <td class="text-center">13.000.000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">8040521</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
-                            </td>
-                            <td class="text-center">05698745120</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">965218745236</td>
-                            <td class="text-center">28-12-2019</td>
-                            <td class="text-center">05978</td>
-                            <td class="text-center">Camila Valdes Poblet</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0897504</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85415236985</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">541286798540</td>
-                            <td class="text-center">15-11-2019</td>
-                            <td class="text-center">50691</td>
-                            <td class="text-center">HUGO FERNANDES JIRON</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0895014</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
-                            </td>
-                            <td class="text-center">74512659856</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">985412635412</td>
-                            <td class="text-center">26-10-2019</td>
-                            <td class="text-center">60904</td>
-                            <td class="text-center">bsilvaserr130000000</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0632015</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
-                            </td>
-                            <td class="text-center">45213562874</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">451236528970</td>
-                            <td class="text-center">28-11-2019</td>
-                            <td class="text-center">90874</td>
-                            <td class="text-center">aalvarezroj13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0874509</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
-                            </td>
-                            <td class="text-center">96523487150</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">123456789041</td>
-                            <td class="text-center">15-12-2019</td>
-                            <td class="text-center">12458</td>
-                            <td class="text-center">bsilvaserr13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">4567859</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
-                            </td>
-                            <td class="text-center">45789564215</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">758498564812</td>
-                            <td class="text-center">01-01-2020</td>
-                            <td class="text-center">85412</td>
-                            <td class="text-center">aalvarezroj13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">8541245</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85412564851</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">985465215298</td>
-                            <td class="text-center">18-11-2019</td>
-                            <td class="text-center">98564</td>
-                            <td class="text-center">LORENA GU 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">9865412</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
-                            </td>
-                            <td class="text-center">98564512350</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">150236098547</td>
-                            <td class="text-center">14-01-2020</td>
-                            <td class="text-center">52165</td>
-                            <td class="text-center">R NUNEZ R 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0597845</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85412501298</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">952102387450</td>
-                            <td class="text-center">30-12-2019</td>
-                            <td class="text-center">02632</td>
-                            <td class="text-center">Kespina w 13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0659854</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85012501484</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">784152169852</td>
-                            <td class="text-center">04-01-2020</td>
-                            <td class="text-center">80451</td>
-                            <td class="text-center">13.000.000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">8040521</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
-                            </td>
-                            <td class="text-center">05698745120</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">965218745236</td>
-                            <td class="text-center">28-12-2019</td>
-                            <td class="text-center">05978</td>
-                            <td class="text-center">Camila Valdes Poblet</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0897504</td>
-                            <td class="text-center"><span class="d-none">en-proceso</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/en-proceso.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">03</div>
-                            </td>
-                            <td class="text-center">85415236985</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">541286798540</td>
-                            <td class="text-center">15-11-2019</td>
-                            <td class="text-center">50691</td>
-                            <td class="text-center">HUGO FERNANDES JIRON</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0895014</td>
-                            <td class="text-center"><span class="d-none">pendiente</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/pendiente.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
-                            </td>
-                            <td class="text-center">74512659856</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">985412635412</td>
-                            <td class="text-center">26-10-2019</td>
-                            <td class="text-center">60904</td>
-                            <td class="text-center">bsilvaserr130000000</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0632015</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/formulario.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">05</div>
-                            </td>
-                            <td class="text-center">45213562874</td>
-                          </tr>
-                          <tr>
-                            <td class="text-center">451236528970</td>
-                            <td class="text-center">28-11-2019</td>
-                            <td class="text-center">90874</td>
-                            <td class="text-center">aalvarezroj13000000-0</td>
-                            <td class="text-center"><a href="#"><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/clip.png"/></a></td>
-                            <td class="text-center">0874509</td>
-                            <td class="text-center"><span class="d-none">eliminar</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/eliminar.png"/></td>
-                            <td class="text-center"><span class="d-none">web</span><img class="img-fluid dt-icons" src="assets/images/bandeja-iconos/web.png"/></td>
-                            <td class="text-center">
-                              <div class="table-propuestas-days">01</div>
-                            </td>
-                            <td class="text-center">96523487150</td>
                           </tr>
                         </tbody>
                       </table>
@@ -476,4 +112,158 @@
         </div>
       </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLongTitle"><img width="40px" height="40px" src="../assets/images/bandeja-iconos/clip.png"> Adjuntos</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul id="lista">
+            
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <a type="button" class="btn btn-primary" style="color:white" id="descarga" >Descargar todos</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+  import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+    import moment from 'moment'
+    Vue.use(VueAxios, axios)
+
+    export default {
+      name: 'BandejaPropuestas',
+    /*components:{
+      Topbar,
+      SideMenu
+    },*/
+      data () {
+        return {
+          bandejaProp: [],
+          adjuntos: []
+        }
+
+       
+      },
+
+       methods: {
+          bandejaPropuestas() {
+            var token = JSON.parse(window.localStorage.getItem('token'));
+            const test = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            if (token === 0) {
+              this.$router.push('./');
+            }
+            //console.log(test);
+            //console.log("Token");
+            //console.log(token);
+            let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            let numero = '*';
+            axios.get('http://200.91.27.159:8000/api/propuestas/'+ rutLogueado+'/'+numero, {
+
+              params: {
+                          'token' : token
+                      }
+
+            }
+            ).then(response => {
+              console.log("bandejaPropuestas");
+              console.log(response);
+              this.bandejaProp = response.data;
+              console.log('SUCCESS!!');
+            })
+            .catch(error => {
+              console.log('FAILURE!!');
+            });
+          },
+
+          listarAdjuntos(idPropuesta, rut, tipo) {
+            console.log(idPropuesta);
+            console.log(rut);
+            console.log(tipo);
+            if (tipo == 1) {
+              var t = 'P';
+            } else {
+              var t = 'E';
+            }
+            var token = JSON.parse(window.localStorage.getItem('token'));
+            const test = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            if (token === 0) {
+              this.$router.push('./');
+            }
+            //console.log(test);
+            //console.log("Token");
+            //console.log(token);
+            let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            let numero = '*';
+            axios.get('http://200.91.27.159:8000/api/listardocpropuestas/'+ idPropuesta + '/' + rut + '/' + t, {
+
+              params: {
+                          'token' : token
+                      }
+
+            }
+            ).then(response => {
+              console.log("adjuntos");
+              console.log(response);
+              this.adjuntos = response.data;
+              console.log('SUCCESS!!');
+            })
+            .catch(error => {
+              console.log('FAILURE!!');
+            });
+          },
+
+          edita_fecha: function(fecha) {
+            var fn = fecha.split("-");
+            return fn[2] + "-" + fn[1] + "-" + fn[0];
+          },
+          edita_fecha2: function(fecha) {
+            var fn = fecha.split("-");
+            return fn[2] + "-" + fn[1];
+          },
+
+          cuentaDias: function(fecha) {
+            var fecha_inicio = fecha;
+
+            var fecha_v = moment(fecha_inicio);
+            var hoy = moment();
+
+            var dias = hoy.diff(fecha_v, 'days');
+            var n = "";
+
+            if ((dias >= 0) && (dias <= 2)) {
+              n = `<div style="background-color:#34A853; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;"><strong>` + dias + `</strong></div>`
+                
+            }
+            if ((dias >= 3) && (dias <= 4)) {
+                n = `<div style="background-color:#FBBC05; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;"><strong>` + dias + `</strong></div>`
+            }
+            if (dias >= 5) {
+                //this.three(dias);
+            }
+            return dias;
+
+          },
+        },
+
+        created (){
+          this.bandejaPropuestas();
+        }
+    
+
+    }
+
+</script>

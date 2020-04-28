@@ -154,9 +154,289 @@
 	  },*/
       data () {
         return {
+        	polizaVencimientoEjecutivo: [],
+        	polizaventamonedasEjecutivo: [],
+        	polizaVentasEjecutivo: [],
+        	topCorredores: [],
 
         }
       },
+
+      methods: {
+
+      	fillData2 (m) {
+      		//console.log(this.polizaventamonedas.data[0].moneda);
+      		//console.log(this.polizaventamonedas.data[1].moneda);
+      		//console.log(this.polizaventamonedas.data[2].moneda);
+      		//console.log(this.polizaVentas.length);
+      		
+
+          	if(m == this.polizaventamonedasEjecutivo.data[0].moneda){
+            	this.clicked = 1;
+            	console.log(this.clicked);
+          	}else if (m == this.polizaventamonedasEjecutivo.data[1].moneda) {
+          		this.clicked = 2;
+          	}
+          	else if (m == this.polizaventamonedasEjecutivo.data[2].moneda) {
+          		this.clicked = 3;
+          	}
+
+      		var polizaVent = this.polizaVentasEjecutivo.length;
+      		var macroplan = Array(0);
+            var total = Array(0);
+      		for (var i=0;i<polizaVent;i++) {
+      			//console.log("test");
+      			//console.log(this.polizaVentasEjecutivo[0].id_moneda);
+      			//console.log(m);
+                if(this.polizaVentasEjecutivo[i].id_moneda==m){
+                   macroplan.push(this.polizaVentasEjecutivo[i].macroplan);
+                   total.push(this.polizaVentasEjecutivo[i].total);
+                }
+            }
+      		this.datacollection2 = {
+		      labels: macroplan,
+		      datasets: [
+		        {
+		          label: '',
+		          backgroundColor: '#30658E',
+		          data: total
+		        }
+		      ]
+		    }
+      	},
+
+      	fillData (m) {
+      			//console.log("heylo");
+      			//console.log(m);
+      		if(m == this.polizaventamonedasEjecutivo.data[0].moneda){
+            	this.coin = 1;
+          	}else if (m == this.polizaventamonedasEjecutivo.data[1].moneda) {
+          		this.coin = 2;
+          	}
+          	else if (m == this.polizaventamonedasEjecutivo.data[2].moneda) {
+          		this.coin = 3;
+          	}
+
+      		var poliza = this.polizaUlt.data.length;
+      		var dias = Array(0);
+            var total = Array(0);
+      			//console.log(poliza);
+      		for (var i=0;i<poliza;i++) {
+      			//console.log(poliza);
+      			//console.log(this.polizaUlt.data[i]);
+                if(this.polizaUlt.data[i].id_moneda==m){
+                    dias.push(this.edita_fecha2(this.polizaUlt.data[i].fecha_proc));
+                    total.push(this.polizaUlt.data[i].total);
+                	//console.log(dias);
+              }
+            }
+	        this.datacollection = {
+	          labels: dias,
+	          datasets: [
+	            {
+	              label: '',
+	              backgroundColor: '#EDEEFA',
+	              borderColor: '#30658E',
+	              data: total
+	            }, /*{
+	              label: 'Data One',
+	              backgroundColor: '#f87979',
+	              data: [this.getRandomInt(), this.getRandomInt()]
+	            }*/
+	          ],
+	          
+	        }
+	        this.menorMayor(m);
+      },
+
+      	barChart () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = '*'
+			axios.get('http://200.91.27.159:8000/api/polizaventasejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaventas');
+				console.log(response);
+				this.polizaVentasEjecutivo = response.data;
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        lineChart () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = 15
+			axios.get('http://200.91.27.159:8000/api/polizaultimasventasejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log(response);
+				this.polizaUlt = response.data;
+				console.log('polizaUlt');
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        vencimientos() {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = 10
+			axios.get('http://200.91.27.159:8000/api/polizavencimientoejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaVencimientoEjecutivo');
+				console.log(response);
+				this.polizaVencimientoEjecutivo = response.data;
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        polizaVentaMonedas () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = 15
+			axios.get('http://200.91.27.159:8000/api/polizaventamonedasejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaventamonedas');
+				console.log(response);
+				this.polizaventamonedas = response.data;
+				//console.log(this.polizaventamonedas.data);
+				//console.log(this.polizaventamonedas.data[0].moneda);
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        menorMayor () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = 15
+			axios.get('http://200.91.27.159:8000/api/polizaventarangoejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaventarango');
+				console.log(response);
+				this.polizaventarango = response.data;
+				console.log(this.polizaventarango.data);
+				//console.log(this.polizaventamonedas.data[0].moneda);
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        topCorredores () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = '*'
+			axios.get('http://200.91.27.159:8000/api/polizatopintermediarioejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaventarango');
+				console.log(response);
+				this.topCorredores = response.data;
+				console.log(this.polizaventarango.data);
+				//console.log(this.polizaventamonedas.data[0].moneda);
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        edita_fecha: function(fecha) {
+		    var fn = fecha.split("-");
+		    return fn[2] + "-" + fn[1] + "-" + fn[0];
+		},
+		edita_fecha2: function(fecha) {
+		    var fn = fecha.split("-");
+		    return fn[2] + "-" + fn[1];
+		},
+
+      },
+
+      created (){
+      	
+    }
     
 
     }
