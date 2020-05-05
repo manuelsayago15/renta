@@ -1,6 +1,6 @@
 <template>
-	<div class="topbar">
-        <div class="topbar-left"><a class="logo" :href="'/'"><span>
+	<div class="topbar" style="height: 80px;">
+        <div class="topbar-left"><a class="logo" :href="'/home'"><span>
         	<img src="/src/assets/images/logo-renta-nacional.png" alt="Logo renta" width="150">
             </span><i>
 

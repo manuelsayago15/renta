@@ -3,7 +3,43 @@
         <div class="slimscroll-menu" id="remove-scroll">
           <div id="sidebar-menu">
             <ul class="metismenu" id="side-menu">
-              <li><a class="waves-effect waves-light" id="dashboard"><i class="renta-icon-deashboard"></i><span>Dashboard</span></a></li>
+              <li v-if="id_userType == 1">
+              	<router-link to="/gerente-sucursal" class="waves-effect waves-light" id="dashboard">
+              		<i class="renta-icon-deashboard"></i>
+              		<span>Dashboard</span>
+              	</router-link>
+              </li>
+
+              <li v-if="id_userType == 2">
+              	<router-link to="/ejecutivo" class="waves-effect waves-light" id="dashboard">
+              		<i class="renta-icon-deashboard"></i>
+              		<span>Dashboard</span>
+              	</router-link>
+              </li>
+
+              <li v-if="id_userType == 3">
+              	<router-link to="/intermediario" 
+              		class="waves-effect waves-light" id="dashboard">
+              		<i class="renta-icon-deashboard"></i>
+              		<span>Dashboard</span>
+              	</router-link>
+              </li>
+
+              <li v-if="id_userType == 4">
+              	<router-link to="/admin-liquidadores" 
+              		class="waves-effect waves-light" id="dashboard">
+              		<i class="renta-icon-deashboard"></i>
+              		<span>Dashboard</span>
+              	</router-link>
+              </li>
+
+              <li v-if="id_userType == 11">
+              	<router-link to="/gerente-zonal" 
+              		class="waves-effect waves-light" id="dashboard">
+              		<i class="renta-icon-deashboard"></i>
+              		<span>Dashboard</span>
+              	</router-link>
+              </li>
             
                 <div id="intermediarios" class="">
                     

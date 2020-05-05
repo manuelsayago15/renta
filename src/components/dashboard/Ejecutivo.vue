@@ -5,7 +5,7 @@
 		<div class="content-page">
             <div class="content p-0">
               <div class="container-fluid">
-                <div class="page-title-box p-0 pt-1">
+                <!--<div class="page-title-box p-0 pt-1">
                   <div class="row align-items-center">
                     <div class="col-sm-6">
                       <h4 class="page-title">Próximos vencimientos</h4>
@@ -13,8 +13,8 @@
                       </ol>
                     </div>
                   </div>
-                </div>
-                <div class="row">
+                </div>-->
+                <!--<div class="row">
                   <div class="col-sm-6 col-lg-3">
                     <div class="card card--dashboard bg-primary text-white">
                       <div class="card-body card-body--dashboard">
@@ -51,7 +51,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>-->
 
                 <div class="row">
                   <div class="col-lg-6">
@@ -63,7 +63,19 @@
                           </div>
                           <div class="col-lg-6">
                             <ul class="nav nav-pills justify-content-end" role="tablist" id="ventas-categorias-tabs">
-                             <!--  <li class="nav-item"><a class="nav-link nav-link--dashboard active" href="#ventas-categorias-uf" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab">UF</a></li>-->
+                            	<li class="nav-item" v-for="coin in polizaventamonedasEjecutivo.data">
+                            		<a class="nav-link nav-link--dashboard" 
+                               		:class="{active:clicked == 1}" 
+                               		@click="fillData2(coin.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="coin.moneda != ''">
+                               			{{coin.unidad}}
+                               		</a>
+                               		<a v-else class="nav-link nav-link--dashboard" 
+                               			:class="{active:clicked == 1}" 
+                               		 	data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true">
+                               			{{coin.unidad}}
+                               		</a>
+                               	</li>
+                               
                             </ul>
                           </div>
 
@@ -145,19 +157,30 @@
 	import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import moment from 'moment'
+    import LineChart from '@/assets/js/LineChart.js'
+    import BarChart from '@/assets/js/BarChart.js'
     Vue.use(VueAxios, axios)
 
     export default {
       name: 'Ejecutivo',
-	  /*components:{
-
-	  },*/
+	  components:{
+	  	LineChart,
+	     BarChart
+	  },
       data () {
         return {
+        	datacollection: null,
+        	datacollection2: null,
         	polizaVencimientoEjecutivo: [],
         	polizaventamonedasEjecutivo: [],
+        	polizaventaRangoEjecutivo: [],
         	polizaVentasEjecutivo: [],
-        	topCorredores: [],
+        	polizaUltEjecutivo: [],
+        	top: [],
+        	ejecutivo: '',
+        	clicked: 1,
+        	coin: 1,
 
         }
       },
@@ -170,50 +193,57 @@
       		//console.log(this.polizaventamonedas.data[2].moneda);
       		//console.log(this.polizaVentas.length);
       		
+      		if (this.polizaventamonedasEjecutivo.data[0].moneda > 0) {
+      			if(m == this.polizaventamonedasEjecutivo.data[0].moneda){
+	            	this.clicked = 1;
+	            	console.log(this.clicked);
+	          	}else if (m == this.polizaventamonedasEjecutivo.data[1].moneda) {
+	          		this.clicked = 2;
+	          	}
+	          	else if (m == this.polizaventamonedasEjecutivo.data[2].moneda) {
+	          		this.clicked = 3;
+	          	}
 
-          	if(m == this.polizaventamonedasEjecutivo.data[0].moneda){
-            	this.clicked = 1;
-            	console.log(this.clicked);
-          	}else if (m == this.polizaventamonedasEjecutivo.data[1].moneda) {
-          		this.clicked = 2;
-          	}
-          	else if (m == this.polizaventamonedasEjecutivo.data[2].moneda) {
-          		this.clicked = 3;
-          	}
+	      		var polizaVent = this.polizaVentasEjecutivo.data.length;
+	      		var macroplan = Array(0);
+	            var total = Array(0);
+	      		for (var i=0;i<polizaVent;i++) {
+	      			//console.log("test");
+	      			//console.log(this.polizaVentasEjecutivo[0].id_moneda);
+	      			//console.log(m);
+	                if(this.polizaVentasEjecutivo.data[i].id_moneda==m){
+	                   macroplan.push(this.polizaVentasEjecutivo.data[i].macroplan);
+	                   total.push(this.polizaVentasEjecutivo.data[i].total);
+	                }
+	            }
+	      		this.datacollection2 = {
+			      labels: macroplan,
+			      datasets: [
+			        {
+			          label: '',
+			          backgroundColor: '#30658E',
+			          data: total
+			        }
+			      ]
+			    }
 
-      		var polizaVent = this.polizaVentasEjecutivo.length;
-      		var macroplan = Array(0);
-            var total = Array(0);
-      		for (var i=0;i<polizaVent;i++) {
-      			//console.log("test");
-      			//console.log(this.polizaVentasEjecutivo[0].id_moneda);
-      			//console.log(m);
-                if(this.polizaVentasEjecutivo[i].id_moneda==m){
-                   macroplan.push(this.polizaVentasEjecutivo[i].macroplan);
-                   total.push(this.polizaVentasEjecutivo[i].total);
-                }
-            }
-      		this.datacollection2 = {
-		      labels: macroplan,
-		      datasets: [
-		        {
-		          label: '',
-		          backgroundColor: '#30658E',
-		          data: total
-		        }
-		      ]
-		    }
+      		} else {
+      			this.ejecutivo = "No hay información";
+      			console.log("No hay información");
+      		}
+
+          	
       	},
 
       	fillData (m) {
       			//console.log("heylo");
       			//console.log(m);
-      		if(m == this.polizaventamonedasEjecutivo.data[0].moneda){
+      		if(m == this.polizaventamonedasEjecutivo[0].moneda){
             	this.coin = 1;
-          	}else if (m == this.polizaventamonedasEjecutivo.data[1].moneda) {
+          	}else if (m == this.polizaventamonedasEjecutivo[1].moneda) {
           		this.coin = 2;
           	}
-          	else if (m == this.polizaventamonedasEjecutivo.data[2].moneda) {
+          	else if (m == this.polizaventamonedasEjecutivo[2].moneda) {
           		this.coin = 3;
           	}
 
@@ -267,7 +297,7 @@
 
 			}
 			).then(response => {
-				console.log('polizaventas');
+				console.log('polizaVentasEjecutivo');
 				console.log(response);
 				this.polizaVentasEjecutivo = response.data;
 				console.log('SUCCESS!!');
@@ -296,8 +326,37 @@
 			}
 			).then(response => {
 				console.log(response);
-				this.polizaUlt = response.data;
-				console.log('polizaUlt');
+				this.polizaUltEjecutivo = response.data;
+				console.log('polizaUltEjecutivo');
+				console.log('SUCCESS!!');
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+        },
+
+        topCorredores () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = '*'
+			axios.get('http://200.91.27.159:8000/api/polizatopintermediarioejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('topCorredores');
+				console.log(response);
+				this.top = response.data;
+				//console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
@@ -351,9 +410,12 @@
 
 			}
 			).then(response => {
-				console.log('polizaventamonedas');
+				console.log('polizaventamonedasejecutivo');
 				console.log(response);
-				this.polizaventamonedas = response.data;
+				this.polizaventamonedasEjecutivo = response.data;
+				console.log(this.polizaventamonedasEjecutivo);
+				console.log(this.polizaventamonedasEjecutivo.data);
+				console.log(this.polizaventamonedasEjecutivo.data.length);
 				//console.log(this.polizaventamonedas.data);
 				//console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
@@ -381,10 +443,9 @@
 
 			}
 			).then(response => {
-				console.log('polizaventarango');
+				console.log('polizaventarangoejecutivo');
 				console.log(response);
-				this.polizaventarango = response.data;
-				console.log(this.polizaventarango.data);
+				this.polizaventaRangoEjecutivo = response.data;;
 				//console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
 			})
@@ -393,35 +454,7 @@
 			});
         },
 
-        topCorredores () {
-        	var token = JSON.parse(window.localStorage.getItem('token'));
-	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
-	        if (token === 0) {
-	        	this.$router.push('./');
-	        }
-	        //console.log(rutLogueado);
-	        //console.log("Token");
-	        //console.log(token);
-	        let numero = '*'
-			axios.get('http://200.91.27.159:8000/api/polizatopintermediarioejecutivo/'+ rutLogueado+'/'+numero, {
-
-				params: {
-                    'token' : token
-                }
-
-			}
-			).then(response => {
-				console.log('polizaventarango');
-				console.log(response);
-				this.topCorredores = response.data;
-				console.log(this.polizaventarango.data);
-				//console.log(this.polizaventamonedas.data[0].moneda);
-				console.log('SUCCESS!!');
-			})
-			.catch(error => {
-			  console.log('FAILURE!!');
-			});
-        },
+        
 
         edita_fecha: function(fecha) {
 		    var fn = fecha.split("-");
@@ -435,8 +468,13 @@
       },
 
       created (){
-      	
-    }
+      	this.lineChart();
+      	this.barChart();
+      	this.topCorredores();
+      	this.vencimientos();
+      	this.polizaVentaMonedas();
+      	this.menorMayor();
+      }
     
 
     }

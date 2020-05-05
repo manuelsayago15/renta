@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Dashboard from './Dashboard.vue';
 import Login from './components/Login.vue';
+import Home from '@/components/home/Home';
 
 //Dashboard Components
 //import Intermediario from './components/dashboard/Intermediario.vue';
@@ -35,8 +36,11 @@ import '../src/assets/css/typicons.css';
 import '../src/assets/css/developers.css';
 import '../src/assets/fonts/typicons.scss';
 
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
 
 const API_URL = process.env.API_URL || 'http://10.156.160.21:8000/api/login/'
 
@@ -52,6 +56,9 @@ Vue.use(VueAxios, axios)
 
 Vue.use(VueRouter);
 
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+
 //Global Components
 Vue.component('Topbar', require('./components/Topbar.vue').default);
 Vue.component('SideMenu', require('./components/SideMenu.vue').default);
@@ -59,6 +66,7 @@ Vue.component('SideMenu', require('./components/SideMenu.vue').default);
 const routes = [
 	{ path: '/', name: 'login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
+	{ path: '/home', component: Home },
 	{ path: '/perfil', name: 'Perfil', component: Perfil },
 	{ path: '/intermediario', name: 'Intermediario', component: Intermediario },
 	{ path: '/ejecutivo', name: 'Ejecutivo', component: Ejecutivo },

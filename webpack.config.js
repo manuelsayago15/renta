@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -52,9 +53,11 @@ module.exports = {
         loader: 'style-loader!css-loader!sass-loader'
       },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        test: /\.m?js$/,
+        use: {
+          loader: 'babel-loader',
+        },
+        exclude: [/node_modules/]                                                           
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -100,10 +103,13 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
+    new UglifyJsPlugin({
+      "uglifyOptions":
+      {
+        compress: {
+            warnings: false
+        },
+        sourceMap: true
       }
     }),
     new webpack.LoaderOptionsPlugin({

@@ -88,17 +88,47 @@
                                 <strong> {{cuentaDias(bandeja.fecha)}} </strong>
                               </div>
                             </td>
-                            <td class="text-center" id="exampleModalCenter" v-if="bandeja.tipo_propuesta === 'CFE'"
+                            <td class="text-center" v-if="bandeja.tipo_propuesta === 'CFE'"
                              @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_cliente, 2)">
                               <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
+                              <b-modal v-model="modalShow">
+                                <ul v-for="files in adjuntos.data">
+                                  <li>
+                                    <a :href="'http://200.91.27.159:8000/api/descargadocpropuestas/'+bandeja.id_propuesta+'/'+bandeja.rut_intermediario+'/'+ 2 + '/'+files" 
+                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 2, files)" download>
+                                      {{files}}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </b-modal>
                             </td>
-                            <td class="text-center" id="exampleModalCenter" v-if="bandeja.tipo_propuesta === 'CF'"
+                            <td class="text-center" v-if="bandeja.tipo_propuesta === 'CF'"
                              @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 1)">
                               <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
+                              <b-modal v-model="modalShow">
+                                <ul v-for="files in adjuntos.data">
+                                  <li>
+                                    <a :href="'http://200.91.27.159:8000/api/descargadocpropuestas/'+bandeja.id_propuesta+'/'+bandeja.rut_intermediario+'/'+ 1 + '/'+files" 
+                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 1, files)" download>
+                                      {{files}}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </b-modal>
                             </td>
-                            <td class="text-center" id="exampleModalCenter" v-if="bandeja.tipo_propuesta === 'FW'"
+                            <td class="text-center" v-if="bandeja.tipo_propuesta === 'FW'"
                              @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 3)">
                               <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
+                              <b-modal v-model="modalShow">
+                                <ul v-for="files in adjuntos.data">
+                                  <li>
+                                    <router-link to="#" 
+                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 3, files)">
+                                      {{files}}
+                                    </router-link>
+                                  </li>
+                                </ul>
+                              </b-modal>
                             </td>
                           </tr>
                         </tbody>
@@ -113,28 +143,10 @@
       </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLongTitle"><img width="40px" height="40px" src="../assets/images/bandeja-iconos/clip.png"> Adjuntos</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <ul id="lista">
-            
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <a type="button" class="btn btn-primary" style="color:white" id="descarga" >Descargar todos</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  
+
+  
+        
 </template>
 
 <script>
@@ -153,7 +165,10 @@
       data () {
         return {
           bandejaProp: [],
-          adjuntos: []
+          adjuntos: [],
+          downloadFiles: [],
+          modalShow: false,
+          tokenDown: ''
         }
 
        
@@ -190,9 +205,10 @@
           },
 
           listarAdjuntos(idPropuesta, rut, tipo) {
-            console.log(idPropuesta);
-            console.log(rut);
-            console.log(tipo);
+            //console.log(idPropuesta);
+            //console.log(rut);
+            //console.log(tipo);
+            this.modalShow = true;
             if (tipo == 1) {
               var t = 'P';
             } else {
@@ -219,6 +235,50 @@
               console.log("adjuntos");
               console.log(response);
               this.adjuntos = response.data;
+              console.log(this.adjuntos);
+              console.log(this.adjuntos.data.length);
+              console.log('SUCCESS!!');
+            })
+            .catch(error => {
+              console.log('FAILURE!!');
+            });
+            this.adjuntos.data.push({token});
+            console.log(this.adjuntos);
+          },
+
+          descargarAdjuntos(idPropuesta, rut, tipo, archivo) {
+            //console.log(idPropuesta);
+            //console.log(rut);
+            //console.log(tipo);
+            //this.modalShow = true;
+            if (tipo == 1) {
+              var t = 'P';
+            } else {
+              var t = 'E';
+            }
+            var token = JSON.parse(window.localStorage.getItem('token'));
+            this.tokenDown = token;
+            const test = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            if (token === 0) {
+              this.$router.push('./');
+            }
+            //console.log(test);
+            //console.log("Token");
+            //console.log(token);
+            let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            let numero = '*';
+            axios.get('http://200.91.27.159:8000/api/descargadocpropuestas/'+ idPropuesta + '/' + rut + '/' + t + '/' + archivo, {
+
+              params: {
+                          'token' : token
+                      }
+
+            }
+            ).then(response => {
+              console.log("downloadFiles");
+              console.log(response);
+              this.downloadFiles = response.data;
+              console.log(this.downloadFiles);
               console.log('SUCCESS!!');
             })
             .catch(error => {
