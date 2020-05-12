@@ -65,7 +65,7 @@
                             <ul class="nav nav-pills justify-content-end" role="tablist" id="ventas-categorias-tabs">
                             	<li class="nav-item" v-for="coin in polizaventamonedasEjecutivo.data">
                             		<a class="nav-link nav-link--dashboard" 
-                               		:class="{active:clicked == 1}" 
+                               		:class="{active:clicked == coin.moneda}" 
                                		@click="fillData2(coin.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="coin.moneda != ''">
                                			{{coin.unidad}}
                                		</a>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="tab-content" id="ventas-categorias-tabs-content">
                           <div class="bar-chart tab-pane fade show active" role="tabpanel" aria-labelledby="ventas-categorias-tab" id="ventas-categorias-todos">
-                            <canvas id="ventas-categorias-chart"></canvas> 
+                            <bar-chart :chart-data="datacollection2" class="small"></bar-chart>
                          </div>
                         </div>
                       </div>
@@ -98,28 +98,66 @@
                           <div class="col-lg-6">
                             <ul class="nav nav-pills justify-content-end" role="tablist" id="ventas-ultimos-dias-tabs">
                               <!--  <li class="nav-item"><a class="nav-link nav-link--dashboard active" href="#ventas-ultimos-dias-uf" data-toggle="tab" aria-controls="ventas-ultimos-dias-uf" aria-selected="true" id="ventas-ultimos-dias-uf-tab">UF</a></li>-->
+
+	                          <li class="nav-item" v-for="coins in polizaMonedaUltimosDias.data">
+                        		<a class="nav-link nav-link--dashboard" 
+                           		:class="{active: clicked15 == coins.moneda}" 
+                           		@click="fillData(coins.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="coins.moneda != ''"> <!-- Vacío temporalmente-->
+                           			{{coins.unidad}}
+                           		</a>
+                           		<a v-else class="nav-link nav-link--dashboard" 
+                           			:class="{active: clicked15 == 1}" 
+                           		 	data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true">
+                           			{{coins.unidad}}
+                           		</a>
+	                           	</li>
                             </ul>
                           </div>
                         </div>
                         <div class="tab-content" id="ventas-ultimos-dias-content">
                           <div class="line-chart tab-pane fade show active" role="tabpanel" aria-labelledby="ventas-ultimos-dias-uf-tab" id="ventas-ultimos-15dias">
-                            <canvas id="ventas-ultimos-15dias-chart"></canvas>
+                            <line-chart :chart-data="datacollection" class="small"></line-chart>
                           </div>
                         </div>
                         <div class="row pt-1">
                           <div class="col-sm-6 col-lg-12 col-xl-6">
-                            <div class="d-flex"><img class="img-fluid" src="/assets/images/icon-up.svg">
+                            <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-up.svg">
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Mayor Venta</h5>
-                                <p class="m-0"><span id="fecha_mayor"></span>&nbsp;<b><span id="unidad_mayor"></span><span id="cantidad_mayor"></span></b></p>
+                                <div>
+                                  <p v-for="mayor in polizaventaRangoEjecutivo.data" v-if="mayor != ''">
+                                  	<span id="fecha_mayor">
+                                      {{ edita_fecha(mayor.fecha_mayor) }}
+                                    </span>&nbsp;
+                                    <span id="unidad_mayor">
+                                      {{mayor.unidad}}
+                                    </span>
+                                    <span id="cantidad_mayor">
+                                      {{mayor.prima_mayor}}
+                                    </span>
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="col-sm-6 col-lg-12 col-xl-6">
-                            <div class="d-flex"><img class="img-fluid" src="/assets/images/icon-down.svg">
+                            <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-down.svg">
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Menor Venta</h5>
-                                <p class="m-0"><span id="fecha_menor"></span>&nbsp;<b><span id="unidad_menor"></span><span id="cantidad_menor"></span></b></p>
+                                <div>
+                                	<p v-for="mayor in polizaventaRangoEjecutivo.data" 
+                                  	v-if="polizaventaRangoEjecutivo.data">
+	                                  	<span id="fecha_menor">
+	                                      {{ edita_fecha(mayor.fecha_menor) }}
+	                                    </span>&nbsp;
+	                                    <span id="unidad_menor">
+	                                      {{mayor.unidad}}
+	                                    </span>
+	                                    <span id="cantidad_menor">
+	                                      {{mayor.prima_menor}}
+	                                    </span>
+	                                 </p>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -136,13 +174,24 @@
                       </div>
                       <div class="col-lg-6">
                         <ul class="nav nav-pills justify-content-end" role="tablist" id="topCorredores-tabs">
-                        
+                        	<li class="nav-item" v-for="topCoins in polizaventamonedasEjecutivo.data">
+                        		<a class="nav-link nav-link--dashboard" 
+                           		:class="{active: clickedTop == topCoins.moneda}" 
+                           		@click="fillData3(topCoins.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="topCoins.moneda != ''"> <!-- Vacío temporalmente-->
+                           			{{topCoins.unidad}}
+                           		</a>
+                           		<a v-else class="nav-link nav-link--dashboard" 
+                           			:class="{active: clickedTop == 1}" 
+                           		 	data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true">
+                           			{{topCoins.unidad}}
+                           		</a>
+	                           	</li>
                         </ul>
                       </div>
                     </div>
                     <div class="tab-content" id="topCorredores-content">
                       <div class="bar-chart2 tab-pane fade show active" role="tabpanel" aria-labelledby="#topCorredores-uf-tab" id="topCorredores"> 
-                        <canvas id="topCorredores-chart"></canvas>
+                        <bar-chart :chart-data="datacollection3" class="small"></bar-chart>
                     </div>
                   </div>
                   </div>
@@ -166,20 +215,24 @@
       name: 'Ejecutivo',
 	  components:{
 	  	LineChart,
-	     BarChart
+	    BarChart
 	  },
       data () {
         return {
         	datacollection: null,
         	datacollection2: null,
+        	datacollection3: null,
         	polizaVencimientoEjecutivo: [],
         	polizaventamonedasEjecutivo: [],
+			polizaMonedaUltimosDias: [],
         	polizaventaRangoEjecutivo: [],
         	polizaVentasEjecutivo: [],
         	polizaUltEjecutivo: [],
         	top: [],
         	ejecutivo: '',
-        	clicked: 1,
+        	clicked: '',
+        	clicked15: '',
+        	clickedTop: '',
         	coin: 1,
 
         }
@@ -188,32 +241,30 @@
       methods: {
 
       	fillData2 (m) {
-      		//console.log(this.polizaventamonedas.data[0].moneda);
-      		//console.log(this.polizaventamonedas.data[1].moneda);
-      		//console.log(this.polizaventamonedas.data[2].moneda);
-      		//console.log(this.polizaVentas.length);
-      		
-      		if (this.polizaventamonedasEjecutivo.data[0].moneda > 0) {
-      			if(m == this.polizaventamonedasEjecutivo.data[0].moneda){
-	            	this.clicked = 1;
-	            	console.log(this.clicked);
-	          	}else if (m == this.polizaventamonedasEjecutivo.data[1].moneda) {
-	          		this.clicked = 2;
-	          	}
-	          	else if (m == this.polizaventamonedasEjecutivo.data[2].moneda) {
-	          		this.clicked = 3;
-	          	}
+      			var ventaMonedas = this.polizaventamonedasEjecutivo.data.length;
+	      		for (var i = 0; i < ventaMonedas; i++){
+	      			if(m == this.polizaventamonedasEjecutivo.data[i].moneda){
+		            	this.clicked = this.polizaventamonedasEjecutivo.data[i].moneda;
+		            	console.log(this.clicked);
+		          	}
+	      		}
 
-	      		var polizaVent = this.polizaVentasEjecutivo.data.length;
+	      		var polizaVent = this.polizaVentasEjecutivo.length;
+	      		console.log("length");
+	      		console.log(polizaVent);
 	      		var macroplan = Array(0);
 	            var total = Array(0);
+	            var count = 0;
 	      		for (var i=0;i<polizaVent;i++) {
-	      			//console.log("test");
-	      			//console.log(this.polizaVentasEjecutivo[0].id_moneda);
-	      			//console.log(m);
-	                if(this.polizaVentasEjecutivo.data[i].id_moneda==m){
-	                   macroplan.push(this.polizaVentasEjecutivo.data[i].macroplan);
-	                   total.push(this.polizaVentasEjecutivo.data[i].total);
+	      			console.log("test");
+	      			console.log(this.polizaVentasEjecutivo[i].id_moneda);
+	      			console.log(m);
+	                if(this.polizaVentasEjecutivo[i].id_moneda==m){
+	                	//console.log("count");
+	                	//count = count + 1;
+	                	//console.log(count);
+	                   macroplan.push(this.polizaVentasEjecutivo[i].macroplan);
+	                   total.push(this.polizaVentasEjecutivo[i].total);
 	                }
 	            }
 	      		this.datacollection2 = {
@@ -226,37 +277,27 @@
 			        }
 			      ]
 			    }
-
-      		} else {
-      			this.ejecutivo = "No hay información";
-      			console.log("No hay información");
-      		}
-
-          	
       	},
 
       	fillData (m) {
-      			//console.log("heylo");
-      			//console.log(m);
-      		if(m == this.polizaventamonedasEjecutivo[0].moneda){
-            	this.coin = 1;
-          	}else if (m == this.polizaventamonedasEjecutivo[1].moneda) {
-          		this.coin = 2;
-          	}
-          	else if (m == this.polizaventamonedasEjecutivo[2].moneda) {
-          		this.coin = 3;
-          	}
+  			var ventaMonedas = this.polizaventamonedasEjecutivo.data.length;
+	  		for (var i = 0; i < ventaMonedas; i++){
+	  			if(m == this.polizaventamonedasEjecutivo.data[i].moneda){
+	            	this.clicked15 = this.polizaventamonedasEjecutivo.data[i].moneda;
+	            	console.log(this.clicked15);
+	          	}
+	  		}
 
-      		var poliza = this.polizaUlt.data.length;
+      		var poliza = this.polizaUltEjecutivo.data.length;
       		var dias = Array(0);
             var total = Array(0);
       			//console.log(poliza);
       		for (var i=0;i<poliza;i++) {
       			//console.log(poliza);
       			//console.log(this.polizaUlt.data[i]);
-                if(this.polizaUlt.data[i].id_moneda==m){
-                    dias.push(this.edita_fecha2(this.polizaUlt.data[i].fecha_proc));
-                    total.push(this.polizaUlt.data[i].total);
+                if(this.polizaUltEjecutivo.data[i].id_moneda==m){
+                    dias.push(this.edita_fecha2(this.polizaUltEjecutivo.data[i].fecha_proc));
+                    total.push(this.polizaUltEjecutivo.data[i].total);
                 	//console.log(dias);
               }
             }
@@ -277,6 +318,47 @@
 	          
 	        }
 	        this.menorMayor(m);
+      },
+
+      fillData3 (m) {
+  			var ventaMonedas = this.polizaventamonedasEjecutivo.data.length;
+	  		for (var i = 0; i < ventaMonedas; i++){
+	  			if(m == this.polizaventamonedasEjecutivo.data[i].moneda){
+	            	this.clickedTop = this.polizaventamonedasEjecutivo.data[i].moneda;
+	            	console.log(this.clickedTop);
+	          	}
+	  		}
+
+      		var poliza = this.top.data.length;
+      		var corredor = Array(0);
+            var total = Array(0);
+      			//console.log(poliza);
+      		for (var i=0;i<poliza;i++) {
+      			//console.log(poliza);
+      			//console.log(this.polizaUlt.data[i]);
+                if(this.top.data[i].id_moneda==m){
+                    corredor.push(this.top.data[i].nombres);
+	                total.push(this.top.data[i].total);
+                	//console.log(dias);
+              }
+            }
+	        this.datacollection3 = {
+	          labels: corredor,
+	          datasets: [
+	            {
+	              label: '',
+	              backgroundColor: '#EDEEFA',
+	              borderColor: '#30658E',
+	              data: total
+	            }, /*{
+	              label: 'Data One',
+	              backgroundColor: '#f87979',
+	              data: [this.getRandomInt(), this.getRandomInt()]
+	            }*/
+	          ],
+	          
+	        }
+	        //this.menorMayor(m);
       },
 
       	barChart () {
@@ -300,6 +382,7 @@
 				console.log('polizaVentasEjecutivo');
 				console.log(response);
 				this.polizaVentasEjecutivo = response.data;
+				console.log(this.polizaVentasEjecutivo);
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
@@ -326,8 +409,8 @@
 			}
 			).then(response => {
 				console.log(response);
-				this.polizaUltEjecutivo = response.data;
 				console.log('polizaUltEjecutivo');
+				this.polizaUltEjecutivo = response.data;
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
@@ -416,13 +499,14 @@
 				console.log(this.polizaventamonedasEjecutivo);
 				console.log(this.polizaventamonedasEjecutivo.data);
 				console.log(this.polizaventamonedasEjecutivo.data.length);
-				//console.log(this.polizaventamonedas.data);
-				//console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
+				//this.fillData2(this.polizaventamonedasEjecutivo.data[0].moneda);
+				//console.log("fillData2");
 			})
 			.catch(error => {
 			  console.log('FAILURE!!');
 			});
+
         },
 
         menorMayor () {
@@ -445,13 +529,45 @@
 			).then(response => {
 				console.log('polizaventarangoejecutivo');
 				console.log(response);
-				this.polizaventaRangoEjecutivo = response.data;;
-				//console.log(this.polizaventamonedas.data[0].moneda);
+				this.polizaventaRangoEjecutivo = response.data;
 				console.log('SUCCESS!!');
 			})
 			.catch(error => {
 			  console.log('FAILURE!!');
 			});
+        },
+
+        polizaVentaMonedasUltimosDias () {
+        	var token = JSON.parse(window.localStorage.getItem('token'));
+	        const rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+	        if (token === 0) {
+	        	this.$router.push('./');
+	        }
+	        //console.log(rutLogueado);
+	        //console.log("Token");
+	        //console.log(token);
+	        let numero = 15
+			axios.get('http://200.91.27.159:8000/api/polizaventamonedasejecutivo/'+ rutLogueado+'/'+numero, {
+
+				params: {
+                    'token' : token
+                }
+
+			}
+			).then(response => {
+				console.log('polizaMonedaUltimosDias');
+				console.log(response);
+				this.polizaMonedaUltimosDias = response.data;
+				console.log(this.polizaMonedaUltimosDias.data.length);
+				console.log(this.polizaMonedaUltimosDias.data[0].moneda);
+				console.log('SUCCESS!!');
+				
+			})
+			.catch(error => {
+			  console.log('FAILURE!!');
+			});
+			//this.fillData(this.polizaMonedaUltimosDias.data[0].moneda);
+				//console.log("fillData");
         },
 
         
@@ -468,11 +584,12 @@
       },
 
       created (){
-      	this.lineChart();
-      	this.barChart();
-      	this.topCorredores();
       	this.vencimientos();
       	this.polizaVentaMonedas();
+      	this.polizaVentaMonedasUltimosDias();
+      	this.barChart();
+      	this.lineChart();
+      	this.topCorredores();
       	this.menorMayor();
       }
     
@@ -480,3 +597,10 @@
     }
 
 </script>
+
+<style>
+	.small {
+	  	width: 295px;
+    	height: 254px;
+	}
+</style>

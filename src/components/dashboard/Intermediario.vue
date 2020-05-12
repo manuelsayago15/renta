@@ -133,7 +133,7 @@
 
                                <li class="nav-item" v-for="coin in polizaventamonedas.data">
                             		<a class="nav-link nav-link--dashboard" 
-                               		:class="{active:clicked == 1}" 
+                               		:class="{active: clicked == coin.moneda}" 
                                		@click="fillData2(coin.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="coin.moneda != ''">
                                			{{coin.unidad}}
                                		</a>
@@ -168,12 +168,12 @@
 
 						       <li class="nav-item" v-for="coins in polizaMonedaUltimosDias.data">
                             		<a class="nav-link nav-link--dashboard" 
-                               		:class="{active:coin == 1}" 
-                               		@click="fillData(coins.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="coin.moneda != ''"> <!-- Vacío temporalmente-->
+                               		:class="{active: clicked15 == coins.moneda}" 
+                               		@click="fillData(coins.moneda)" data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true" id="ventas-categorias-uf-tab" v-if="coins.moneda != ''"> <!-- Vacío temporalmente-->
                                			{{coins.unidad}}
                                		</a>
                                		<a v-else class="nav-link nav-link--dashboard" 
-                               			:class="{active:coin == 1}" 
+                               			:class="{active: clicked15 == 1}" 
                                		 	data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true">
                                			{{coins.unidad}}
                                		</a>
@@ -182,28 +182,91 @@
 						  </div>
 						</div>
 
-
-
-
-
-
-
-
-
-
                         <div class="tab-content" id="ventas-ultimos-dias-content">
                           <div class="line-chart tab-pane fade show active" role="tabpanel" aria-labelledby="ventas-ultimos-dias-uf-tab" id="ventas-ultimos-15dias">
                             <line-chart :chart-data="datacollection" class="smallChart"></line-chart>
                           </div>
                         </div>
                         
+                        <div class="row pt-1">
+                          <div class="col-sm-6 col-lg-12 col-xl-6">
+                            <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-up.svg">
+                              <div class="pl-3">
+                                <h5 class="m-0 text-uppercase font-weight-bold">Mayor Venta</h5>
+                                <div>
+                                  <p v-for="mayor in polizaventarango.data" v-if="mayor != ''">
+                                  	<span id="fecha_mayor">
+                                      {{ edita_fecha(mayor.fecha_mayor) }}
+                                    </span>&nbsp;
+                                    <span id="unidad_mayor">
+                                      {{mayor.unidad}}
+                                    </span>
+                                    <span id="cantidad_mayor">
+                                      {{mayor.prima_mayor}}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-lg-12 col-xl-6">
+                            <div class="d-flex"><img class="img-fluid" src="/src/assets/images/icon-down.svg">
+                              <div class="pl-3">
+                                <h5 class="m-0 text-uppercase font-weight-bold">Menor Venta</h5>
+                                <div>
+                                  <!-- <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[2].moneda == polizaventamonedas.data[0].moneda">
+                                    <span id="fecha_mayor" >
+                                      {{ edita_fecha(mayor[2].fecha_menor) }}
+                                    </span>&nbsp;
+                                    <span id="unidad_mayor">
+                                      {{mayor[2].unidad}}
+                                      
+                                    </span>
+                                    <span id="cantidad_mayor">
+                                      {{mayor[2].prima_menor}}
+                                    </span>
+                                  </p>
 
+                                  <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[1].moneda == polizaventamonedas.data[1].moneda">
+                                    <span id="fecha_mayor">
+                                      {{ edita_fecha(mayor[1].fecha_menor) }}
+                                    </span>&nbsp;
+                                    <span id="unidad_mayor">
+                                      {{mayor[1].unidad}}
+                                    </span>
+                                    <span id="cantidad_mayor">
+                                      {{mayor[1].prima_menor}}
+                                    </span>
+                                  </p>
 
-
-
-
-
-
+                                  <p class="m-0" v-for="mayor in polizaventarango" v-if="polizaventarango.data[0].moneda == polizaventamonedas.data[2].moneda">
+                                    <span id="fecha_mayor">
+                                      {{ edita_fecha(mayor[0].fecha_menor) }}
+                                    </span>&nbsp;
+                                    <span id="unidad_mayor">
+                                      {{mayor[0].unidad}}
+                                    </span>
+                                    <span id="cantidad_mayor">
+                                      {{mayor[0].prima_menor}}
+                                    </span>
+                                  </p> -->
+                                  <p v-for="mayor in polizaventarango.data" 
+                                  	v-if="polizaventarango.data">
+                                  	<span id="fecha_menor">
+                                      {{ edita_fecha(mayor.fecha_menor) }}
+                                    </span>&nbsp;
+                                    <span id="unidad_menor">
+                                      {{mayor.unidad}}
+                                    </span>
+                                    <span id="cantidad_menor">
+                                      {{mayor.prima_menor}}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -266,7 +329,6 @@
                           	</td>
                           </tr>
                         </tbody>
-                        <button @click="test">test me</button>
                       </table>
                     </div>
                   </div>
@@ -307,8 +369,8 @@
         	polizaMonedaUltimosDias: [],
         	polizaventarango: [],
         	dias: '',
-        	clicked: 1,
-        	coin: 1,
+        	clicked: '',
+        	clicked15: '',
         }
       },
 
@@ -324,14 +386,14 @@
       		//console.log(this.polizaventamonedas.data[1].moneda);
       		//console.log(this.polizaventamonedas.data[2].moneda);
       		//console.log(this.polizaVentas.length);
+
       		var ventaMonedas = this.polizaventamonedas.data.length;
-      		for(var i = 0; i<ventaMonedas; i++){
+      		for (var i = 0; i < ventaMonedas; i++){
       			if(m == this.polizaventamonedas.data[i].moneda){
-	            	this.clicked = 1;
+	            	this.clicked = this.polizaventamonedas.data[i].moneda;
 	            	console.log(this.clicked);
 	          	}
       		}
-          	
 
       		var polizaVent = this.polizaVentas.length;
       		var macroplan = Array(0);
@@ -358,16 +420,14 @@
       	},
 
       	fillData (m) {
-      			//console.log("heylo");
-      			//console.log(m);
-      		/*if(m == this.polizaventamonedas.data[0].moneda){
-            	this.coin = 1;
-          	}else if (m == this.polizaventamonedas.data[1].moneda) {
-          		this.coin = 2;
-          	}
-          	else if (m == this.polizaventamonedas.data[2].moneda) {
-          		this.coin = 3;
-          	}*/
+
+      		var ventaMonedasUltDias = this.polizaMonedaUltimosDias.data.length;
+      		for (var i = 0; i < ventaMonedasUltDias; i++){
+      			if(m == this.polizaMonedaUltimosDias.data[i].moneda){
+	            	this.clicked15 = this.polizaMonedaUltimosDias.data[i].moneda;
+	            	console.log(this.clicked15);
+	          	}
+      		}
 
       		var poliza = this.polizaUlt.data.length;
       		var dias = Array(0);
@@ -551,10 +611,15 @@
 				console.log(this.polizaventamonedas.data.length);
 				console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
+				this.fillData2(this.polizaventamonedas.data[0].moneda);
+				console.log("fillData2");
+
 			})
 			.catch(error => {
 			  console.log('FAILURE!!');
 			});
+			/*this.fillData2(this.polizaventamonedas.data[0].moneda);
+			console.log("fillData2");*/
         },
 
         polizaVentaMonedasUltimosDias () {
@@ -581,10 +646,13 @@
 				console.log(this.polizaMonedaUltimosDias.data.length);
 				console.log(this.polizaMonedaUltimosDias.data[0].moneda);
 				console.log('SUCCESS!!');
+				
 			})
 			.catch(error => {
 			  console.log('FAILURE!!');
 			});
+			this.fillData(this.polizaMonedaUltimosDias.data[0].moneda);
+				console.log("fillData");
         },
 
         menorMayor () {
@@ -616,6 +684,12 @@
 			.catch(error => {
 			  console.log('FAILURE!!');
 			});
+			/*var mayorMenor;
+			for(var i = 0; i < this.polizaventamonedas.data.length; i++){
+				if (this.polizaventamonedas.data[i].moneda == this.polizaventarango.data[i].moneda) {
+					mayorMenor =
+				}
+			}*/
         },
 
         /*test() {
@@ -653,12 +727,6 @@
 		    return fn[2] + "-" + fn[1];
 		},
 
-		three: function (dias) {
-			console.log("hey three function");
-			console.log(dias);
-			'<div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;"><strong>'  + dias + '</strong></div>';
-			},
-
 		cuentaDias: function(fecha) {
 		    var fecha_inicio = fecha;
 
@@ -685,13 +753,13 @@
       },
 
      created (){
-      	this.propuestasData();
       	this.vencimientos();
+      	this.polizaVentaMonedas();
       	this.barChart();
+      	this.polizaVentaMonedasUltimosDias();
       	this.lineChart();
       	this.menorMayor();
-      	this.polizaVentaMonedas();
-      	this.polizaVentaMonedasUltimosDias();
+      	this.propuestasData();
     }
     
 
