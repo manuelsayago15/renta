@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Dashboard from './Dashboard.vue';
 import Login from './components/Login.vue';
-import Home from '@/components/home/Home';
+import Home from './components/home/Home.vue';
 
 //Dashboard Components
 //import Intermediario from './components/dashboard/Intermediario.vue';
@@ -40,6 +40,8 @@ import '../src/assets/fonts/typicons.scss';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import vuetify from '@/plugins/vuetify' // path to vuetify export
+import VueTableDynamic from 'vue-table-dynamic'
 
 
 const API_URL = process.env.API_URL || 'http://10.156.160.21:8000/api/login/'
@@ -62,6 +64,12 @@ Vue.use(BootstrapVue)
 //Global Components
 Vue.component('Topbar', require('./components/Topbar.vue').default);
 Vue.component('SideMenu', require('./components/SideMenu.vue').default);
+
+
+//Global Component - Tables
+Vue.use(VueTableDynamic)
+
+Vue.prototype.$url = '200.91.27.159:8000';
 
 const routes = [
 	{ path: '/', name: 'login', component: Login },
@@ -94,6 +102,7 @@ new Vue({
   el: '#app',
   router,
   routes,
+  vuetify,
   components: { App },
   render: h => h(App)
 })

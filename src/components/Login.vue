@@ -17,8 +17,8 @@
                       </div>
                       <label class="passport" :class="{redlabel:loginSelected == 1}" for="passport">Pasaporte</label>
                     </div>
-                    <input class="form-control" v-show="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT" v-on:change="validarRut()" maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
-                    <input class="form-control" v-show="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte" v-on:keyup="limpiar_errors()">
+                    <input class="form-control" v-if="loginSelected == 0" v-model="rut" type="text" id="rut" name="rut" placeholder="RUT" v-on:change="validarRut()" maxlength="12" @keypress="isNumber($event)" v-on:keyup="checkRut()" >
+                    <input class="form-control" v-if="loginSelected == 1" v-model="pasaporte" type="text" id="passport" name="passport" placeholder="Pasaporte" v-on:keyup="limpiar_errors()">
                 </div>
 	                  
                 <div class="form-group">
@@ -188,7 +188,7 @@
                 {
                  if (this.pasaporte!= "") {
                      rut_no_dig_ver = this.pasaporte;
-                     dig_ver = 'p';
+                     dig_ver = 'P';
                  }
                 }
 
@@ -202,7 +202,7 @@
             //console.log(rut_no_dig_ver);
             //console.log(this.password);
             //console.log(dig_ver);
-    				axios.post('http://10.156.160.21:8000/api/login/', formData, {
+    				axios.post('http://' + this.$url + '/api/login/', formData, {
     				/*data: {
     				    identificacion: this.identificacion,
     				    password: this.password,

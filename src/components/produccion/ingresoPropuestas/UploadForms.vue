@@ -166,7 +166,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
-			axios.get('http://200.91.27.159:8000/api/productosplanes/', {
+			axios.get('http://' + this.$url + '/api/productosplanes/', {
 
 				params: {
                     'token' : token
@@ -195,7 +195,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
-			axios.get('http://200.91.27.159:8000/api/planes/' + producto, {
+			axios.get('http://' + this.$url + '/api/planes/' + producto, {
 
 				params: {
                     'token' : token
@@ -256,7 +256,7 @@
             formData.append('num_items', this.items);
             formData.append('token', token);
             console.log(formData.get('directorio0'));
-			axios.post('http://200.91.27.159:8000/api/propuestas/', formData, {
+			axios.post('http://' + this.$url + '/api/propuestas/', formData, {
 
 				params: {
                     'token' : token

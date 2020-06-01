@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/images/favicon.ico">
+    <!-- Bootstrap 4.0-->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Dropzone-->
+    <link href="../plugins/dropzone/dist/dropzone.css" rel="stylesheet">
+    <!-- Datatables-->
+    <link href="../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet">
+    <!--theme css-->
+    <link href="../assets/css/metismenu.min.css" rel="stylesheet">
+    <link href="../assets/css/icons.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <!-- Estilos desarrollo -->
+    <link href="../css/developers.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="topbar">
+            <div class="topbar-left"><a class="logo" id="home"><span><img src="../assets/images/logo-renta-nacional.png" alt="Logo renta" width="150"></span><i><img src="../assets/images/logo-renta-nacional-sm.png" alt="Logo-sm" height="42"></i></a></div>
+            <nav class="navbar-custom">
+                <ul class="navbar-right d-flex list-inline float-right mb-0">
+                    <li class="dropdown notification-list d-none d-md-block"><a class="nav-link waves-effect" href="#" id="btn-fullscreen"><i class="mdi mdi-fullscreen noti-icon"></i></a></li>
+                    <li class="dropdown notification-list">
+                        <div class="dropdown notification-list nav-pro-img">
+                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><img class="rounded-circle" id="foto_logueado" alt="user"></a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                                <a class="dropdown-item waves-effect" href="../page-perfil/perfil.html"><img class="rounded-circle m-r-5" id="foto_logueado2" alt="user" height="25px">Mi perfil</a>
+
+                                <a class="dropdown-item waves-effect" href="" id="ejecutivo"><i class="mdi mdi-account-supervisor m-r-5"></i>Mi ejecutivo</a>
+
+                                <a class="dropdown-item waves-effect" href=""><i class="mdi mdi-settings-outline m-r-5"></i>Configuración</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item waves-effect text-danger" id="cerrar" href=""><i class="mdi mdi-power text-danger">Cerrar sesión</i></a>
+                                <div class="dropdown dropdown-executive bg-light d-none">
+                                    <div class="dropdown-executive__top p-3 d-flex justify-content-between align-items-start flex-wrap"><img class="rounded-circle m-r-5 dropdown-executive__top-left" src="../assets/images/users/foto.png" alt="Ejecutivo">
+                                        <div class="dropdown-executive__top-middle">
+                                            <h4 class="m-0 dropdown-executive__top-middle-title">Ejecutivo asignado</h4>
+                                            <p class="m-0">
+                                                <div id="nombre_ejecuivo"></div>
+                                            </p>
+                                        </div><a class="dropdown-executive__top-right text-danger" href=""><i class="mdi mdi-close text-danger">Cerrar</i></a></div>
+                                    <div class="dropdown-executive__bottom p-3">
+                                        <div class="m-0">Email: <span id="email_ejecuivo"></span>
+                                            <div class="m-0">Oficina: <span id="oficina_ejecuivo"></span>
+                                                <div class="m-0">Teléfono: <span id="telefono_ejecuivo"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </li>
+                </ul>
+                <ul class="list-inline menu-left mb-0">
+                    <li class="float-left">
+                        <button class="button-menu-mobile open-left waves-effect"><i class="mdi mdi-menu"></i></button>
+                    </li>
+                </ul>
+            </nav>
+            </div>
+            <div class="left side-menu">
+                <div class="slimscroll-menu" id="remove-scroll">
+                    <div id="sidebar-menu">
+                        <ul class="metismenu" id="side-menu">
+                            <li><a class="waves-effect waves-light" id="dashboard"><i class="renta-icon-deashboard"></i><span>Dashboard</span></a></li>
+
+                            <div id="intermediarios" class="d-none">
+
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="javascript:void(0);"> <span>Ingreso de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-propuestas/descarga-formularios.html">Descarga de formularios</a></li>
+                                                <li><a href="../page-propuestas/formulario-web.html">Formulario web</a></li>
+                                                <li><a href="../page-propuestas/carga-formularios.html">Carga de formulario</a></li>
+                                            </ul>
+                                        </li>
+                                        <li> <a href="../page-bandejas-propuestas/intermediarios.html">Bandeja de propuestas</a></li>
+                                        <li> <a href="#">Solicitud de cotización</a></li>
+                                        <li> <a href="#">Bandeja de solicitudes <br>de cotización pendientes</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);"> <span>Renovación de pólizas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-renovacion-polizas/bandeja-renovaciones-intermediarios.html">Bandeja de renovaciones</a></li>
+                                                <li><a href="../page-renovacion-polizas/polizas-vencidas.html">Pólizas vencidas</a></li>
+                                                <li><a href="../page-renovacion-polizas/reporte-renovacion-polizas.html">Reporte renovación de pólizas</a></li>
+                                                <li><a href="../page-renovacion-polizas/formulario-reportes.html">Formulario de reportes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li> <a href="#">Solicitud de inspección</a></li>
+                                        <li> <a href="../page-endoso/solicitud-endoso.html">Solicitud de endoso</a></li>
+                                        <li> <a href="#">Cotización en línea</a></li>
+                                        <li> <a href="#">Emisión en línea</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-wallet"></i><span>Cobranza  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Confirmación planes de<br>pago</a></li>
+                                        <li><a href="#">Ingreso PAT</a></li>
+                                        <li><a href="#">Descarga / envío de<br>facturas</a></li>
+                                        <li><a href="#">Envío de vencimientos</a></li>
+                                        <li><a href="#">Estados de cuenta</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-bar-graph"></i><span>Gestión  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="../page-consulta-polizas/consulta-polizas.html">Consulta pólizas</a></li>
+                                        <!-- <li><a href="#">Informe de siniestralidad</a></li> -->
+                                        <li><a href="#">Descarga Fecu /<br>certificado de<br>honorarios</a></li>
+                                        <li><a href="../page-cartera/listar-clientes2.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-polizas-vigentes-no-vigentes/listado-polizas.html">Listado de pólizas</a></li>
+                                        <li><a href="../page-cuotas-morosas/cuotas-morosas.html">Informe de cuotas<br>morosas</a></li>
+                                        <li><a href="../page-polizas-canceladas/polizas-canceladas.html">Informe de pólizas<br>canceladas</a></li>
+                                        <li><a href="../page-polizas-por-renovar/polizas-por-renovar.html">Informe de<br>renovaciones</a></li>
+                                        <li>
+                                            <a href="#"> <span>Informe de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-cotizaciones/cotizaciones-pendientes.html">Cotizaciones pendientes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Liquidación de comisiones<span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-liquidacion-comisiones/comisiones-por-pagar.html">Liquidaciones por pagar</a></li>
+                                                <li><a href="../page-liquidacion-comisiones/comisiones-a-la-fecha.html">Informe de comisiones <br>a la fecha</a></li>
+                                                <li><a href="../page-liquidacion-comisiones/comisiones-historicas.html">Liquidaciones históricas</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-book"></i><span>Menú agenda  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Talleres</a></li>
+                                        <li><a href="../page-cartera/listar-clientes.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-liquidadores/liquidadores.html">Liquidadores</a></li>
+                                        <li><a href="../page-oficinas/oficinas.html">Oficinas</a></li>
+                                    </ul>
+                                </li>
+                            </div>
+                            <div id="ejecutivos" class="d-none">
+
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="javascript:void(0);"> <span>Ingreso de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-propuestas/descarga-formularios.html">Descarga de formularios</a></li>
+                                                <!-- <li><a href="#">Formulario web</a></li> -->
+                                                <!-- <li><a href="page-carga-formularios.html">Carga de formulario</a></li> -->
+                                            </ul>
+                                        </li>
+                                        <li> <a href="../page-bandejas-propuestas/ejecutivos.html">Bandeja de propuestas</a></li>
+                                        <!-- <li> <a href="#">Solicitud de cotización</a></li> -->
+                                        <!-- <li> <a href="#">Bandeja de solicitudes <br>de cotización pendientes</a></li> -->
+                                        <li>
+                                            <a href="javascript:void(0);"> <span>Renovación de pólizas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-renovacion-polizas/bandeja-renovaciones-ejecutivos.html">Bandeja de renovaciones</a></li>
+                                                <!-- <li><a href="../page-renovacion-polizas/bandeja-renovaciones-intermediarios.html">Bandeja de renovaciones (corredor)</a></li>
+                                                <li><a href="../page-renovacion-polizas/polizas-vencidas.html">Pólizas vencidas</a></li>
+                                                <li><a href="../page-renovacion-polizas/reporte-renovacion-polizas.html">Reporte renovación de pólizas</a></li>
+                                                <li><a href="../page-renovacion-polizas/formulario-reportes.html">Formulario de reportes</a></li> -->
+                                            </ul>
+                                        </li>
+                                        <li> <a href="#">Solicitud de inspección</a></li>
+                                        <li> <a href="../page-endoso/solicitud-endoso.html">Solicitud de endoso</a></li>
+                                        <li> <a href="#">Cotización en línea</a></li>
+                                        <!-- <li> <a href="#">Emisión en línea</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-wallet"></i><span>Cobranza  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Confirmación planes de<br>pago</a></li>
+                                        <li><a href="#">Ingreso PAT</a></li>
+                                        <li><a href="#">Descarga / envío de<br>facturas</a></li>
+                                        <li><a href="#">Envío de vencimientos</a></li>
+                                        <!-- <li><a href="#">Estados de cuenta</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-bar-graph"></i><span>Gestión  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Consulta pólizas</a></li>
+                                        <!-- <li><a href="#">Informe de siniestralidad</a></li> -->
+                                        <li><a href="#">Descarga Fecu /<br>certificado de<br>honorarios</a></li>
+                                        <li><a href="../page-cartera/listar-clientes-gestion-ejecutivo.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-polizas-vigentes-no-vigentes/listado-polizas-ejecutivo.html">Listado de pólizas</a></li>
+                                        <li><a href="#">Informe de cuotas<br>morosas</a></li>
+                                        <li><a href="../page-polizas-canceladas/polizas-canceladas-ejecutivo.html">Informe de pólizas<br>canceladas</a></li>
+                                        <li><a href="../page-polizas-por-renovar/polizas-por-renovar-ejecutivo.html">Informe de<br>renovaciones</a></li>
+                                        <li>
+                                            <a href="#"> <span>Informe de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-cotizaciones/cotizaciones-pendientes-ejecutivo.html">Cotizaciones pendientes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Liquidación de<br>comisiones</a></li>
+                                        <li><a href="#">Informe de comisiones <br>a la fecha</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-book"></i><span>Menú agenda  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Talleres</a></li>
+                                        <li><a href="../page-cartera/listar-clientes-agenda-ejecutivo.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-liquidadores/liquidadores.html">Liquidadores</a></li>
+                                        <li><a href="../page-oficinas/oficinas.html">Oficinas</a></li>
+                                    </ul>
+                                </li>
+                            </div>
+
+                            <div id="gerente_sucursal" class="d-none">
+
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="javascript:void(0);"> <span>Ingreso de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-propuestas/descarga-formularios.html">Descarga de formularios</a></li>
+                                                <!-- <li><a href="#">Formulario web</a></li> -->
+                                                <!--  <li><a href="page-carga-formularios.html">Carga de formulario</a></li> -->
+                                            </ul>
+                                        </li>
+                                        <li> <a href="../page-bandejas-propuestas/gerente-sucursal.html">Bandeja de propuestas</a></li>
+                                        <li> <a href="#">Solicitud de cotización</a></li>
+                                        <!--  <li> <a href="#">Bandeja de solicitudes <br>de cotización pendientes</a></li> -->
+                                        <!-- <li> <a href="#">Renovación de pólizas</a></li> -->
+                                        <li> <a href="#">Solicitud de inspección</a></li>
+                                        <li> <a href="../page-endoso/solicitud-endoso.html">Solicitud de endoso</a></li>
+                                        <li> <a href="#">Cotización en línea</a></li>
+                                        <!-- <li> <a href="#">Emisión en línea</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-wallet"></i><span>Cobranza  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <!--  <li><a href="#">Confirmación planes de<br>pago</a></li> -->
+                                        <li><a href="#">Ingreso PAT</a></li>
+                                        <li><a href="#">Descarga / envío de<br>facturas</a></li>
+                                        <li><a href="#">Envío de vencimientos</a></li>
+                                        <!-- <li><a href="#">Estados de cuenta</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-bar-graph"></i><span>Gestión  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Consulta pólizas</a></li>
+                                        <li><a href="#">Informe de siniestralidad</a></li>
+                                        <li><a href="#">Descarga Fecu /<br>certificado de<br>honorarios</a></li>
+                                        <li><a href="../page-cartera/listar-clientes-gestion-gte-sucursal.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-polizas-vigentes-no-vigentes/listado-polizas-gte-sucursal.html">Listado de pólizas</a></li>
+                                        <li><a href="#">Informe de cuotas<br>morosas</a></li>
+                                        <li><a href="../page-polizas-canceladas/polizas-canceladas-gte-sucursal.html">Informe de pólizas<br>canceladas</a></li>
+                                        <li><a href="../page-polizas-por-renovar/polizas-por-renovar-gte-sucursal.html">Informe de<br>renovaciones</a></li>
+                                        <li>
+                                            <a href="#"> <span>Informe de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-cotizaciones/cotizaciones-pendientes-gte-sucursal.html">Cotizaciones pendientes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Liquidación de<br>comisiones</a></li>
+                                        <li><a href="#">Informe de comisiones <br>a la fecha</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-book"></i><span>Menú agenda  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <!-- <li><a href="#">Cartera de clientes</a></li> -->
+                                        <li><a href="#">Talleres</a></li>
+                                        <li><a href="../page-cartera/listar-clientes-agenda-gte-sucursal.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-liquidadores/liquidadores.html">Liquidadores</a></li>
+                                        <li><a href="../page-oficinas/oficinas-gte-sucursal.html">Oficinas</a></li>
+                                    </ul>
+                                </li>
+
+                            </div>
+                            <div id="gerente_zonal" class="d-none">
+
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li>
+                                            <a href="javascript:void(0);"> <span>Ingreso de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-propuestas/descarga-formularios.html">Descarga de formularios</a></li>
+                                                <!-- <li><a href="#">Formulario web</a></li> -->
+                                                <!--  <li><a href="page-carga-formularios.html">Carga de formulario</a></li> -->
+                                            </ul>
+                                        </li>
+                                        <li> <a href="../page-bandejas-propuestas/gerente-zonal.html">Bandeja de propuestas</a></li>
+                                        <li> <a href="#">Solicitud de cotización</a></li>
+                                        <!--  <li> <a href="#">Bandeja de solicitudes <br>de cotización pendientes</a></li> -->
+                                        <!-- <li> <a href="#">Renovación de pólizas</a></li> -->
+                                        <li> <a href="#">Solicitud de inspección</a></li>
+                                        <li> <a href="../page-endoso/solicitud-endoso.html">Solicitud de endoso</a></li>
+                                        <li> <a href="#">Cotización en línea</a></li>
+                                        <!-- <li> <a href="#">Emisión en línea</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-wallet"></i><span>Cobranza  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <!--  <li><a href="#">Confirmación planes de<br>pago</a></li> -->
+                                        <li><a href="#">Ingreso PAT</a></li>
+                                        <li><a href="#">Descarga / envío de<br>facturas</a></li>
+                                        <li><a href="#">Envío de vencimientos</a></li>
+                                        <!-- <li><a href="#">Estados de cuenta</a></li> -->
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-bar-graph"></i><span>Gestión  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Consulta pólizas</a></li>
+                                        <li><a href="#">Informe de siniestralidad</a></li>
+                                        <li><a href="#">Descarga Fecu /<br>certificado de<br>honorarios</a></li>
+                                        <li><a href="../page-cartera/listar-clientes-gestion-gte-zonal.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-polizas-vigentes-no-vigentes/listado-polizas-gte-zonal.html">Listado de pólizas</a></li>
+                                        <li><a href="#">Informe de cuotas<br>morosas</a></li>
+                                        <li><a href="../page-polizas-canceladas/polizas-canceladas-gte-zonal.html">Informe de pólizas<br>canceladas</a></li>
+                                        <li><a href="../page-polizas-por-renovar/polizas-por-renovar-gte-zonal.html">Informe de<br>renovaciones</a></li>
+                                        <li>
+                                            <a href="#"> <span>Informe de propuestas <span class="float-right menu-arrow submenu-menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span>
+                                            </a>
+                                            <ul class="submenu submenu-2">
+                                                <li><a href="../page-cotizaciones/cotizaciones-pendientes-gte-zonal.html">Cotizaciones pendientes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Liquidación de<br>comisiones</a></li>
+                                        <li><a href="#">Informe de comisiones <br>a la fecha</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-book"></i><span>Menú agenda  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
+                                    <ul class="submenu">
+                                        <!--  <li><a href="#">Cartera de clientes</a></li> -->
+                                        <li><a href="#">Talleres</a></li>
+                                        <li><a href="../page-cartera/listar-clientes-agenda-gte-zonal.html">Cartera de clientes</a></li>
+                                        <li><a href="../page-liquidadores/liquidadores.html">Liquidadores</a></li>
+                                        <li><a href="../page-oficinas/oficinas-gte-zonal.html">Oficinas</a></li>
+                                    </ul>
+                                </li>
+                            </div>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-page">
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="card card-margin-top">
+                                <div class="card-body">
+                                    <p class="header-title text-muted font-weight-bold">20/04/2020</p>
+                                    <h1 class="header-noticia pl-3 font-weight-bold font-20">Desde este lunes: SII enviará reporte a los contribuyentes con información sobre cómo se usaron sus impuestos.</h1><img class="w-100" src="../assets/images/home/foto-new.jpg" alt="Header noticia">
+                                    <p class="font-18 m-t-40">Este lunes comenzó a implementar la primera fase de un proceso mediante el cual el Servicio de Impuestos Internos (SII) dará a conocer a los contribuyentes en qué gasta el Estado los impuestos pagados.</p>
+                                    <p class="font-18">Durante la jornada, parte de las 60 mil personas elegidas aleatoriamente recibían un reporte titulado "¿Cómo se usaron mis impuestos?". El ministro de Hacienda, Ignacio Briones, destacó en su cuenta de Twitter que se
+                                        trata de "un hito inédito y muy necesario".</p>
+                                    <p class="font-18">El secretario de Estado explicó que el reporte sólo será enviado inicialmente a esas 60 mil personas porque serían parte de una evaluación de impacto, en la que las autoridades evaluarían tres modelos distintos de entrega
+                                        de la información.</p>
+                                    <p class="font-18">Lee también: Cajas de compensación advierten complejo escenario económico: "La liquidez comienza a acabarse".</p>
+                                    <p class="font-18">El primero corresponde a un informe estadístico, basado en la clasificación funcional del gasto.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!--Basic-->
+
+            <script src="../assets/js/jquery.min.js"></script>
+            <script src="../assets/js/bootstrap.bundle.min.js"></script>
+            <script src="../assets/js/metisMenu.min.js"></script>
+            <script src="../assets/js/jquery.slimscroll.js"></script>
+            <script src="../assets/js/waves.min.js"></script>
+
+            <!-- plugins-->
+            <!--datatable-->
+            <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+            <script src="../plugins/datatables/dataTables.bootstrap4.min.js"></script>
+            <script src="../plugins/datatables/dataTables.buttons.min.js"></script>
+            <script src="../plugins/datatables/buttons.bootstrap4.min.js"></script>
+            <script src="../plugins/datatables/buttons.colVis.min.js"></script>
+            <script src="../plugins/datatables/buttons.html5.min.js"></script>
+            <!-- Datatable responsive-->
+            <script src="../plugins/datatables/dataTables.responsive.min.js"></script>
+            <script src="../plugins/datatables/responsive.bootstrap4.min.js"></script>
+            <!-- Chart JS-->
+            <script src="../plugins/chart.js/chart.min.js"></script>
+            <!-- Dropzone-->
+            <script src="../plugins/dropzone/dist/dropzone.js"></script>
+            <script src="../assets/pages/datatables.init.js"></script>
+
+            <!-- RUT -->
+            <script src="../assets/js/jquery.rut.min.js"></script>
+            <script src="../assets/js/app.js"></script>
+
+            <script src="../assets/js/cerrar_sesion.js"></script>
+
+            <script src="../assets/js/moment.js"></script>
+            <!-- <script src="../assets/js/dashboard_intermediarios.js"></script> -->
+            <script src="../assets/js/logueo.js"></script>
+            <script src="../assets/js/perfil.js"></script>
+</body>
+
+</html>
+<script>
+    logueado();
+    /* addSpinner($('tbody'));
+    addSpinner($('#ventas-categorias-todos'));
+    addSpinner($('#ventas-ultimos-15dias')); */
+
+    jQuery(document).ready(function($) {
+        $('#ejecutivo, .dropdown-executive__top-right').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('.dropdown-executive').toggleClass('d-none');
+
+        })
+    });
+</script>

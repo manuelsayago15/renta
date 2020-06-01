@@ -110,7 +110,7 @@
                            		 	data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true">
                            			{{coins.unidad}}
                            		</a>
-	                           	</li>
+	                          </li>
                             </ul>
                           </div>
                         </div>
@@ -125,15 +125,15 @@
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Mayor Venta</h5>
                                 <div>
-                                  <p v-for="mayor in polizaventaRangoEjecutivo.data" v-if="mayor != ''">
+                                  <p>
                                   	<span id="fecha_mayor">
-                                      {{ edita_fecha(mayor.fecha_mayor) }}
+                                      {{ fechaMayor }}
                                     </span>&nbsp;
                                     <span id="unidad_mayor">
-                                      {{mayor.unidad}}
+                                      {{mayorMenor.unidad}}
                                     </span>
                                     <span id="cantidad_mayor">
-                                      {{mayor.prima_mayor}}
+                                      {{mayorMenor.prima_mayor}}
                                     </span>
                                   </p>
                                 </div>
@@ -145,16 +145,15 @@
                               <div class="pl-3">
                                 <h5 class="m-0 text-uppercase font-weight-bold">Menor Venta</h5>
                                 <div>
-                                	<p v-for="mayor in polizaventaRangoEjecutivo.data" 
-                                  	v-if="polizaventaRangoEjecutivo.data">
+                                	<p>
 	                                  	<span id="fecha_menor">
-	                                      {{ edita_fecha(mayor.fecha_menor) }}
+	                                      {{ fechaMenor }}
 	                                    </span>&nbsp;
 	                                    <span id="unidad_menor">
-	                                      {{mayor.unidad}}
+	                                      {{mayorMenor.unidad}}
 	                                    </span>
 	                                    <span id="cantidad_menor">
-	                                      {{mayor.prima_menor}}
+	                                      {{mayorMenor.prima_menor}}
 	                                    </span>
 	                                 </p>
                                 </div>
@@ -185,7 +184,7 @@
                            		 	data-toggle="tab" aria-controls="ventas-categorias-uf" aria-selected="true">
                            			{{topCoins.unidad}}
                            		</a>
-	                           	</li>
+	                        </li>
                         </ul>
                       </div>
                     </div>
@@ -234,6 +233,9 @@
         	clicked15: '',
         	clickedTop: '',
         	coin: 1,
+        	mayorMenor: '',
+        	fechaMayor: '',
+        	fechaMenor: ''
 
         }
       },
@@ -280,10 +282,13 @@
       	},
 
       	fillData (m) {
-  			var ventaMonedas = this.polizaventamonedasEjecutivo.data.length;
+      		console.log(m);
+  			var ventaMonedas = this.polizaMonedaUltimosDias.data.length;
+      		console.log(ventaMonedas);
 	  		for (var i = 0; i < ventaMonedas; i++){
-	  			if(m == this.polizaventamonedasEjecutivo.data[i].moneda){
-	            	this.clicked15 = this.polizaventamonedasEjecutivo.data[i].moneda;
+	  			console.log(this.polizaMonedaUltimosDias.data[i].moneda);
+	  			if(m == this.polizaMonedaUltimosDias.data[i].moneda){
+	            	this.clicked15 = this.polizaMonedaUltimosDias.data[i].moneda;
 	            	console.log(this.clicked15);
 	          	}
 	  		}
@@ -317,7 +322,16 @@
 	          ],
 	          
 	        }
-	        this.menorMayor(m);
+	        this.menorMayor();
+	        for(var i = 0; i < this.polizaventaRangoEjecutivo.data.length; i++){
+				if (this.polizaventaRangoEjecutivo.data[i].moneda == m) {
+					this.mayorMenor = this.polizaventaRangoEjecutivo.data[i];
+				}
+			}
+			this.fechaMayor = this.edita_fecha(this.mayorMenor.fecha_mayor);
+			this.fechaMenor = this.edita_fecha(this.mayorMenor.fecha_menor);
+			console.log(this.fechaMayor);
+			console.log(this.fechaMenor);
       },
 
       fillData3 (m) {
@@ -337,7 +351,7 @@
       			//console.log(poliza);
       			//console.log(this.polizaUlt.data[i]);
                 if(this.top.data[i].id_moneda==m){
-                    corredor.push(this.top.data[i].nombres);
+                    corredor.push(this.top.data[i].intermediario);
 	                total.push(this.top.data[i].total);
                 	//console.log(dias);
               }
@@ -348,7 +362,7 @@
 	            {
 	              label: '',
 	              backgroundColor: '#EDEEFA',
-	              borderColor: '#30658E',
+	              borderColor: '#EDEEFA',
 	              data: total
 	            }, /*{
 	              label: 'Data One',
@@ -371,7 +385,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let numero = '*'
-			axios.get('http://200.91.27.159:8000/api/polizaventasejecutivo/'+ rutLogueado+'/'+numero, {
+			axios.get('http://' + this.$url + '/api/polizaventasejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -400,7 +414,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let numero = 15
-			axios.get('http://200.91.27.159:8000/api/polizaultimasventasejecutivo/'+ rutLogueado+'/'+numero, {
+			axios.get('http://' + this.$url + '/api/polizaultimasventasejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -428,7 +442,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let numero = '*'
-			axios.get('http://200.91.27.159:8000/api/polizatopintermediarioejecutivo/'+ rutLogueado+'/'+numero, {
+			axios.get('http://' + this.$url + '/api/polizatopintermediarioejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -439,6 +453,7 @@
 				console.log('topCorredores');
 				console.log(response);
 				this.top = response.data;
+				this.fillData3(this.top.data[0].id_moneda);
 				//console.log(this.polizaventamonedas.data[0].moneda);
 				console.log('SUCCESS!!');
 			})
@@ -457,7 +472,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let numero = 10
-			axios.get('http://200.91.27.159:8000/api/polizavencimientoejecutivo/'+ rutLogueado+'/'+numero, {
+			axios.get('http://' + this.$url + '/api/polizavencimientoejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -484,8 +499,8 @@
 	        //console.log(rutLogueado);
 	        //console.log("Token");
 	        //console.log(token);
-	        let numero = 15
-			axios.get('http://200.91.27.159:8000/api/polizaventamonedasejecutivo/'+ rutLogueado+'/'+numero, {
+	        let numero = '*'
+			axios.get('http://' + this.$url + '/api/polizaventamonedasejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -500,8 +515,8 @@
 				console.log(this.polizaventamonedasEjecutivo.data);
 				console.log(this.polizaventamonedasEjecutivo.data.length);
 				console.log('SUCCESS!!');
-				//this.fillData2(this.polizaventamonedasEjecutivo.data[0].moneda);
-				//console.log("fillData2");
+				this.fillData2(this.polizaventamonedasEjecutivo.data[0].moneda);
+				console.log("fillData2");
 			})
 			.catch(error => {
 			  console.log('FAILURE!!');
@@ -519,7 +534,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let numero = 15
-			axios.get('http://200.91.27.159:8000/api/polizaventarangoejecutivo/'+ rutLogueado+'/'+numero, {
+			axios.get('http://' + this.$url + '/api/polizaventarangoejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -547,7 +562,7 @@
 	        //console.log("Token");
 	        //console.log(token);
 	        let numero = 15
-			axios.get('http://200.91.27.159:8000/api/polizaventamonedasejecutivo/'+ rutLogueado+'/'+numero, {
+			axios.get('http://' + this.$url + '/api/polizaventamonedasejecutivo/'+ rutLogueado+'/'+numero, {
 
 				params: {
                     'token' : token
@@ -561,6 +576,8 @@
 				console.log(this.polizaMonedaUltimosDias.data.length);
 				console.log(this.polizaMonedaUltimosDias.data[0].moneda);
 				console.log('SUCCESS!!');
+				this.fillData(this.polizaMonedaUltimosDias.data[0].moneda);
+				console.log("fillData");
 				
 			})
 			.catch(error => {
@@ -585,12 +602,12 @@
 
       created (){
       	this.vencimientos();
-      	this.polizaVentaMonedas();
-      	this.polizaVentaMonedasUltimosDias();
-      	this.barChart();
-      	this.lineChart();
-      	this.topCorredores();
       	this.menorMayor();
+      	this.barChart();
+      	this.polizaVentaMonedas();
+      	this.lineChart();
+      	this.polizaVentaMonedasUltimosDias();
+      	this.topCorredores();
       }
     
 

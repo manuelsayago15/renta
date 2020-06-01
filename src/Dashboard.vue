@@ -1,144 +1,199 @@
 <template>
-    <div class="content-page">
-        <div class="content">
-            <div class="container-fluid">
-                <div class="page-title-box">
-                    <div class="row align-items-center">
-                        <div class="col-sm-6">
-                            <h4 class="page-title">Bandeja de propuestas</h4>
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Producción</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Bandeja de propuestas</a></li>
-                                <li class="breadcrumb-item active"><span></span></li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body" id="bandeja">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <h4 class="mt-0 header-title">Seleccione los datos que desea visualizar</h4>
-                                        <p class="text-muted m-b-30">El botón mostrar todo mostrará en tabla todos los datos disponibles</p>
-                                    </div>
-                                    <div class="col-md-5 text-right colvis-btns"></div>
-                                </div>
-                                <button @click="onUpload">Hey again</button>
-                                <div class="table-responsive mb-0">
-                                    <table class="table table-striped table-small-font table-sm" id="propuestas" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" data-priority="1">Id Propuesta</th>
-                                                <th class="text-center" data-priority="2">Fecha</th>
-                                                <th class="text-center" data-priority="2">Plan</th>
-                                                <th class="text-center" data-priority="1">Cliente</th>
-                                                <th class="text-center" data-priority="3">Prima Neta</th>
-                                                <th class="text-center" data-priority="3">Póliza-Ítem</th>
-                                                <th class="text-center" data-priority="1">Estado</th>
-                                                <th class="text-center" data-priority="3">Tipo</th>
-                                                <th class="text-center" data-priority="1">Días</th>
-                                                <th class="text-center" data-priority="1">Adjuntos</th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr class="upload">HELLOLOLO</tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  
+  <b-container fluid>
+    <!-- User Interface controls -->
+    <b-row>
+      
+
+      
+
+      <b-col lg="6" class="my-1">
+        <b-form-group
+          label="Filter"
+          label-cols-sm="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="filterInput"
+          class="mb-0"
+        >
+          <b-input-group size="sm">
+            <b-form-input
+              v-model="filter"
+              type="search"
+              id="filterInput"
+              placeholder="Type to Search"
+            ></b-form-input>
+            <b-input-group-append>
+              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+
+      <b-col sm="5" md="6" class="my-1">
+        <b-form-group
+          label="Per page"
+          label-cols-sm="6"
+          label-cols-md="4"
+          label-cols-lg="3"
+          label-align-sm="right"
+          label-size="sm"
+          label-for="perPageSelect"
+          class="mb-0"
+        >
+          <b-form-select
+            v-model="perPage"
+            id="perPageSelect"
+            size="sm"
+            :options="pageOptions"
+          ></b-form-select>
+        </b-form-group>
+      </b-col>
+
+      <b-col sm="7" md="6" class="my-1">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          align="fill"
+          size="sm"
+          class="my-0"
+        ></b-pagination>
+      </b-col>
+    </b-row>
+
+    <!-- Main table element -->
+    <b-table
+      show-empty
+      small
+      stacked="md"
+      :items="items"
+      :fields="fields"
+      :current-page="currentPage"
+      :per-page="perPage"
+      :filter="filter"
+      :filterIncludedFields="filterOn"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :sort-direction="sortDirection"
+      @filtered="onFiltered"
+    >
+      <template v-slot:cell(name)="row">
+        {{ row.value.first }} {{ row.value.last }}
+      </template>
+
+      <template v-slot:cell(actions)="row">
+        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
+          Info modal
+        </b-button>
+        <b-button size="sm" @click="row.toggleDetails">
+          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+        </b-button>
+      </template>
+
+      <template v-slot:row-details="row">
+        <b-card>
+          <ul>
+            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+          </ul>
+        </b-card>
+      </template>
+    </b-table>
+
+    <!-- Info modal -->
+    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+      <pre>{{ infoModal.content }}</pre>
+    </b-modal>
+  </b-container>
 </template>
 
 <script>
-    import Vue from 'vue'
-    import axios from 'axios'
-    import VueAxios from 'vue-axios'
-    import $ from 'jquery'
-     
-    Vue.use(VueAxios, axios)
-
-    export default {
-      name: 'app',
-      data () {
-        return {
-            data: '',
-            resp: '',
-            identificacion: '27052222',
-            password: '123',
-            dig_verificador: 'K'
-        }
-      },
-      methods:{
-        onUpload() {
-          //let fd = new FormData();
-          //fd.append('file', this.file)
-        const formData = new FormData();
-        formData.append('identificacion', this.identificacion);
-        formData.append('password', this.password);
-        formData.append('dig_verificador', this.dig_verificador);
-
-          axios.post('http://10.156.160.21:8000/api/login/', formData, {
-            /*data: {
-                identificacion: this.identificacion,
-                password: this.password,
-                dig_verificador: this.dig_verificador
+  export default {
+    data() {
+      return {
+        items: [
+          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+          {
+            isActive: false,
+            age: 9,
+            name: { first: 'Mini', last: 'Navarro' },
+            _rowVariant: 'success'
+          },
+          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+          {
+            isActive: true,
+            age: 87,
+            name: { first: 'Larsen', last: 'Shaw' },
+            _cellVariants: { age: 'danger', isActive: 'warning' }
+          },
+          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+        ],
+        fields: [
+          { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
+          { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
+          {
+            key: 'isActive',
+            label: 'is Active',
+            formatter: (value, key, item) => {
+              return value ? 'Yes' : 'No'
             },
-            headers: {
-                 //'Access-Control-Allow-Origin':'http://10.156.160.21:8000/',
-                 'Content-Type': 'application/json'
-             }*/
-
-          }
-            ).then(function(){
-              console.log('SUCCESS!!');
-            })
-            .catch(function(){
-              console.log('FAILURE!!');
-            });
-        },
-
-        test() {
-            const session_url = 'http://10.156.160.21:8000/api/login'
-            var identificacion = '27052222';
-            var password = 123;
-            var dig_verificador = 'K';
-            axios({
-                method: 'post',
-                url: session_url,
-                auth: {
-                  identificacion: identificacion,
-                  password: password,
-                  dig_verificador: dig_verificador
-                }
-            })
-            .then(response => {
-              console.log('SUCCESS')
-              console.log(response.data)
-              /*this.$store.dispatch('signin', response.data)*/
-            }).catch(error => {
-              console.log('FAILURE')
-              console.log(identificacion);
-              this.error = error
-              console.log(error)
-            });
+            sortable: true,
+            sortByFormatted: true,
+            filterByFormatted: true
+          },
+          { key: 'actions', label: 'Actions' }
+        ],
+        totalRows: 1,
+        currentPage: 1,
+        perPage: 5,
+        pageOptions: [5, 10, 15],
+        sortBy: '',
+        sortDesc: false,
+        sortDirection: 'asc',
+        filter: null,
+        filterOn: [],
+        infoModal: {
+          id: 'info-modal',
+          title: '',
+          content: ''
         }
-
-
-      },
-
-      computed: {
-
       }
-
-
+    },
+    computed: {
+      sortOptions() {
+        // Create an options list from our fields
+        return this.fields
+          .filter(f => f.sortable)
+          .map(f => {
+            return { text: f.label, value: f.key }
+          })
+      }
+    },
+    mounted() {
+      // Set the initial number of items
+      this.totalRows = this.items.length
+    },
+    methods: {
+      info(item, index, button) {
+        this.infoModal.title = `Row index: ${index}`
+        this.infoModal.content = JSON.stringify(item, null, 2)
+        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+      },
+      resetInfoModal() {
+        this.infoModal.title = ''
+        this.infoModal.content = ''
+      },
+      onFiltered(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
+      }
     }
-
+  }
 </script>

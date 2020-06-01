@@ -133,6 +133,68 @@
                           </tr>
                         </tbody>
                       </table>
+
+                      <template>
+                        <v-card-title>
+                          
+                          <v-text-field
+                            v-model="search"
+                            append-icon="mdi-magnify"
+                            label="Buscar"
+                            style="width: 25px;!important"
+                            hide-details
+                          ></v-text-field>
+                        </v-card-title>
+                        <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1" loading loading-text="" >
+                          <template v-slot:item.estado="{ item }">
+                            <img :src="'/src/assets/images/bandeja-iconos/' + item.estado" style="width: 25px; height: 25px" />
+                          </template>
+
+                          <template v-slot:item.tipoPropuesta="{ item }" >
+                            <img :src="'/src/assets/images/bandeja-iconos/' + item.tipoPropuesta" style="width: 25px; height: 25px" />
+                          </template>
+
+                          <template v-slot:item.dias="{ item }">
+                            <v-chip :color="getColor(item.dias)" style="color:#fff;">{{ item.dias }}</v-chip>
+                          </template>
+
+                          <template v-slot:item.directorio="{ item }">
+                            <img :src="'/src/assets/images/bandeja-iconos/' + item.directorio" style="width: 25px; height: 25px" />
+                            <b-modal v-model="modalShow">
+                                <ul v-for="files in adjuntos.data">
+                                  <li>
+                                    <a :href="'http://200.91.27.159:8000/api/descargadocpropuestas/'+bandeja.id_propuesta+'/'+bandeja.rut_intermediario+'/'+ 2 + '/'+files" 
+                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 2, files)" download>
+                                      {{files}}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </b-modal>
+                              <v-app id="inspire">
+
+                                  <v-dialog v-model="dialog" persistent max-width="290">
+                                    <template v-slot:activator="{ on }">
+                                      <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
+                                    </template>
+                                    <v-card>
+                                      <v-card-title class="headline">Use Google's location service?</v-card-title>
+                                      <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+                                      <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
+                                        <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
+                                      </v-card-actions>
+                                    </v-card>
+                                  </v-dialog>
+
+                              </v-app>
+                          </template>
+                        
+                        </v-data-table>
+
+                      </template>
+                      
+
                     </div>
                   </div>
                 </div>
@@ -154,27 +216,88 @@
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     import moment from 'moment'
+    //import VueTableDynamic from 'vue-table-dynamic'
+    import image from '@/assets/images/bandeja-iconos/pendiente.png'
     Vue.use(VueAxios, axios)
 
     export default {
       name: 'BandejaPropuestas',
-    /*components:{
-      Topbar,
-      SideMenu
-    },*/
+      components:{
+        //VueTableDynamic,
+      },
       data () {
         return {
           bandejaProp: [],
           adjuntos: [],
           downloadFiles: [],
           modalShow: false,
-          tokenDown: ''
+          tokenDown: '',
+          status: '',
+          tipoPropuesta: '',
+          image: image,
+          dialog: false,
+
+          
+
+         /* params: {
+            data: [
+             ['Id Propuesta', 'Fecha Ingreso', 'Plan', 'Cliente', 'Prima Neta', 'Póliza-Ítem', 'Estado', 'Tipo', 'Días',' this.msg'],
+            ],
+            header: 'row',
+            enableSearch: true,
+            sort: [0, 1],
+            stripe: true,
+            pagination: true,
+            pageSize: 10,
+            pageSizes: [10, 25, 50, 100],
+            columnWidth: [{column: 0, width: 120}, {column: 1, width: 120}, {column: 2, width: 80},
+            {column: 3, width: 240}, {column: 4, width: 80}, {column: 5, width: 100}, {column: 6, width: 60}, {column: 7, width: 60}, {column: 8, width: 60}, {column: 9, width: 60}],
+          },*/
+
+          options: {
+            sortBy: 'fecha',
+
+          },
+          selected: [],
+
+          search: '',
+          headers: [
+            {
+              text: 'Id Propuesta',
+              align: 'start',
+              //sortable: false,
+              value: 'idPropuesta',
+            },
+            { text: 'Fecha Ingreso', value: 'fecha' },
+            { text: 'Plan', value: 'idPlan' },
+            { text: 'Cliente', value: 'cliente' },
+            { text: 'Prima Neta', value: 'primaNeta' },
+            { text: 'Póliza-Ítem', value: 'idPoliza' },
+            { text: 'Estado', value: 'estado' },
+            { text: 'Tipo', value: 'tipoPropuesta' },
+            { text: 'Días', value: 'dias' },
+            { text: 'Adjunto', value: 'directorio' },
+          ],
+
+          data: [],
         }
 
        
       },
 
+      
+
        methods: {
+          img () {
+            return "hola";
+          },
+
+          getColor (dias) {
+            if (dias >= 0 && dias < 2) return 'green'
+            else if (dias >= 2 && dias < 4) return 'yellow'
+            else return '#EE1F35'
+          },
+
           bandejaPropuestas() {
             var token = JSON.parse(window.localStorage.getItem('token'));
             const test = JSON.parse(window.localStorage.getItem('rutLogueado'));
@@ -186,7 +309,7 @@
             //console.log(token);
             let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
             let numero = '*';
-            axios.get('http://200.91.27.159:8000/api/propuestas/'+ rutLogueado+'/'+numero, {
+            axios.get('http://' + this.$url + '/api/propuestas/'+ rutLogueado+'/'+numero, {
 
               params: {
                           'token' : token
@@ -194,14 +317,80 @@
 
             }
             ).then(response => {
-              console.log("bandejaPropuestas");
+              console.log("bandejaProp");
               console.log(response);
               this.bandejaProp = response.data;
               console.log('SUCCESS!!');
+              console.log(this.bandejaProp.length);
+              console.log("Arriba de esta línea");
+              this.fillTable();
             })
             .catch(error => {
               console.log('FAILURE!!');
             });
+          },
+
+          fillTable() {
+
+            for (var i = 0; i < 5; i++){
+              this.data.push({
+                idPropuesta: '123456' + '-' + '7', 
+                fecha: '2020-06-01', 
+                idPlan: '55555', 
+                cliente: 'Manuel Sayago', 
+                primaNeta: '123896', 
+                idPoliza: '123' + '-' + '456', 
+                estado: 'Pendiente', 
+                tipoPropuesta: 'shit', 
+                dias: '8', 
+                directorio: "clip.png"})
+            }
+            console.log("dentro de fillTable");
+            console.log(this.bandejaProp.length);
+            for (let i = 0; i < this.bandejaProp.length; i++) {
+              if (this.bandejaProp[i].estatusitem === 'P') {
+                this.status = 'pendiente.png';
+              } else if (this.bandejaProp[i].estatusitem === 'R') {
+                  this.status = 'eliminar.png';
+                } else {
+                    this.status = 'NP';
+                }
+
+              if (this.bandejaProp[i].tipo_propuesta === 'CF') {
+                this.tipoPropuesta = 'formulario.png';
+              } else if (this.bandejaProp[i].tipo_propuesta === 'FW') {
+                  this.tipoPropuesta = 'web.png';
+                } else if (this.bandejaProp[i].tipo_propuesta === 'CFE') {
+                    this.tipoPropuesta = 'Endoso.png';
+                  } else {
+                      this.tipoPropuesta = 'NPI';
+                  }
+
+              /*this.data.push({
+                idPropuesta: this.bandejaProp[i].id_propuesta + '-' + this.bandejaProp[i].item, 
+                fecha: this.bandejaProp[i].fecha, 
+                idPlan: this.bandejaProp[i].id_plan, 
+                cliente: this.bandejaProp[i].nombre_cliente, 
+                primaNeta: this.bandejaProp[i].prima_neta, 
+                idPoliza: this.bandejaProp[i].id_poliza + '-' + this.bandejaProp[i].item, 
+                estado: this.status, 
+                tipoPropuesta: this.tipoPropuesta, 
+                dias: this.cuentaDias(this.bandejaProp[i].fecha), 
+                directorio: "clip.png"})
+            }*/
+
+            this.data.push({
+                idPropuesta: '123456' + '-' + '7', 
+                fecha: '2020-06-01', 
+                idPlan: '55555', 
+                cliente: 'Manuel Saago', 
+                primaNeta: '123896', 
+                idPoliza: '123' + '-' + '456', 
+                estado: 'Pendiente', 
+                tipoPropuesta: 'shit', 
+                dias: '8', 
+                directorio: "clip.png"})
+            }
           },
 
           listarAdjuntos(idPropuesta, rut, tipo) {
@@ -224,7 +413,7 @@
             //console.log(token);
             let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
             let numero = '*';
-            axios.get('http://200.91.27.159:8000/api/listardocpropuestas/'+ idPropuesta + '/' + rut + '/' + t, {
+            axios.get('http://' + this.$url + '/api/listardocpropuestas/'+ idPropuesta + '/' + rut + '/' + t, {
 
               params: {
                           'token' : token
@@ -267,7 +456,7 @@
             //console.log(token);
             let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
             let numero = '*';
-            axios.get('http://200.91.27.159:8000/api/descargadocpropuestas/'+ idPropuesta + '/' + rut + '/' + t + '/' + archivo, {
+            axios.get('http://' + this.$url + '/api/descargadocpropuestas/'+ idPropuesta + '/' + rut + '/' + t + '/' + archivo, {
 
               params: {
                           'token' : token
@@ -285,6 +474,9 @@
               console.log('FAILURE!!');
             });
           },
+
+          
+          
 
           edita_fecha: function(fecha) {
             var fn = fecha.split("-");
@@ -321,7 +513,10 @@
 
         created (){
           this.bandejaPropuestas();
+          this.fillTable();
         }
+
+        
     
 
     }

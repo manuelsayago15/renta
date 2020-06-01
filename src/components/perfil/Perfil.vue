@@ -196,7 +196,7 @@
             console.log(rutLogueado);
             console.log("Token");
             console.log(token);
-            axios.get('http://200.91.27.159:8000/api/infousuario/'+ rutLogueado, {
+            axios.get('http://' + this.$url + '/api/infousuario/'+ rutLogueado, {
 
               params: {
                           'token' : token
