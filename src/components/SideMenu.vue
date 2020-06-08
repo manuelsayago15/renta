@@ -42,6 +42,196 @@
               </li>
             
                 <div id="intermediarios" class="">
+
+                  <v-list>
+                    <!--<v-list-item>
+                      <v-list-item-icon>
+                        <v-icon>mdi-home</v-icon>
+                      </v-list-item-icon>
+              
+                      <v-list-item-title>Home</v-list-item-title>
+                    </v-list-item>-->
+              
+                    <v-list-group
+                      :value="false">
+                      <template v-slot:activator>
+                        <v-list-item-title>
+                          <i class="renta-icon-security-log"></i>
+                          Producción
+                        </v-list-item-title>
+                      </template>
+              
+                      <v-list-group
+                        no-action
+                        sub-group
+                        :value="false">
+                        <template v-slot:activator>
+                          <v-list-item-content>
+                            <v-list-item-title>Ingreso de Propuestas</v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+              
+                        <!--<v-list-item
+                          v-for="(ingreso, i) in ingresoPropuestas"
+                          :key="i"
+                          link>
+                          <v-list-item-title v-text="ingreso"></v-list-item-title>
+                            
+                        </v-list-item>-->
+
+                        <v-list-item v-if="this.id_userType == 3 || this.id_userType == 2
+                              || this.id_userType == 1 || this.id_userType == 11">
+                          <router-link to="/descarga-formularios">
+                            Descarga de formularios
+                          </router-link>
+                        </v-list-item>
+                        <v-list-item v-if="this.id_userType == 3">
+                          <router-link to="/formulario-web">
+                            Formulario web
+                          </router-link>
+                        </v-list-item>
+                        <v-list-item v-if="this.id_userType == 3">
+                          <router-link to="/carga-formularios">
+                            Carga de formulario
+                          </router-link>
+                        </v-list-item>
+
+
+                      </v-list-group>
+              
+                      <!--<v-list-group
+                        sub-group
+                        no-action>
+                        <template v-slot:activator>
+                          <v-list-item-content>
+                            <v-list-item-title>Actions</v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+                      </v-list-group>-->
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/bandeja-propuestas">
+                                Bandeja de Propuestas
+                              </router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template> 
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="#">Solicitud de cotización</router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>  
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="#">Renovación de pólizas</router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>  
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">Solicitud de Endoso</router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>  
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">Cotización en Línea</router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>  
+                      </v-list-item>
+                      
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">Emisión en Línea</router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>  
+                      </v-list-item>
+                    </v-list-group>
+
+                    <v-list-group
+                      :value="false">
+                      <template v-slot:activator>
+                        <v-list-item-title>
+                          <i class="renta-icon-wallet"></i>
+                          Comisión
+                        </v-list-item-title>
+                      </template>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">
+                                Confirmación Planes de Pago
+                              </router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">
+                                Ingreso PAT
+                              </router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">
+                                Descarga / envío de<br>facturas
+                              </router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+                      </v-list-item>
+
+                      <v-list-item>
+                        <template>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              <router-link to="/solicitud-endoso">
+                                Envío de vencimientos
+                              </router-link>
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>
+                      </v-list-item>
+                        
+                      </v-list-item>
+                    </v-list-group>
+                  </v-list>
                     
                   <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
                     <ul class="submenu">
@@ -300,7 +490,11 @@
       data () {
         return {
         	dashboard: [],
-        	id_userType: ''
+        	id_userType: '',
+          ingresoPropuestas: 
+          ['Bandeja de Propuestas', 'Solicitud de Cotización',
+          'Renovación de Pólizas', 'Solicitud de Endoso',
+          'Cotización en Línea', 'Emisión en Línea']
         }
 
        

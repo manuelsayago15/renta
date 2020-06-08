@@ -28,172 +28,103 @@
                       </div>
                       <div class="col-md-5 text-right colvis-btns"></div>
                     </div>
-                    <div class="table-responsive mb-0">
-                      <table class="table table-striped table-small-font table-sm" id="propuestas" style="width: 100%">
-                        <thead>
-                          <tr>
-                            <th class="text-center" data-priority="1">Id Propuesta</th>
-                            <th class="text-center" data-priority="2">Fecha Ingreso</th>
-                            <th class="text-center" data-priority="2">Plan</th>
-                            <th class="text-center" data-priority="1">Cliente</th>
-                            <th class="text-center" data-priority="3">Prima Neta</th>
-                            <th class="text-center" data-priority="3">Póliza-Ítem</th>
-                            <th class="text-center" data-priority="1">Estado</th>
-                            <th class="text-center" data-priority="3">Tipo</th>
-                            <th class="text-center" data-priority="1">Dias</th>
-                            <th class="text-center" data-priority="1">Adjuntos</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="text-center" v-for="bandeja in bandejaProp">
-                            <td class="text-center">
-                              {{ bandeja.id_propuesta }}-{{bandeja.item}}
-                            </td>
-                            <td class="text-center">{{ edita_fecha(bandeja.fecha) }}</td>
-                            <td class="text-center">{{ bandeja.id_plan }}</td>
-                            <td class="text-center">{{ bandeja.nombre_cliente }}</td>
-                            <td class="text-center">{{ bandeja.prima_neta }}</td>
-                            <td class="text-center">
-                              {{ bandeja.id_poliza }}-{{bandeja.item}}
-                            </td>
-                            <td class="text-center" v-if="bandeja.estatusitem === 'P' ">
-                              <span class="d-none">pendiente</span>
-                              <img class="img-fluid dt-icons" title="Pendiente" src="/src/assets/images/bandeja-iconos/pendiente.png"/>
-                            </td>
-                            <td v-if="bandeja.estatusitem === 'R'">
-                              <img title="Rechazado" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/eliminar.png">
-                            </td>
-                            <td v-if="bandeja.tipo_propuesta === 'CF'">
-                              <img title="Carga formulario" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/formulario.png">
-                            </td>
-                            <td v-if="bandeja.tipo_propuesta === 'FW'">
-                              <img title="Formulario web" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/web.png">
-                            </td>
-                            <td v-if="bandeja.tipo_propuesta === 'CFE'">
-                              <img title="Endoso" class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/Endoso.png">
-                            </td>
-                            <!--<td class="text-center"><span class="d-none">formulario</span><img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/formulario.png"/></td>-->
-                            <td class="text-center" v-if="cuentaDias(bandeja.fecha) >= 5">
-                              <div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
-                                <strong> {{cuentaDias(bandeja.fecha)}} </strong>
-                              </div>
-                            </td>
-                            <td class="text-center" v-if="cuentaDias(bandeja.fecha) >= 0 && cuentaDias(bandeja.fecha) <= 2">
-                              <div style="background-color:#FBBC05; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
-                                <strong> {{cuentaDias(bandeja.fecha)}} </strong>
-                              </div>
-                            </td>
-                            <td class="text-center" v-if="cuentaDias(bandeja.fecha) >= 3 && cuentaDias(bandeja.fecha) <= 4">
-                              <div style="background-color:red; color:#fff; height: 25px; width: 25px; border-radius: 50%; margin: 0 auto;">
-                                <strong> {{cuentaDias(bandeja.fecha)}} </strong>
-                              </div>
-                            </td>
-                            <td class="text-center" v-if="bandeja.tipo_propuesta === 'CFE'"
-                             @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_cliente, 2)">
-                              <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
-                              <b-modal v-model="modalShow">
-                                <ul v-for="files in adjuntos.data">
-                                  <li>
-                                    <a :href="'http://200.91.27.159:8000/api/descargadocpropuestas/'+bandeja.id_propuesta+'/'+bandeja.rut_intermediario+'/'+ 2 + '/'+files" 
-                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 2, files)" download>
-                                      {{files}}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </b-modal>
-                            </td>
-                            <td class="text-center" v-if="bandeja.tipo_propuesta === 'CF'"
-                             @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 1)">
-                              <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
-                              <b-modal v-model="modalShow">
-                                <ul v-for="files in adjuntos.data">
-                                  <li>
-                                    <a :href="'http://200.91.27.159:8000/api/descargadocpropuestas/'+bandeja.id_propuesta+'/'+bandeja.rut_intermediario+'/'+ 1 + '/'+files" 
-                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 1, files)" download>
-                                      {{files}}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </b-modal>
-                            </td>
-                            <td class="text-center" v-if="bandeja.tipo_propuesta === 'FW'"
-                             @click="listarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 3)">
-                              <img class="img-fluid dt-icons" src="/src/assets/images/bandeja-iconos/clip.png"/>
-                              <b-modal v-model="modalShow">
-                                <ul v-for="files in adjuntos.data">
-                                  <li>
-                                    <router-link to="#" 
-                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 3, files)">
-                                      {{files}}
-                                    </router-link>
-                                  </li>
-                                </ul>
-                              </b-modal>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-
+                    <div class="">
                       <template>
-                        <v-card-title>
-                          
-                          <v-text-field
-                            v-model="search"
-                            append-icon="mdi-magnify"
-                            label="Buscar"
-                            style="width: 25px;!important"
-                            hide-details
-                          ></v-text-field>
-                        </v-card-title>
-                        <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1" loading loading-text="" >
-                          <template v-slot:item.estado="{ item }">
-                            <img :src="'/src/assets/images/bandeja-iconos/' + item.estado" style="width: 25px; height: 25px" />
-                          </template>
+                        <v-app>
+                          <v-card>
+                            <v-card-title>
+                              <v-text-field
+                                v-model="search"
+                                append-icon="mdi-magnify"
+                                label="Buscar"
+                                style="width: 25px;!important"
+                                hide-details
+                              ></v-text-field>
+                            </v-card-title>
+                            <v-data-table :headers="headers" :items="data" :items-per-page="10" :search="search" class="elevation-1" >
+                              <template v-slot:item.estado="{ item }">
+                                <img :src="'/src/assets/images/bandeja-iconos/' + item.estado" style="width: 25px; height: 25px" />
+                              </template>
 
-                          <template v-slot:item.tipoPropuesta="{ item }" >
-                            <img :src="'/src/assets/images/bandeja-iconos/' + item.tipoPropuesta" style="width: 25px; height: 25px" />
-                          </template>
+                              <template v-slot:item.tipoPropuesta="{ item }" >
+                                <img :src="'/src/assets/images/bandeja-iconos/' + item.tipoPropuesta" style="width: 25px; height: 25px" />
+                              </template>
 
-                          <template v-slot:item.dias="{ item }">
-                            <v-chip :color="getColor(item.dias)" style="color:#fff;">{{ item.dias }}</v-chip>
-                          </template>
+                              <template v-slot:item.dias="{ item }">
+                                <v-chip :color="getColor(item.dias)" style="color:#fff;">{{ item.dias }}</v-chip>
+                              </template>
 
-                          <template v-slot:item.directorio="{ item }">
-                            <img :src="'/src/assets/images/bandeja-iconos/' + item.directorio" style="width: 25px; height: 25px" />
-                            <b-modal v-model="modalShow">
-                                <ul v-for="files in adjuntos.data">
-                                  <li>
-                                    <a :href="'http://200.91.27.159:8000/api/descargadocpropuestas/'+bandeja.id_propuesta+'/'+bandeja.rut_intermediario+'/'+ 2 + '/'+files" 
-                                      @click.native="descargarAdjuntos(bandeja.id_propuesta, bandeja.rut_intermediario, 2, files)" download>
-                                      {{files}}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </b-modal>
-                              <v-app id="inspire">
+                              <template v-slot:item.directorio="{ item, onlyIdPropuesta, letra }">
 
-                                  <v-dialog v-model="dialog" persistent max-width="290">
-                                    <template v-slot:activator="{ on }">
-                                      <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
-                                    </template>
-                                    <v-card>
-                                      <v-card-title class="headline">Use Google's location service?</v-card-title>
-                                      <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-                                      <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
-                                        <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
-                                      </v-card-actions>
-                                    </v-card>
-                                  </v-dialog>
+                                  <img :src="'/src/assets/images/bandeja-iconos/' + item.directorio" style="width: 25px; height: 25px" @click="listarAdjuntos(item.onlyIdPropuesta, item.letra, item)" />
 
-                              </v-app>
-                          </template>
+                              </template>
+
+                              <!--<template v-slot:item.directorio="{ item, onlyIdPropuesta, letra,  }">
+                                <v-icon
+                                  small
+                                  class="mr-2"
+                                  @click="editItem(item)"
+                                >
+                                  mdi-pencil
+                                </v-icon>
+                              </template>-->
+                            </v-data-table>
+                          </v-card>
+                        </v-app>
+                        <!-- Modal Adjuntos -->
+
+                        <v-app id="inspire">
+                          <div class="text-xs-center">
+                            <v-dialog
+                              v-model="modal"
+                              width="500">
+                              <v-card>
+                                <v-card-title
+                                  class="headline grey lighten-2"
+                                  primary-title
+                                >
+                                  <img src="/src/assets/images/bandeja-iconos/clip.png" style="width: 35px;"> Adjuntos
+                                </v-card-title>
                         
-                        </v-data-table>
-
+                                <v-card-text >
+                                  <ul>
+                                    <li v-for="files in adjuntos.data">
+                                      <a :href="'http://' + $url + '/api/descargadocpropuestas/' + editedItem.onlyIdPropuesta + '/' + rutLogged + '/' + editedItem.letra + '/' + files + '?token=' + tokenDown" download>
+                                        {{files}}
+                                      </a>
+                                    </li>
+                                  </ul>
+                                  <!--<v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.tipo_propuesta" label="Test"></v-text-field>
+                                  </v-col>-->
+                                </v-card-text>
+                        
+                                <v-divider></v-divider>
+                        
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn
+                                    color="primary"
+                                    text
+                                    @click="modal = false"
+                                  >
+                                    Cancelar
+                                  </v-btn>
+                                  <v-btn
+                                    color="red"
+                                    text
+                                    @click="modal = false"
+                                  >
+                                    Aceptar
+                                  </v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </div>
+                        </v-app>
                       </template>
-                      
+
 
                     </div>
                   </div>
@@ -235,24 +166,8 @@
           status: '',
           tipoPropuesta: '',
           image: image,
-          dialog: false,
-
-          
-
-         /* params: {
-            data: [
-             ['Id Propuesta', 'Fecha Ingreso', 'Plan', 'Cliente', 'Prima Neta', 'Póliza-Ítem', 'Estado', 'Tipo', 'Días',' this.msg'],
-            ],
-            header: 'row',
-            enableSearch: true,
-            sort: [0, 1],
-            stripe: true,
-            pagination: true,
-            pageSize: 10,
-            pageSizes: [10, 25, 50, 100],
-            columnWidth: [{column: 0, width: 120}, {column: 1, width: 120}, {column: 2, width: 80},
-            {column: 3, width: 240}, {column: 4, width: 80}, {column: 5, width: 100}, {column: 6, width: 60}, {column: 7, width: 60}, {column: 8, width: 60}, {column: 9, width: 60}],
-          },*/
+          modal: false,
+          rutLogged : '',
 
           options: {
             sortBy: 'fecha',
@@ -280,6 +195,20 @@
           ],
 
           data: [],
+          admins: [
+            ['Management', 'people_outline'],
+            ['Settings', 'settings'],
+          ],
+          editedIndex: -1,
+          editedItem: {
+            name: '',
+            idPropuesta: 0,
+            onlyIdPropuesta: 0,
+            fecha: 0,
+            idPlan: 0,
+            cliente: 0,
+            directorio: 0,
+          },
         }
 
        
@@ -290,6 +219,12 @@
        methods: {
           img () {
             return "hola";
+          },
+
+          editItem (item) {
+            this.editedIndex = this.data.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.modal = true
           },
 
           getColor (dias) {
@@ -332,7 +267,7 @@
 
           fillTable() {
 
-            for (var i = 0; i < 5; i++){
+            /*for (var i = 0; i < 15; i++){
               this.data.push({
                 idPropuesta: '123456' + '-' + '7', 
                 fecha: '2020-06-01', 
@@ -343,8 +278,9 @@
                 estado: 'Pendiente', 
                 tipoPropuesta: 'shit', 
                 dias: '8', 
-                directorio: "clip.png"})
-            }
+                directorio: "clip.png",
+                rutIntermediario: "2011"})
+            }*/
             console.log("dentro de fillTable");
             console.log(this.bandejaProp.length);
             for (let i = 0; i < this.bandejaProp.length; i++) {
@@ -358,16 +294,20 @@
 
               if (this.bandejaProp[i].tipo_propuesta === 'CF') {
                 this.tipoPropuesta = 'formulario.png';
+                this.letraPropuesta = 'P'; //1
               } else if (this.bandejaProp[i].tipo_propuesta === 'FW') {
                   this.tipoPropuesta = 'web.png';
+                  this.letraPropuesta = 'P'; //3
                 } else if (this.bandejaProp[i].tipo_propuesta === 'CFE') {
                     this.tipoPropuesta = 'Endoso.png';
+                    this.letraPropuesta = 'E'; //2
                   } else {
                       this.tipoPropuesta = 'NPI';
                   }
 
-              /*this.data.push({
+              this.data.push({
                 idPropuesta: this.bandejaProp[i].id_propuesta + '-' + this.bandejaProp[i].item, 
+                onlyIdPropuesta: this.bandejaProp[i].id_propuesta,
                 fecha: this.bandejaProp[i].fecha, 
                 idPlan: this.bandejaProp[i].id_plan, 
                 cliente: this.bandejaProp[i].nombre_cliente, 
@@ -375,29 +315,24 @@
                 idPoliza: this.bandejaProp[i].id_poliza + '-' + this.bandejaProp[i].item, 
                 estado: this.status, 
                 tipoPropuesta: this.tipoPropuesta, 
+                tipo_propuesta: this.bandejaProp[i].tipo_propuesta,
                 dias: this.cuentaDias(this.bandejaProp[i].fecha), 
-                directorio: "clip.png"})
-            }*/
-
-            this.data.push({
-                idPropuesta: '123456' + '-' + '7', 
-                fecha: '2020-06-01', 
-                idPlan: '55555', 
-                cliente: 'Manuel Saago', 
-                primaNeta: '123896', 
-                idPoliza: '123' + '-' + '456', 
-                estado: 'Pendiente', 
-                tipoPropuesta: 'shit', 
-                dias: '8', 
-                directorio: "clip.png"})
+                directorio: "clip.png",
+                rutIntermediario: this.bandejaProp[i].rut_intermediario,
+                rutEjecutivo: this.bandejaProp[i].rut_ejecutivo,
+                letra: this.letraPropuesta})
             }
+
+            
+            
           },
 
-          listarAdjuntos(idPropuesta, rut, tipo) {
-            //console.log(idPropuesta);
-            //console.log(rut);
-            //console.log(tipo);
-            this.modalShow = true;
+          listarAdjuntos(idPropuesta, tipo, item) {
+            console.log(idPropuesta);
+            console.log(tipo);
+            this.editItem(item);
+            //this.modalShow = true;
+            this.modal = true;
             if (tipo == 1) {
               var t = 'P';
             } else {
@@ -412,8 +347,10 @@
             //console.log("Token");
             //console.log(token);
             let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            this.rutLogged = JSON.parse(window.localStorage.getItem('rutLogueado'));
+            this.tokenDown = token;
             let numero = '*';
-            axios.get('http://' + this.$url + '/api/listardocpropuestas/'+ idPropuesta + '/' + rut + '/' + t, {
+            axios.get('http://' + this.$url + '/api/listardocpropuestas/'+ idPropuesta + '/' + rutLogueado + '/' + t, {
 
               params: {
                           'token' : token
@@ -431,14 +368,15 @@
             .catch(error => {
               console.log('FAILURE!!');
             });
-            this.adjuntos.data.push({token});
-            console.log(this.adjuntos);
+            //this.adjuntos.data.push({token});
+            //console.log(this.adjuntos);
+            //this.descargarAdjuntos();
           },
 
-          descargarAdjuntos(idPropuesta, rut, tipo, archivo) {
-            //console.log(idPropuesta);
-            //console.log(rut);
-            //console.log(tipo);
+          descargarAdjuntos(idPropuesta, tipo, archivo) {
+            console.log(idPropuesta);
+            console.log(tipo);
+            console.log(archivo);
             //this.modalShow = true;
             if (tipo == 1) {
               var t = 'P';
@@ -446,7 +384,6 @@
               var t = 'E';
             }
             var token = JSON.parse(window.localStorage.getItem('token'));
-            this.tokenDown = token;
             const test = JSON.parse(window.localStorage.getItem('rutLogueado'));
             if (token === 0) {
               this.$router.push('./');
@@ -456,7 +393,7 @@
             //console.log(token);
             let rutLogueado = JSON.parse(window.localStorage.getItem('rutLogueado'));
             let numero = '*';
-            axios.get('http://' + this.$url + '/api/descargadocpropuestas/'+ idPropuesta + '/' + rut + '/' + t + '/' + archivo, {
+            axios.get('http://' + this.$url + '/api/descargadocpropuestas/'+ idPropuesta + '/' + rutLogueado + '/' + t + '/' + archivo, {
 
               params: {
                           'token' : token
@@ -522,3 +459,25 @@
     }
 
 </script>
+
+<style type="text/css">
+  .v-sheet {
+    border-radius: 0px!important;
+  }
+  .v-card {
+    box-shadow: 0px 0px 0px 0px !important;
+  }
+
+  .v-text-field {
+    padding-top: 0px;
+     margin-top: 0px;
+  }
+
+  .v-applicaction {
+    font-family: Roboto,sans-serif;
+  }
+
+  .v-card__title {
+    width: 40%;
+  }
+</style>
