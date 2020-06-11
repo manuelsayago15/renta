@@ -44,403 +44,411 @@
                 <div id="intermediarios" class="slimScrollDiv" v-on:scroll="handleScroll">
 
                   <v-app >
-                    <v-card>
-                      <v-list>
-                        <!--<v-list-item>
-                          <v-list-item-icon>
-                            <v-icon>mdi-home</v-icon>
-                          </v-list-item-icon>
-                  
-                          <v-list-item-title>Home</v-list-item-title>
-                        </v-list-item>-->
-                  
-                        <v-list-group class="group"
-                          :value="false"> 
-                          <template v-slot:activator>
-                            <v-list-item-title >
-                              <span>
-                                <i class="renta-icon-security-log"></i>
-                              </span>
-                              Producción
-                            </v-list-item-title>
-                          </template>
-                  
-                          <v-list-group
-                            style="font-size: 10px;"
-                            no-action
-                            sub-group
-                            :value="false">
-                            <template v-slot:activator>
-                              <v-list-item-content>
-                                <v-list-item-title >Ingreso de Propuestas</v-list-item-title>
-                              </v-list-item-content>
-                            </template>
-                  
-                            <!--<v-list-item
-                              v-for="(ingreso, i) in ingresoPropuestas"
-                              :key="i"
-                              link>
-                              <v-list-item-title v-text="ingreso"></v-list-item-title>
-                                
-                            </v-list-item>-->
-                            
-                            <ul class="submenu submenu-2">
-                              <li >
-                                <router-link to="/descarga-formularios">
-                                  Descarga de formularios
-                                </router-link>
-                              </li>
-                              <li v-if="this.id_userType == 3">
-                                <router-link to="/formulario-web">
-                                  Formulario web
-                                </router-link>
-                              </li>
-                              <li v-if="this.id_userType == 3">
-                                <router-link to="/carga-formularios">
-                                  Carga de formulario
-                                </router-link>
-                              </li>
-                            </ul>
-                          </v-list-group>
-                  
-                          <!--<v-list-group
-                            sub-group
-                            no-action>
-                            <template v-slot:activator>
-                              <v-list-item-content>
-                                <v-list-item-title>Actions</v-list-item-title>
-                              </v-list-item-content>
-                            </template>
-                          </v-list-group>-->
-                          
-                            <v-list-item class="item-size">
-                              <template>
-                                <v-list-item-content>
-                                  <v-list-item-title>
-                                    <router-link to="/bandeja-propuestas" class="color-a">
-                                      Bandeja de Propuestas
-                                    </router-link>
-                                  </v-list-item-title>
-                                </v-list-item-content>
-                              </template> 
-                            </v-list-item>
-
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="#" class="color-a">Solicitud de cotización</router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-group
-                            no-action
-                            sub-group
-                            :value="false">
-                            <template v-slot:activator>
-                              <v-list-item-content>
-                                <v-list-item-title >Renovación de Pólizas</v-list-item-title>
-                              </v-list-item-content>
-                            </template>
-                            
-                            <ul class="submenu submenu-2">
-                              <li >
-                                <router-link to="/descarga-formularios">
-                                  Bandeja de Renovaciones
-                                </router-link>
-                              </li>
-                              <li>
-                                <router-link to="/formulario-web">
-                                  Pólizas Vencidas
-                                </router-link>
-                              </li>
-                              <li>
-                                <router-link to="/carga-formularios">
-                                  Reporte Renovación Pólizas Vencidas
-                                </router-link>
-                              </li>
-                            </ul>
-                          </v-list-group>  
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">Solicitud de Endoso</router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">Cotización en Línea</router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-                          
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">Emisión en Línea</router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-                        </v-list-group>
-
-                        <v-list-group
-                          :value="false">
-                          <template v-slot:activator>
-                            <v-list-item-title>
-                              <span>
-                                <i class="renta-icon-wallet"></i>
-                              </span>
-                              Cobranza
-                            </v-list-item-title>
-                          </template>
-
-                           <ul class="submenu">
-                            <li><router-link to="#">Confirmación planes de<br>pago</router-link></li>
-                            <li><router-link to="#">Ingreso PAT</router-link></li>
-                            <li><router-link to="#">Descarga / envío de<br>facturas</router-link></li>
-                            <li><router-link to="#">Envío de vencimientos</router-link></li>
-                            <li><router-link to="#">Estados de cuenta</router-link></li>
-                          </ul>
-                            
-                          </v-list-item>
-                        </v-list-group>
-
-                        <v-list-group class="group"
-                          :value="false"> 
-                          <template v-slot:activator>
-                            <v-list-item-title >
-                              <span>
-                                <i class="renta-icon-security-log"></i>
-                              </span>
-                              Gestión
-                            </v-list-item-title>
-                          </template>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Consulta Pólizas
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Informe de Siniestralidad
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Descarga Fecu /<br>certificado de<br>honorarios
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Cartera de Clientes
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Listado de pólizas
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Informe de cuotas<br>morosas
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Informe de pólizas canceladas
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Informe de<br>renovaciones
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
-
-                          <v-list-group
-                            no-action
-                            sub-group
-                            :value="false">
-                            <template v-slot:activator>
-                              <v-list-item-content>
-                                <v-list-item-title >Informe de Propuestas</v-list-item-title>
-                              </v-list-item-content>
-                            </template>
-
-                            <ul class="submenu submenu-2">
-                              <li>
-                                <router-link to="/descarga-formularios">
-                                  Cotizaciones Pendientes
-                                </router-link> 
-                              </li>
-                            </ul>
-
-                          </v-list-group>
-
-                          <v-list-group
-                            no-action
-                            sub-group
-                            :value="false">
-                            <template v-slot:activator>
-                              <v-list-item-content>
-                                <v-list-item-title >Liquidación de <br>Comisiones</v-list-item-title>
-                              </v-list-item-content>
-                            </template>
-
-                            <ul class="submenu submenu-2">
-                              <li>
-                                <router-link to="/descarga-formularios">
-                                  Liquidaciones por Pagar
-                                </router-link> 
-                              </li>
-                              <li>
-                                <router-link to="/descarga-formularios">
-                                  Informe de Comisiones a la Fecha
-                                </router-link> 
-                              </li>
-                              <li>
-                                <router-link to="/descarga-formularios">
-                                  Liquidaciones Históricas
-                                </router-link> 
-                              </li>
-                            </ul>
-
-                          </v-list-group>
-
-                        </v-list-group>
-
-                       
+                    <v-card scroll-target="#scrolling-techniques">
+                      <v-sheet
+                        id="scrolling-techniques"
+                        class="overflow-y-auto"
+                        max-height="600">
+                          <v-container style="height: 1000px;">
+                            <v-list>
+                              <!--<v-list-item>
+                                <v-list-item-icon>
+                                  <v-icon>mdi-home</v-icon>
+                                </v-list-item-icon>
                         
-                        <v-list-group
-                          :value="false">
-                          <template v-slot:activator>
-                            <v-list-item-title>
-                              <span>
-                                <i class="renta-icon-book"></i>
-                              </span>
-                              Menú Agenda
-                            </v-list-item-title>
-                          </template>
+                                <v-list-item-title>Home</v-list-item-title>
+                              </v-list-item>-->
+                        
+                              <v-list-group class="group"
+                                :value="false"> 
+                                <template v-slot:activator>
+                                  <v-list-item-title >
+                                    <span>
+                                      <i class="renta-icon-security-log"></i>
+                                    </span>
+                                    Producción
+                                  </v-list-item-title>
+                                </template>
+                        
+                                <v-list-group
+                                  style="font-size: 10px;"
+                                  no-action
+                                  sub-group
+                                  :value="false">
+                                  <template v-slot:activator>
+                                    <v-list-item-content>
+                                      <v-list-item-title >Ingreso de Propuestas</v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>
+                        
+                                  <!--<v-list-item
+                                    v-for="(ingreso, i) in ingresoPropuestas"
+                                    :key="i"
+                                    link>
+                                    <v-list-item-title v-text="ingreso"></v-list-item-title>
+                                      
+                                  </v-list-item>-->
+                                  
+                                  <ul class="submenu submenu-2">
+                                    <li >
+                                      <router-link to="/descarga-formularios">
+                                        Descarga de formularios
+                                      </router-link>
+                                    </li>
+                                    <li v-if="this.id_userType == 3">
+                                      <router-link to="/formulario-web">
+                                        Formulario web
+                                      </router-link>
+                                    </li>
+                                    <li v-if="this.id_userType == 3">
+                                      <router-link to="/carga-formularios">
+                                        Carga de formulario
+                                      </router-link>
+                                    </li>
+                                  </ul>
+                                </v-list-group>
+                        
+                                <!--<v-list-group
+                                  sub-group
+                                  no-action>
+                                  <template v-slot:activator>
+                                    <v-list-item-content>
+                                      <v-list-item-title>Actions</v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>
+                                </v-list-group>-->
+                                
+                                  <v-list-item class="item-size">
+                                    <template>
+                                      <v-list-item-content>
+                                        <v-list-item-title>
+                                          <router-link to="/bandeja-propuestas" class="color-a">
+                                            Bandeja de Propuestas
+                                          </router-link>
+                                        </v-list-item-title>
+                                      </v-list-item-content>
+                                    </template> 
+                                  </v-list-item>
 
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Talleres
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
 
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Carteras de Clientes
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="#" class="color-a">Solicitud de cotización</router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
 
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Liquidadores
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
+                                <v-list-group
+                                  no-action
+                                  sub-group
+                                  :value="false">
+                                  <template v-slot:activator>
+                                    <v-list-item-content>
+                                      <v-list-item-title >Renovación de Pólizas</v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>
+                                  
+                                  <ul class="submenu submenu-2">
+                                    <li >
+                                      <router-link to="/descarga-formularios">
+                                        Bandeja de Renovaciones
+                                      </router-link>
+                                    </li>
+                                    <li>
+                                      <router-link to="/formulario-web">
+                                        Pólizas Vencidas
+                                      </router-link>
+                                    </li>
+                                    <li>
+                                      <router-link to="/carga-formularios">
+                                        Reporte Renovación Pólizas Vencidas
+                                      </router-link>
+                                    </li>
+                                  </ul>
+                                </v-list-group>  
 
-                          <v-list-item class="item-size">
-                            <template>
-                              <v-list-item-content>
-                                <v-list-item-title>
-                                  <router-link to="/solicitud-endoso" class="color-a">
-                                    Oficinas
-                                  </router-link>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </template>  
-                          </v-list-item>
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">Solicitud de Endoso</router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
 
-                        </v-list-group>
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">Cotización en Línea</router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+                                
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">Emisión en Línea</router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+                              </v-list-group>
 
-                      </v-list>
+                              <v-list-group
+                                :value="false">
+                                <template v-slot:activator>
+                                  <v-list-item-title>
+                                    <span>
+                                      <i class="renta-icon-wallet"></i>
+                                    </span>
+                                    Cobranza
+                                  </v-list-item-title>
+                                </template>
+
+                                 <ul class="submenu">
+                                  <li><router-link to="#">Confirmación planes de<br>pago</router-link></li>
+                                  <li><router-link to="#">Ingreso PAT</router-link></li>
+                                  <li><router-link to="#">Descarga / envío de<br>facturas</router-link></li>
+                                  <li><router-link to="#">Envío de vencimientos</router-link></li>
+                                  <li><router-link to="#">Estados de cuenta</router-link></li>
+                                </ul>
+                                  
+                                </v-list-item>
+                              </v-list-group>
+
+                              <v-list-group class="group"
+                                :value="false"> 
+                                <template v-slot:activator>
+                                  <v-list-item-title >
+                                    <span>
+                                      <i class="renta-icon-security-log"></i>
+                                    </span>
+                                    Gestión
+                                  </v-list-item-title>
+                                </template>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Consulta Pólizas
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Informe de Siniestralidad
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Descarga Fecu /<br>certificado de<br>honorarios
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Cartera de Clientes
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Listado de pólizas
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Informe de cuotas<br>morosas
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Informe de pólizas canceladas
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Informe de<br>renovaciones
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-group
+                                  no-action
+                                  sub-group
+                                  :value="false">
+                                  <template v-slot:activator>
+                                    <v-list-item-content>
+                                      <v-list-item-title >Informe de Propuestas</v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>
+
+                                  <ul class="submenu submenu-2">
+                                    <li>
+                                      <router-link to="/descarga-formularios">
+                                        Cotizaciones Pendientes
+                                      </router-link> 
+                                    </li>
+                                  </ul>
+
+                                </v-list-group>
+
+                                <v-list-group
+                                  no-action
+                                  sub-group
+                                  :value="false">
+                                  <template v-slot:activator>
+                                    <v-list-item-content>
+                                      <v-list-item-title >Liquidación de <br>Comisiones</v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>
+
+                                  <ul class="submenu submenu-2">
+                                    <li>
+                                      <router-link to="/descarga-formularios">
+                                        Liquidaciones por Pagar
+                                      </router-link> 
+                                    </li>
+                                    <li>
+                                      <router-link to="/descarga-formularios">
+                                        Informe de Comisiones a la Fecha
+                                      </router-link> 
+                                    </li>
+                                    <li>
+                                      <router-link to="/descarga-formularios">
+                                        Liquidaciones Históricas
+                                      </router-link> 
+                                    </li>
+                                  </ul>
+
+                                </v-list-group>
+
+                              </v-list-group>
+
+                             
+                              
+                              <v-list-group
+                                :value="false">
+                                <template v-slot:activator>
+                                  <v-list-item-title>
+                                    <span>
+                                      <i class="renta-icon-book"></i>
+                                    </span>
+                                    Menú Agenda
+                                  </v-list-item-title>
+                                </template>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Talleres
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Carteras de Clientes
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Liquidadores
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                  <template>
+                                    <v-list-item-content>
+                                      <v-list-item-title>
+                                        <router-link to="/solicitud-endoso" class="color-a">
+                                          Oficinas
+                                        </router-link>
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </template>  
+                                </v-list-item>
+
+                              </v-list-group>
+
+                            </v-list>
+                          </v-container>
+                        </v-sheet>
+                      
                     </v-card>
                   </v-app>  
                   <li><a class="waves-effect waves-light" href="javascript:void(0);"><i class="renta-icon-security-log"></i><span>Producción  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span></span></a>
@@ -761,6 +769,10 @@
   .v-application .primary--text {
     color: #ff5259 !important;
     caret-color: #ff5259 !important;
+  }
+
+  .v-card {
+    box-shadow: 0 0px 0px 0px rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0);
   }
 
   /*.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {

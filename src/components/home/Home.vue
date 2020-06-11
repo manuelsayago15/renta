@@ -6,9 +6,9 @@
       <div class="content">
         <div class="container-fluid">
             <div class="page-title-box pb-0">
-                <h1 class="page-title banner-text py-3 text-center text-uppercase text-white">Bienvenido al portal de intermediarios</h1>
+                <h1 class="page-title bannerText py-3 text-center text-uppercase text-white">Bienvenido al portal de intermediarios</h1>
             </div>
-            <div class="banner-bottom">
+            <div class="bannerBottom">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 banner-bottom-txt-container order-2 order-md-1">
@@ -111,3 +111,15 @@
     }
 
 </script>
+
+<style type="text/css">
+  .bannerBottom {
+    background-image: url(/src/assets/images/fondo.jpg);
+    background-position: 50%;
+    background-size: cover;
+    padding: 2rem 0;
+  }
+  .bannerText {
+    background-color: #37485a;
+  }
+</style>
