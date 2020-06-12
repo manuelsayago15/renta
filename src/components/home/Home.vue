@@ -26,9 +26,28 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <nav>
-                        <div class="justify-content-between nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="flex-grow-1 d-flex flex-column align-items-center justify-content-between nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true"><img src="/src/assets/images/icon-info.svg" alt="Información"><span>Informaciones</span></a>
-                        </div>
+                      <div class="justify-content-between nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="flex-grow-1 d-flex flex-column align-items-center justify-content-between nav-item nav-link " id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">
+                            <img src="/src/assets/images/home/icon-info.svg" alt="Información">
+                              <span>Informaciones</span>
+                        </a>
+                        <a class="flex-grow-1 d-flex flex-column align-items-center justify-content-between nav-item nav-link" id="nav-news-tab" data-toggle="tab" href="#nav-news" role="tab" aria-controls="nav-news" aria-selected="true">
+                          <img src="/src/assets/images/home/icon-news.svg" alt="Noticias">
+                          <span>Noticias</span>
+                        </a>
+                        <a class="flex-grow-1 d-flex flex-column align-items-center justify-content-between nav-item nav-link" id="nav-norm-tab" data-toggle="tab" href="#nav-norm" role="tab" aria-controls="nav-norm" aria-selected="true">
+                          <img src="/src/assets/images/home/icon-book.svg" alt="Normativa">
+                          <span>Normativa</span>
+                        </a>
+                        <a class="flex-grow-1 d-flex flex-column align-items-center justify-content-between nav-item nav-link" id="nav-biblioteca-tab" data-toggle="tab" href="#nav-biblioteca" role="tab" aria-controls="nav-biblioteca" aria-selected="true">
+                          <img src="/src/assets/images/home/icon-book-2.svg" alt="Bibliioteca">
+                          <span>Biblioteca</span>
+                        </a>
+                        <a class="flex-grow-1 d-flex flex-column align-items-center justify-content-between nav-item nav-link" id="nav-faq-tab" data-toggle="tab" href="#nav-faq" role="tab" aria-controls="nav-faq" aria-selected="true">
+                          <img src="/src/assets/images/home/icon-faq.svg" alt="FAQ">
+                          <span>Preguntas frecuentes</span>
+                        </a>
+                      </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">

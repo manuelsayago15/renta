@@ -311,7 +311,7 @@
                                     <v-list-item-content>
                                       <v-list-item-title>
                                         <router-link to="/solicitud-endoso" class="color-a">
-                                          Informe de pólizas canceladas
+                                          Informe de pólizas <br>canceladas
                                         </router-link>
                                       </v-list-item-title>
                                     </v-list-item-content>
@@ -751,7 +751,7 @@
   }
   .submenu-2>li>a {
     padding-left: 50px;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .item-size {
@@ -775,11 +775,15 @@
     box-shadow: 0 0px 0px 0px rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0);
   }
 
+  .v-list-item {
+
+  }
+
   /*.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
     color: rgba(0,0,0,.87)!important;
   }*/
   .v-list-item__title {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   span i{
