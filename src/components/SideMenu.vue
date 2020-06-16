@@ -41,7 +41,7 @@
               	</router-link>
               </li>
             
-                <div id="intermediarios" class="slimScrollDiv" v-on:scroll="handleScroll">
+                <div id="intermediarios">
 
                   <v-app >
                     <v-card scroll-target="#scrolling-techniques">
@@ -135,7 +135,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="#" class="color-a">Solicitud de cotización</router-link>
+                                        <router-link to="/solicitud-cotizacion" class="color-a">Solicitud de cotización</router-link>
                                       </v-list-item-title>
                                     </v-list-item-content>
                                   </template>  
@@ -153,17 +153,17 @@
                                   
                                   <ul class="submenu submenu-2">
                                     <li >
-                                      <router-link to="/descarga-formularios">
+                                      <router-link to="/bandeja-renovaciones">
                                         Bandeja de Renovaciones
                                       </router-link>
                                     </li>
                                     <li>
-                                      <router-link to="/formulario-web">
+                                      <router-link to="/polizas-vencidas">
                                         Pólizas Vencidas
                                       </router-link>
                                     </li>
                                     <li>
-                                      <router-link to="/carga-formularios">
+                                      <router-link to="/reporte-polizas-vencidas">
                                         Reporte Renovación Pólizas Vencidas
                                       </router-link>
                                     </li>
@@ -184,7 +184,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">Cotización en Línea</router-link>
+                                        <router-link to="/cotizacion-linea" class="color-a">Cotización en Línea</router-link>
                                       </v-list-item-title>
                                     </v-list-item-content>
                                   </template>  
@@ -194,7 +194,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">Emisión en Línea</router-link>
+                                        <router-link to="/emision-linea" class="color-a">Emisión en Línea</router-link>
                                       </v-list-item-title>
                                     </v-list-item-content>
                                   </template>  
@@ -213,11 +213,11 @@
                                 </template>
 
                                  <ul class="submenu">
-                                  <li><router-link to="#">Confirmación planes de<br>pago</router-link></li>
-                                  <li><router-link to="#">Ingreso PAT</router-link></li>
-                                  <li><router-link to="#">Descarga / envío de<br>facturas</router-link></li>
-                                  <li><router-link to="#">Envío de vencimientos</router-link></li>
-                                  <li><router-link to="#">Estados de cuenta</router-link></li>
+                                  <li><router-link to="/planes-pago">Confirmación planes de<br>pago</router-link></li>
+                                  <li><router-link to="/ingreso-pat">Ingreso PAT</router-link></li>
+                                  <li><router-link to="/descarga-envio-facturas">Descarga / envío de<br>facturas</router-link></li>
+                                  <li><router-link to="/envio-vencimientos">Envío de vencimientos</router-link></li>
+                                  <li><router-link to="/estado-cuentas">Estados de cuenta</router-link></li>
                                 </ul>
                                   
                                 </v-list-item>
@@ -238,7 +238,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/consulta-poliza" class="color-a">
                                           Consulta Pólizas
                                         </router-link>
                                       </v-list-item-title>
@@ -250,7 +250,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/informe-siniestralidad" class="color-a">
                                           Informe de Siniestralidad
                                         </router-link>
                                       </v-list-item-title>
@@ -262,7 +262,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/certificado-honorarios" class="color-a">
                                           Descarga Fecu /<br>certificado de<br>honorarios
                                         </router-link>
                                       </v-list-item-title>
@@ -274,7 +274,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/cartera-clientes" class="color-a">
                                           Cartera de Clientes
                                         </router-link>
                                       </v-list-item-title>
@@ -286,7 +286,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/listado-polizas" class="color-a">
                                           Listado de pólizas
                                         </router-link>
                                       </v-list-item-title>
@@ -298,7 +298,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/cuotas-morosas" class="color-a">
                                           Informe de cuotas<br>morosas
                                         </router-link>
                                       </v-list-item-title>
@@ -310,7 +310,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/polizas-canceladas" class="color-a">
                                           Informe de pólizas <br>canceladas
                                         </router-link>
                                       </v-list-item-title>
@@ -322,7 +322,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/informe-renovaciones" class="color-a">
                                           Informe de<br>renovaciones
                                         </router-link>
                                       </v-list-item-title>
@@ -342,7 +342,7 @@
 
                                   <ul class="submenu submenu-2">
                                     <li>
-                                      <router-link to="/descarga-formularios">
+                                      <router-link to="/informe-propuestas">
                                         Cotizaciones Pendientes
                                       </router-link> 
                                     </li>
@@ -725,23 +725,12 @@
       		this.id_userType = JSON.parse(window.localStorage.getItem('id_tipo_usuario'));
 	        console.log(this.id_userType);
 	     },
-
-        handleScroll (event) {
-          // Any code to be executed when the window is scrolled
-          return "hola";
-        }
 	  },
 
 	  created () {
 	  	this.dashboardProfile();
-      window.addEventListener('scroll', this.handleScroll);
 	  },
-
-    destroyed () {
-      window.removeEventListener('scroll', this.handleScroll);
-    },
     
-
     }
 
 </script>

@@ -32,7 +32,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
+    
                                             <div class="col-lg-3">
                                                 <label>Producto</label>
                                                 <select 
@@ -40,7 +40,8 @@
 									                name="producto" 
 									                v-model="productoSeleccionado" 
 									                @change="buscaPlanes" 
-									                id="producto">
+									                id="producto" 
+                                                    class="form-control">
 									                <option value="0">Seleccione...</option>
 									                  <option 
 									                    v-for="(producto, key) in productos" :value="producto.id" :key="key">
@@ -51,7 +52,7 @@
                                             <div class="col-lg-3">
                                                 <label>Planes</label>
                                                 <select name="plan" id="plan" type="text"
-                                                	v-model="planSeleccionado">
+                                                	v-model="planSeleccionado" class="form-control">
                                            			<option value="0">Seleccione ...</option>
                                            			<option 
 									                    v-for="(plan, key) in planes" :value="plan.id_plan" :key="key">
