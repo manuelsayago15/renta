@@ -42,7 +42,7 @@
 									                @change="buscaPlanes" 
 									                id="producto" 
                                                     class="form-control">
-									                <option value="0">Seleccione...</option>
+									                <option value="">Seleccione...</option>
 									                  <option 
 									                    v-for="(producto, key) in productos" :value="producto.id" :key="key">
 									                    {{ producto.nombre }}
@@ -53,7 +53,7 @@
                                                 <label>Planes</label>
                                                 <select name="plan" id="plan" type="text"
                                                 	v-model="planSeleccionado" class="form-control">
-                                           			<option value="0">Seleccione ...</option>
+                                           			<option value="">Seleccione ...</option>
                                            			<option 
 									                    v-for="(plan, key) in planes" :value="plan.id_plan" :key="key">
 									                    {{ plan.nombre_plan }}
@@ -74,7 +74,7 @@
                                             <div class="col-lg-3">
                                                 <label>Oficinas</label>
                                                 <select class="form-control" v-model="oficinaSeleccionada" id="oficinasSel">
-                                              		<option value="0">Seleccione ...</option>
+                                              		<option value="">Seleccione ...</option>
                                               		<option 
 									                    v-for="(oficina, key) in oficinas" :value="oficina.id" :key="key">
 									                    {{ oficina.nombre }}
@@ -141,7 +141,8 @@
 			    chunkSize: 500, // Bytes
 			    thumbnailWidth: 150, // px
 			    thumbnailHeight: 150,
-			    addRemoveLinks: true
+			    addRemoveLinks: true,
+                dictDefaultMessage: "Adjuntar archivos",
         	},
         	dropzone: [],
         	productos: [],
