@@ -1,7 +1,6 @@
 <template>
 	<div id="wrapper">
 		<Topbar></Topbar>
-        <SideMenu></SideMenu>	
 	</div>
 </template>
 
