@@ -143,7 +143,7 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+    import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     import moment from 'moment'

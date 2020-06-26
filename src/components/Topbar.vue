@@ -428,7 +428,7 @@
                 app
                 color="#ececf1"
                 dark>
-                <v-app-bar-nav-icon color="grey" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon color="grey" @click="$store.commit('value')" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 
                 <v-spacer></v-spacer>
                 
@@ -569,6 +569,7 @@
 </template>
 
 <script>
+    import Vue from 'vue'
 	export default{
 	  name: 'Topbar',
       data () {
@@ -578,6 +579,7 @@
             id_userType: '',
             drawer: true,
             mini: true,
+            count: 0,
         }
       },
 
@@ -591,6 +593,27 @@
             this.id_userType = JSON.parse(window.localStorage.getItem('id_tipo_usuario'));
             console.log(this.id_userType);
          },
+
+         value() {
+
+            
+            if (this.count == 0) {
+                console.log("count is 0");
+                console.log(this.count);
+                console.log(this.$css);
+                Vue.prototype.$css = false;
+                console.log(this.$css);
+                this.count = 1;
+                console.log(this.count);
+            }else if (this.count == 1) {
+                console.log("count is 1");
+                console.log(this.count);
+                console.log(this.$css);
+                Vue.prototype.$css = true;
+                console.log(this.$css);
+                this.count = 0;
+            }
+        }
       },
 
       created () {

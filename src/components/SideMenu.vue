@@ -46,6 +46,9 @@
 
 </script>
 <style>
+  .hide-sideMenu{
+    left: -240px;
+  }
   .submenu>li>a {
     padding-left: 20px;
   }
@@ -96,5 +99,10 @@
 
   .v-application--is-ltr .v-list-group--no-action.v-list-group--sub-group>.v-list-group__items>.v-list-item {
     padding-left: 70px;
+  }
+  @media (max-width: 576px) { 
+    .hide-sideMenu {
+      left: -240px;
+    }
   }
 </style>

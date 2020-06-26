@@ -2,7 +2,8 @@
     <div id="wrapper">
         <Topbar></Topbar>
         <SideMenu></SideMenu>
-        <div class="content-page">
+
+        <div :class="$store.state.val">
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title-box">
@@ -102,3 +103,42 @@
         </div>
     </div>
 </template>
+<script>
+    import Vue from 'vue'
+    export default{
+      name: 'DownloadForms',
+      data () {
+        return {
+            test: false,
+            isActive: true,
+            hasError: false
+        }
+      },
+
+     
+      methods: {
+
+        value() {
+            /*Vue.prototype.$css = false;
+            console.log("test");
+            console.log(this.$css);*/
+
+        }
+      },
+
+      created () {
+        
+      },
+    }
+</script>
+
+<style>
+    .content-page-left {
+        margin-left: 0;
+    }
+    @media (max-width: 576px) { 
+        .content-page-left {
+          margin-left: 0;
+        }
+    }
+</style>

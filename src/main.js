@@ -76,12 +76,14 @@ import '../src/assets/css/typicons.css';
 import '../src/assets/css/developers.css';
 import '../src/assets/fonts/typicons.scss';
 
-
+//Vue Libraries
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import VueTableDynamic from 'vue-table-dynamic'
+//Vuex
+import { store } from './store/store'
 
 
 const API_URL = process.env.API_URL || 'http://10.156.160.21:8000/api/login/'
@@ -93,9 +95,11 @@ export default axios.create({
     'Authorization': 'Bearer ' + localStorage.token,    crossDomain: true
   }
 });
- 
+
+//Axios 
 Vue.use(VueAxios, axios)
 
+//Vue Router
 Vue.use(VueRouter);
 
 // Install BootstrapVue
@@ -109,8 +113,12 @@ Vue.component('SideMenu', require('./components/SideMenu.vue').default);
 //Global Component - Tables
 Vue.use(VueTableDynamic)
 
+//Global variables
 Vue.prototype.$url = '200.91.27.159:8000';
+Vue.prototype.$css = true;
 
+
+//Routes
 const routes = [
 	{ path: '/', name: 'login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
@@ -159,6 +167,7 @@ new Vue({
   router,
   routes,
   vuetify,
+  store,
   components: { App },
   render: h => h(App)
 })
