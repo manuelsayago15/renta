@@ -638,4 +638,9 @@
     .content-page .content {
         margin-top: 0px;
     }
+    @media (max-width: 1263px) { 
+        .content-page{
+          margin-left: 0;
+        }
+    }
 </style>
