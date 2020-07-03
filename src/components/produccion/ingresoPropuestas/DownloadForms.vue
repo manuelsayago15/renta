@@ -1,8 +1,7 @@
 <template>
     <div id="wrapper">
         <Topbar></Topbar>
-        <SideMenu></SideMenu>
-
+        <!--<SideMenu></SideMenu>-->
         <div :class="$store.state.val">
             <div class="content">
                 <div class="container-fluid">
@@ -141,4 +140,11 @@
           margin-left: 0;
         }
     }
+    @media (max-width: 1263px) { 
+        .fix-menu{
+          margin-left: 0;
+        }
+    }
+    
+
 </style>

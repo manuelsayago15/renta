@@ -12,15 +12,48 @@
                       <v-sheet
                         >
                           <v-container style="height: 1000px;">
-                             <div class="topbar-left"><a class="logo" :href="'/home'"><span>
-                        <img src="/src/assets/images/logo-renta-nacional.png" alt="Logo renta" width="150">
-                        </span><i>
+                             <div class="topbar-left d-none d-lg-block d-xl-none"><a class="logo" :href="'/home'"><span>
+                                <img src="/src/assets/images/logo-renta-nacional.png" alt="Logo renta" width="150">
+                                </span><i>
 
-                            <!--<img src="/src/assets/images/logo-renta-nacional-sm.png" alt="Logo-sm" height="42">-->
-                        </i></a>
+                                    <!--<img src="/src/assets/images/logo-renta-nacional-sm.png" alt="Logo-sm" height="42">-->
+                                </i></a>
 
-                    </div>
+                            </div>
+                            <img src="/src/assets/images/logo-renta-nacional.png" class="d-block d-md-block d-sm-block d-lg-none" alt="Logo renta" width="150">
                             <v-list>
+                                
+                                    <span style="margin-left: 15px;">
+                                        <i class="renta-icon-deashboard"></i>
+                                        <router-link to="/intermediario" style="font-color:#343a40;">
+                                            Dashboard
+                                        </router-link>
+                                    </span>
+                                    <span v-if="this.id_userType == 1" style="margin-left: 15px;">
+                                        <i class="renta-icon-deashboard"></i>
+                                        <router-link to="/gerente-sucursal" style="font-color:#343a40;">
+                                            Dashboard
+                                        </router-link>
+                                    </span>
+                                    <span v-if="this.id_userType == 11" style="margin-left: 15px;">
+                                        <i class="renta-icon-deashboard"></i>
+                                        <router-link to="/gerente-zonal" style="font-color:#343a40;">
+                                            Dashboard
+                                        </router-link>
+                                    </span>
+                                    <span v-if="this.id_userType == 2" style="margin-left: 15px;">
+                                        <i class="renta-icon-deashboard" style="font-color:#343a40;"></i>
+                                        <router-link to="/ejecutivo">
+                                            Dashboard 
+                                        </router-link>
+                                    </span>
+                                    <span v-if="this.id_userType == 4" style="margin-left: 15px;">
+                                        <i class="renta-icon-deashboard" style="font-color:#343a40;"></i>
+                                        <router-link to="/admin-liquidadores">
+                                            Dashboard
+                                        </router-link>
+                                    </span>
+                                
                               <!--<v-list-item>
                                 <v-list-item-icon>
                                   <v-icon>mdi-home</v-icon>
@@ -428,7 +461,8 @@
                 app
                 color="#ececf1"
                 dark>
-                <v-app-bar-nav-icon color="grey" @click="$store.commit('value')" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon color="grey" class="d-none d-lg-block d-xl-none" @click="$store.commit('value')" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon color="grey" class="d-block d-md-block d-sm-block d-lg-none" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 
                 <v-spacer></v-spacer>
                 
@@ -638,6 +672,77 @@
     .content-page .content {
         margin-top: 0px;
     }
+
+    .hide-sideMenu{
+        left: -240px;
+    }
+      .submenu>li>a {
+        padding-left: 20px;
+      }
+      .submenu-2>li>a {
+        padding-left: 50px;
+        font-size: 12px;
+      }
+
+      .item-size {
+        padding-left: 40px;
+      }
+
+      .color-a {
+        color: #6c757d !important;
+      }
+
+      a:hover {
+        color: #ff5259 !important;
+      }
+
+      .v-application .primary--text {
+        color: #ff5259 !important;
+        caret-color: #ff5259 !important;
+      }
+
+      .v-card {
+        box-shadow: 0 0px 0px 0px rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0), 0 0px 0px 0 rgba(0,0,0,0);
+      }
+
+      .v-list-item {
+
+      }
+
+      /*.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+        color: rgba(0,0,0,.87)!important;
+      }*/
+      .v-list-item__title {
+        font-size: 12px;
+      }
+
+      span i{
+        font-size: 30px;
+      }
+
+      .v-application--is-ltr .v-list-group--sub-group .v-list-item__icon:first-child {
+        margin-right: 5px;
+      }
+
+      .v-application--is-ltr .v-list-group--no-action.v-list-group--sub-group>.v-list-group__items>.v-list-item {
+        padding-left: 70px;
+      }
+    
+    /* Esconder viñetas con paddig-left en side-menu*/
+    .v-application ol, .v-application ul {
+        padding-left: 0px;
+    }
+
+    .v-application a {
+        color: #343a40;
+    }
+
+      @media (max-width: 576px) { 
+        .hide-sideMenu {
+          left: -240px;
+        }
+      }
+
     @media (max-width: 1263px) { 
         .content-page{
           margin-left: 0;

@@ -14,13 +14,13 @@ export const store = new Vuex.Store({
 			//state.number ++
 			//console.log("test me");
 			if (state.number == 1) {
-				state.val = 'content-page-left'
-				state.left = 'side-menu hide-sideMenu'
+				state.val = 'content-page-left fix-menu'
+				state.left = 'fix-menu'
                 //console.log("I'm content-page-left");
                 state.number = 0
             }else if (state.number == 0) {
-				state.val = 'content-page'
-				state.left = 'left side-menu'
+				state.val = 'content-page fix-menu'
+				state.left = 'fix-menu'
                 //console.log("I'm content-page");
                 state.number = 1
             }

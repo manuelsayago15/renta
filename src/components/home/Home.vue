@@ -1,8 +1,8 @@
 <template>
   <div id="wrapper">
     <Topbar></Topbar>
-    <SideMenu></SideMenu>
-    <div class="content-page">
+    <!--<SideMenu></SideMenu>-->
+    <div :class="$store.state.val">
       <div class="content">
         <div class="container-fluid">
             <div class="page-title-box pb-0">
