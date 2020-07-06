@@ -215,6 +215,34 @@
                                   </v-list-item-title>
                                 </template>
 
+                                <ul class="submenu submenu-2">
+                                    <li >
+                                      <router-link to="/planes-pago">
+                                        Confirmación planes de<br>pago
+                                      </router-link>
+                                    </li>
+                                    <li>
+                                      <router-link to="/ingreso-pat">
+                                        Ingreso PAT
+                                      </router-link>
+                                    </li>
+                                    <li>
+                                      <router-link to="/descarga-envio-facturas">
+                                        Descarga / envío de<br>facturas
+                                      </router-link>
+                                    </li>
+                                    <li>
+                                      <router-link to="/descarga-envio-facturas">
+                                        Envío de vencimientos
+                                      </router-link>
+                                    </li>
+                                    <li>
+                                      <router-link to="/estado-cuentas">
+                                        Estados de cuenta<
+                                      </router-link>
+                                    </li>
+                                </ul>
+
                                  <ul class="submenu">
                                   <li><router-link to="/planes-pago">Confirmación planes de<br>pago</router-link></li>
                                   <li><router-link to="/ingreso-pat">Ingreso PAT</router-link></li>

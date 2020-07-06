@@ -1,4 +1,5 @@
 module.exports = {
-  publicPath: "/renta",
-  outputDir: "docs"
-};
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/renta/'
+    : '/'
+}

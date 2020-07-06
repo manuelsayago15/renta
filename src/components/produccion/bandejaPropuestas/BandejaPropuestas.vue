@@ -26,22 +26,41 @@
                         <h4 class="mt-0 header-title">Seleccione los datos que desea visualizar</h4>
                         <p class="text-muted m-b-30">El botón mostrar todo mostrará en tabla todos los datos disponibles</p>
                       </div>
-                      <div class="col-md-5 text-right colvis-btns"></div>
+                      <div class="col-md-5">
+                        <v-app>
+                          <div style="height: 55px;">
+                            <v-select v-model="selectedHeaders" :items="headersButton" label="Mostrar Columnas" multiple outlined return-object>
+                              <template v-slot:selection="{ item, index }">
+                                <v-chip v-if="index < 2">
+                                  <span>{{ item.text }}</span>
+                                </v-chip>
+                                <span v-if="index === 2" class="grey--text caption">(+{{ selectedHeaders.length - 2 }} otros)</span>
+                              </template>
+                            </v-select>
+                            
+                          </div>
+                        </v-app>
+                      </div>
                     </div>
                     <div class="">
                       <template>
                         <v-app>
                           <v-card>
-                            <v-card-title>
-                              <v-text-field
-                                v-model="search"
-                                append-icon="mdi-magnify"
-                                label="Buscar"
-                                style="width: 25px;!important"
-                                hide-details
-                              ></v-text-field>
-                            </v-card-title>
-                            <v-data-table :headers="headers" :items="data" :items-per-page="10" :search="search" class="elevation-1" >
+                            <div class="col-md-6">
+                              <v-card-title>
+                                <v-text-field
+                                  v-model="search"
+                                  append-icon="mdi-magnify"
+                                  label="Buscar"
+                                  style="width: 25px;!important"
+                                  hide-details
+                                ></v-text-field>
+                              </v-card-title>
+                              
+                            </div>
+                              
+
+                            <v-data-table :headers="showHeaders" :items="data" :items-per-page="10" :search="search" class="elevation-1" >
                               <template v-slot:item.estado="{ item }">
                                 <img :src="'/src/assets/images/bandeja-iconos/' + item.estado" style="width: 25px; height: 25px" />
                               </template>
@@ -209,6 +228,24 @@
             cliente: 0,
             directorio: 0,
           },
+          
+          /* Headers Button */
+          headersButton: [],
+          headersMap: {
+            idpropuesta: { text: 'Id Propuesta', value: 'idPropuesta' },
+            fechaIngreso: { text: 'Fecha Ingreso', value: 'fecha' },
+            plan: { text: 'Plan', value: 'idPlan' },
+            cliente: { text: 'Cliente', value: 'cliente' },
+            primaNeta: { text: 'Prima Neta', value: 'primaNeta', sortable: false },
+            poliza: {text: 'Póliza-Ítem', value: 'idPoliza'},
+            estado: {text: 'Estado', value: 'estado'},
+            tipo: {text: 'Tipo', value: 'tipoPropuesta'},
+            dias: {text: 'Días', value: 'dias'},
+            adjunto: {text: 'Adjunto', value: 'directorio'},
+          },
+
+          selectedHeaders: []
+
         }
 
        
@@ -451,6 +488,15 @@
         created (){
           this.bandejaPropuestas();
           this.fillTable();
+          this.headersButton = Object.values(this.headersMap);
+          this.selectedHeaders = this.headersButton;
+        },
+
+        computed: {
+          //Done to get the ordered headers
+          showHeaders () {
+            return this.headersButton.filter(s => this.selectedHeaders.includes(s));
+          }
         }
 
         
