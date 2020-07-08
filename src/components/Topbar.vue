@@ -792,6 +792,10 @@
         color: #343a40;
     }
 
+    tbody tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, .05);
+    }
+
       @media (max-width: 576px) { 
         .hide-sideMenu {
           left: -240px;
