@@ -1,7 +1,7 @@
 <template>
 	<div id="wrapper">
 		<Topbar></Topbar>
-    	<SideMenu></SideMenu>
+    <!--<SideMenu></SideMenu>-->
     	<div class="content-page">
         <div class="content">
           <div class="container-fluid">

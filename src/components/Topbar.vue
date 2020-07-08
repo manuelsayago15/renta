@@ -204,7 +204,7 @@
                                 </v-list-item>
                               </v-list-group>
 
-                              <v-list-group
+                            <v-list-group
                                 :value="false">
                                 <template v-slot:activator>
                                   <v-list-item-title>
@@ -215,44 +215,66 @@
                                   </v-list-item-title>
                                 </template>
 
-                                <ul class="submenu submenu-2">
-                                    <li >
-                                      <router-link to="/planes-pago">
-                                        Confirmación planes de<br>pago
-                                      </router-link>
-                                    </li>
-                                    <li>
-                                      <router-link to="/ingreso-pat">
-                                        Ingreso PAT
-                                      </router-link>
-                                    </li>
-                                    <li>
-                                      <router-link to="/descarga-envio-facturas">
-                                        Descarga / envío de<br>facturas
-                                      </router-link>
-                                    </li>
-                                    <li>
-                                      <router-link to="/descarga-envio-facturas">
-                                        Envío de vencimientos
-                                      </router-link>
-                                    </li>
-                                    <li>
-                                      <router-link to="/estado-cuentas">
-                                        Estados de cuenta<
-                                      </router-link>
-                                    </li>
-                                </ul>
-
-                                 <ul class="submenu">
-                                  <li><router-link to="/planes-pago">Confirmación planes de<br>pago</router-link></li>
-                                  <li><router-link to="/ingreso-pat">Ingreso PAT</router-link></li>
-                                  <li><router-link to="/descarga-envio-facturas">Descarga / envío de<br>facturas</router-link></li>
-                                  <li><router-link to="/envio-vencimientos">Envío de vencimientos</router-link></li>
-                                  <li><router-link to="/estado-cuentas">Estados de cuenta</router-link></li>
-                                </ul>
-                                  
+                                <v-list-item class="item-size">
+                                    <template>
+                                      <v-list-item-content>
+                                        <v-list-item-title>
+                                          <router-link to="/planes-pago" class="color-a">
+                                            Confirmación planes de<br>pago
+                                          </router-link>
+                                        </v-list-item-title>
+                                      </v-list-item-content>
+                                    </template> 
                                 </v-list-item>
-                              </v-list-group>
+
+                                <v-list-item class="item-size">
+                                    <template>
+                                      <v-list-item-content>
+                                        <v-list-item-title>
+                                          <router-link to="/ingreso-pat" class="color-a">
+                                            Ingreso PAT
+                                          </router-link>
+                                        </v-list-item-title>
+                                      </v-list-item-content>
+                                    </template> 
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                    <template>
+                                      <v-list-item-content>
+                                        <v-list-item-title>
+                                          <router-link to="/descarga-envio-facturas" class="color-a">
+                                            Descarga / envío de<br>facturas
+                                          </router-link>
+                                        </v-list-item-title>
+                                      </v-list-item-content>
+                                    </template> 
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                    <template>
+                                      <v-list-item-content>
+                                        <v-list-item-title>
+                                          <router-link to="/envio-vencimientos" class="color-a">
+                                            Envío de vencimientos
+                                          </router-link>
+                                        </v-list-item-title>
+                                      </v-list-item-content>
+                                    </template> 
+                                </v-list-item>
+
+                                <v-list-item class="item-size">
+                                    <template>
+                                      <v-list-item-content>
+                                        <v-list-item-title>
+                                          <router-link to="/estado-cuentas" class="color-a">
+                                            Estados de cuenta
+                                          </router-link>
+                                        </v-list-item-title>
+                                      </v-list-item-content>
+                                    </template> 
+                                </v-list-item>
+                            </v-list-group>
 
                               <v-list-group class="group"
                                 :value="false"> 
@@ -269,7 +291,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/consulta-poliza" class="color-a">
+                                        <router-link to="/consulta-polizas" class="color-a">
                                           Consulta Pólizas
                                         </router-link>
                                       </v-list-item-title>
@@ -373,7 +395,7 @@
 
                                   <ul class="submenu submenu-2">
                                     <li>
-                                      <router-link to="/informe-propuestas">
+                                      <router-link to="/cotizaciones-pendientes">
                                         Cotizaciones Pendientes
                                       </router-link> 
                                     </li>
@@ -393,17 +415,17 @@
 
                                   <ul class="submenu submenu-2">
                                     <li>
-                                      <router-link to="/descarga-formularios">
+                                      <router-link to="/liquidaciones-por-pagar">
                                         Liquidaciones por Pagar
                                       </router-link> 
                                     </li>
                                     <li>
-                                      <router-link to="/descarga-formularios">
+                                      <router-link to="/liquidaciones-fecha">
                                         Informe de Comisiones a la Fecha
                                       </router-link> 
                                     </li>
                                     <li>
-                                      <router-link to="/descarga-formularios">
+                                      <router-link to="/liquidaciones-historicas">
                                         Liquidaciones Históricas
                                       </router-link> 
                                     </li>
@@ -454,7 +476,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/liquidadores" class="color-a">
                                           Liquidadores
                                         </router-link>
                                       </v-list-item-title>
@@ -466,7 +488,7 @@
                                   <template>
                                     <v-list-item-content>
                                       <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
+                                        <router-link to="/oficinas" class="color-a">
                                           Oficinas
                                         </router-link>
                                       </v-list-item-title>
@@ -495,11 +517,16 @@
                 <v-spacer></v-spacer>
                 
                 <ul class="navbar-right d-flex list-inline float-right mb-0">
-                <li class="notification-list"><a class="nav-link waves-effect" href="../page-home/informe-produccion.html">Informe de producción</a>
+                <li class="notification-list">
+                    <router-link to="/informe-produccion" class="nav-link waves-effect">
+                        Informe de producción
+                    </router-link>
                 </li>
 
                 <li class="notification-list">
-                    <a class="nav-link waves-effect" href="../page-home/mensajes.html"> <i class="ti-email font-20"></i><span class="notification-badge badge badge-pill badge-primary">990</span></a>
+                    <router-link to="/mensajes" class="nav-link waves-effect">
+                        <i class="ti-email font-20"></i><span class="notification-badge badge badge-pill badge-primary">990</span>
+                    </router-link>
                 </li>
                 <li class="dropdown notification-list d-none d-md-block">
                     <a class="nav-link waves-effect" href="#" id="btn-fullscreen">

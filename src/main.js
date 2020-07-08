@@ -4,6 +4,8 @@ import App from './App.vue';
 import Dashboard from './Dashboard.vue';
 import Login from './components/Login.vue';
 import Home from './components/home/Home.vue';
+import InformeProduccion from '@/components/InformeProduccion';
+import Mensajes from '@/components/Mensajes';
 
 //Dashboard Components
 //import Intermediario from './components/dashboard/Intermediario.vue';
@@ -57,9 +59,15 @@ import ListadoPolizas from '@/components/gestion/listadoPolizas/ListadoPolizas.v
 import CuotasMorosas from '@/components/gestion/cuotasMorosas/CuotasMorosas.vue';
 import PolizasCanceladas from '@/components/gestion/polizasCanceladas/PolizasCanceladas';
 import InformeRenovaciones from '@/components/gestion/informeRenovaciones/InformeRenovaciones';
-import InformePropuestas from '@/components/gestion/informePropuestas/InformePropuestas';
+import CotizacionesPendientes from '@/components/gestion/informePropuestas/CotizacionesPendientes';
+import LiquidacionesFecha from '@/components/gestion/liquidacionComisiones/LiquidacionesFecha';
+import LiquidacionesPorPagar from '@/components/gestion/liquidacionComisiones/LiquidacionesPorPagar';
+import LiquidacionesHistoricas from '@/components/gestion/liquidacionComisiones/LiquidacionesHistoricas';
 
-//
+//Menu Agenda
+import Oficinas from '@/components/menuAgenda/oficinas/Oficinas';
+import Liquidadores from '@/components/menuAgenda/liquidadores/Liquidadores';
+
 
 
 
@@ -124,6 +132,8 @@ const routes = [
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/home', component: Home },
 	{ path: '/perfil', name: 'Perfil', component: Perfil },
+	{ path: '/informe-produccion', name: 'InformeProduccion', component: InformeProduccion },
+	{ path: '/mensajes', name: 'Mensajes', component: Mensajes },
 	{ path: '/intermediario', name: 'Intermediario', component: Intermediario },
 	{ path: '/ejecutivo', name: 'Ejecutivo', component: Ejecutivo },
 	{ path: '/gerente-sucursal', name: 'GerenteSucursal', component: GerenteSucursal },
@@ -152,7 +162,12 @@ const routes = [
 	{ path: '/cuotas-morosas', name: 'CuotasMorosas', component: CuotasMorosas },
 	{ path: '/polizas-canceladas', name: 'PolizasCanceladas', component: PolizasCanceladas },
 	{ path: '/informe-renovaciones', name: 'InformeRenovaciones', component: InformeRenovaciones },
-	{ path: '/informe-propuestas', name: 'InformePropuestas', component: InformePropuestas },
+	{ path: '/cotizaciones-pendientes', name: 'CotizacionesPendientes', component: CotizacionesPendientes },
+	{ path: '/liquidaciones-fecha', name: 'LiquidacionesFecha', component: LiquidacionesFecha },
+	{ path: '/liquidaciones-por-pagar', name: 'LiquidacionesPorPagar', component: LiquidacionesPorPagar },
+	{ path: '/liquidaciones-historicas', name: 'LiquidacionesHistoricas', component: LiquidacionesHistoricas },
+	{ path: '/oficinas', name: 'Oficinas', component: Oficinas },
+	{ path: '/liquidadores', name: 'Liquidadores', component: Liquidadores },
 
 ];
 
