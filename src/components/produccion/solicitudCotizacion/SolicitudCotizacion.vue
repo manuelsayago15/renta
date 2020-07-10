@@ -1,8 +1,10 @@
 <template>
 	<div id="wrapper">
-		<Topbar></Topbar>
-        <SideMenu></SideMenu>	
-	</div>
+    <Topbar></Topbar>
+    <!--<SideMenu></SideMenu>-->
+    <div :class="$store.state.val">
+    </div>
+    </div>
 </template>
 
 <script>

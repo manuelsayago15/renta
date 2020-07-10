@@ -541,53 +541,53 @@
                         <v-app id="inspire" >
                             <v-row justify="space-around" class="testme">
                                 <div class="d-flex justify-center align-center">
-                                <v-menu
-                                    bottom
-                                    origin="center center"
-                                    transition="scale-transition"
-                                    offset-y>
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-btn
-                                            color="#ececf1"
-                                            dark
-                                            v-bind="attrs"
-                                            v-on="on">
-                                            <img class="rounded-circle" height="35px" id="foto_logueado" alt="user" src="/src/assets/images/users/usr_06.png">
-                                        </v-btn>
-                                    </template>
-                              
-                                    <v-list>
-                                      <v-list-item>
-                                        <v-list-item-title>
-                                            <router-link to="/perfil">
-                                                <img class="rounded-circle m-r-5" id="foto" alt="user" src="/src/assets/images/users/usr_06.png" height="25px">
-                                                Mi Perfil
-                                            </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item>
-
-                                      <v-list-item>
-                                        <v-list-item-title>
-                                            <router-link to="/perfil">
-                                                <router-link to="#">
-                                                    <i class="mdi mdi-account-supervisor m-r-5"></i>
-                                                    Mi Ejecutivo
+                                    <v-menu
+                                        bottom
+                                        origin="center center"
+                                        transition="scale-transition"
+                                        offset-y>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn
+                                                color="#ececf1"
+                                                dark
+                                                v-bind="attrs"
+                                                v-on="on">
+                                                <img class="rounded-circle" height="35px" id="foto_logueado" alt="user" src="/src/assets/images/users/usr_06.png">
+                                            </v-btn>
+                                        </template>
+                                  
+                                        <v-list>
+                                          <v-list-item>
+                                            <v-list-item-title>
+                                                <router-link to="/perfil">
+                                                    <img class="rounded-circle m-r-5" id="foto" alt="user" src="/src/assets/images/users/usr_06.png" height="25px">
+                                                    Mi Perfil
                                                 </router-link>
-                                            </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item>
+                                            </v-list-item-title>
+                                          </v-list-item>
 
-                                      <v-list-item>
-                                        <v-list-item-title>
-                                            <router-link to="#">
-                                                <i class="mdi mdi-settings-outline m-r-5"></i>
-                                                Configuración
-                                            </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item>
-                                    </v-list>
-                                </v-menu>
-                            </div>
+                                          <v-list-item>
+                                            <v-list-item-title>
+                                                <router-link to="/perfil">
+                                                    <router-link to="#">
+                                                        <i class="mdi mdi-account-supervisor m-r-5"></i>
+                                                        Mi Ejecutivo
+                                                    </router-link>
+                                                </router-link>
+                                            </v-list-item-title>
+                                          </v-list-item>
+
+                                          <v-list-item>
+                                            <v-list-item-title>
+                                                <router-link to="#">
+                                                    <i class="mdi mdi-settings-outline m-r-5"></i>
+                                                    Configuración
+                                                </router-link>
+                                            </v-list-item-title>
+                                          </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+                                </div>
                             </v-row>
                         </v-app>
                         <!--<div class="dropdown-menu dropdown-menu-right profile-dropdown">
@@ -790,10 +790,6 @@
 
     .v-application a {
         color: #343a40;
-    }
-
-    tbody tr:nth-of-type(odd) {
-      background-color: rgba(0, 0, 0, .05);
     }
 
       @media (max-width: 576px) { 

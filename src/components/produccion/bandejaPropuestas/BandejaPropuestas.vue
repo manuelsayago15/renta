@@ -26,27 +26,13 @@
                         <h4 class="mt-0 header-title">Seleccione los datos que desea visualizar</h4>
                         <p class="text-muted m-b-30">El botón mostrar todo mostrará en tabla todos los datos disponibles</p>
                       </div>
-                      <div class="col-md-5">
-                        <v-app>
-                          <div style="height: 55px;">
-                            <v-select v-model="selectedHeaders" :items="headersButton" label="Mostrar Columnas" multiple outlined return-object>
-                              <template v-slot:selection="{ item, index }">
-                                <v-chip v-if="index < 2">
-                                  <span>{{ item.text }}</span>
-                                </v-chip>
-                                <span v-if="index === 2" class="grey--text caption">(+{{ selectedHeaders.length - 2 }} otros)</span>
-                              </template>
-                            </v-select>
-                            
-                          </div>
-                        </v-app>
-                      </div>
+                      
                     </div>
                     <div class="">
                       <template>
-                        <v-app>
+                        <v-app id="inspire">
                           <v-card>
-                            <div class="col-md-6">
+                            <div class="col-md-6 search-table">
                               <v-card-title>
                                 <v-text-field
                                   v-model="search"
@@ -58,7 +44,23 @@
                               </v-card-title>
                               
                             </div>
-                              
+                            <div class="col-md-6 show-columns">
+                              <v-app id="inspire">
+                                <v-card>
+                                <div style="height: 55px;" v-click-outside="onClickOutsideStandard" @click="models.base = true">
+                                  <v-select v-model="selectedHeaders" :items="headersButton" label="Mostrar Columnas" multiple outlined return-object >
+                                    <template v-slot:selection="{ item, index }">
+                                      <v-chip v-if="index < 2">
+                                        <span>{{ item.text }}</span>
+                                      </v-chip>
+                                      <span v-if="index === 2" class="grey--text caption">(+{{ selectedHeaders.length - 2 }} otros)</span>
+                                    </template>
+                                  </v-select>
+                                  
+                                </div>
+                              </v-card>
+                              </v-app>
+                            </div>
 
                             <v-data-table :headers="showHeaders" :items="data" :items-per-page="10" :search="search" class="elevation-1" >
                               <template v-slot:item.estado="{ item }">
@@ -244,7 +246,14 @@
             adjunto: {text: 'Adjunto', value: 'directorio'},
           },
 
-          selectedHeaders: []
+          selectedHeaders: [],
+
+          /* Click outside */
+
+          models: {
+            base: false,
+            conditional: false,
+          },
 
         }
 
@@ -254,8 +263,9 @@
       
 
        methods: {
-          img () {
-            return "hola";
+          onClickOutsideStandard () {
+            console.log(this.models.base);
+            this.models.base = false
           },
 
           editItem (item) {
@@ -524,6 +534,27 @@
   }
 
   .v-card__title {
-    width: 40%;
+    width: 70%;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: rgb(250 ,250, 250);
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(236, 237, 237);
+  }
+
+  .v-data-table td, .v-data-table th {
+    padding: 0 15px;
+  }
+
+  .search-table {
+    display: inline-block;
+    width: 48%;
+  }
+
+  .show-columns {
+    display: inline-block;
   }
 </style>
