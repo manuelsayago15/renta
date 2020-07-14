@@ -517,111 +517,111 @@
                 <v-spacer></v-spacer>
                 
                 <ul class="navbar-right d-flex list-inline float-right mb-0">
-                <li class="notification-list">
-                    <router-link to="/informe-produccion" class="nav-link waves-effect">
-                        Informe de producción
-                    </router-link>
-                </li>
+                    <li class="notification-list">
+                        <router-link to="/informe-produccion" class="nav-link waves-effect">
+                            Informe de producción
+                        </router-link>
+                    </li>
 
-                <li class="notification-list">
-                    <router-link to="/mensajes" class="nav-link waves-effect">
-                        <i class="ti-email font-20"></i><span class="notification-badge badge badge-pill badge-primary">990</span>
-                    </router-link>
-                </li>
-                <li class="dropdown notification-list d-none d-md-block">
-                    <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
-                        <i class="mdi mdi-fullscreen noti-icon"></i>
-                    </a>
-                </li>
-                <li class="dropdown notification-list">
-                    <div class="dropdown notification-list nav-pro-img">
-                        <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            
+                    <li class="notification-list">
+                        <router-link to="/mensajes" class="nav-link waves-effect">
+                            <i class="ti-email font-20"></i><span class="notification-badge badge badge-pill badge-primary">990</span>
+                        </router-link>
+                    </li>
+                    <li class="dropdown notification-list d-none d-md-block">
+                        <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
+                            <i class="mdi mdi-fullscreen noti-icon"></i>
                         </a>
-                        <v-app id="inspire" >
-                            <v-row justify="space-around" class="testme">
-                                <div class="d-flex justify-center align-center">
-                                    <v-menu
-                                        bottom
-                                        origin="center center"
-                                        transition="scale-transition"
-                                        offset-y>
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn
-                                                color="#ececf1"
-                                                dark
-                                                v-bind="attrs"
-                                                v-on="on">
-                                                <img class="rounded-circle" height="35px" id="foto_logueado" alt="user" src="/src/assets/images/users/usr_06.png">
-                                            </v-btn>
-                                        </template>
-                                  
-                                        <v-list>
-                                          <v-list-item>
-                                            <v-list-item-title>
-                                                <router-link to="/perfil">
-                                                    <img class="rounded-circle m-r-5" id="foto" alt="user" src="/src/assets/images/users/usr_06.png" height="25px">
-                                                    Mi Perfil
-                                                </router-link>
-                                            </v-list-item-title>
-                                          </v-list-item>
-
-                                          <v-list-item>
-                                            <v-list-item-title>
-                                                <router-link to="/perfil">
-                                                    <router-link to="#">
-                                                        <i class="mdi mdi-account-supervisor m-r-5"></i>
-                                                        Mi Ejecutivo
-                                                    </router-link>
-                                                </router-link>
-                                            </v-list-item-title>
-                                          </v-list-item>
-
-                                          <v-list-item>
-                                            <v-list-item-title>
-                                                <router-link to="#">
-                                                    <i class="mdi mdi-settings-outline m-r-5"></i>
-                                                    Configuración
-                                                </router-link>
-                                            </v-list-item-title>
-                                          </v-list-item>
-                                        </v-list>
-                                    </v-menu>
-                                </div>
-                            </v-row>
-                        </v-app>
-                        <!--<div class="dropdown-menu dropdown-menu-right profile-dropdown">
-                            <a class="dropdown-item waves-effect" href="">
-                                <img class="rounded-circle m-r-5" id="foto_logueado2" alt="user" height="25px">
-                                Mi perfil
+                    </li>
+                    <li class="dropdown notification-list">
+                        <div class="dropdown notification-list nav-pro-img">
+                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                
                             </a>
+                            <v-app id="inspire">
+                                <v-row justify="space-around">
+                                    <div class="d-flex justify-center align-center">
+                                        <v-menu
+                                            bottom
+                                            origin="center center"
+                                            transition="scale-transition"
+                                            offset-y>
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-btn
+                                                    color="#ececf1"
+                                                    dark
+                                                    v-bind="attrs"
+                                                    v-on="on">
+                                                    <img class="rounded-circle" height="35px" id="foto_logueado" alt="user" src="/src/assets/images/users/usr_06.png">
+                                                </v-btn>
+                                            </template>
+                                      
+                                            <v-list>
+                                              <v-list-item>
+                                                <v-list-item-title>
+                                                    <router-link to="/perfil">
+                                                        <img class="rounded-circle m-r-5" id="foto" alt="user" src="/src/assets/images/users/usr_06.png" height="25px">
+                                                        Mi Perfil
+                                                    </router-link>
+                                                </v-list-item-title>
+                                              </v-list-item>
 
-                            <a class="dropdown-item waves-effect" href="" id="ejecutivo"><i class="mdi mdi-account-supervisor m-r-5"></i>Mi ejecutivo</a>
+                                              <v-list-item>
+                                                <v-list-item-title>
+                                                    <router-link to="/perfil">
+                                                        <router-link to="#">
+                                                            <i class="mdi mdi-account-supervisor m-r-5"></i>
+                                                            Mi Ejecutivo
+                                                        </router-link>
+                                                    </router-link>
+                                                </v-list-item-title>
+                                              </v-list-item>
 
-                            <a class="dropdown-item waves-effect" href=""><i class="mdi mdi-settings-outline m-r-5"></i>Configuración</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item waves-effect text-danger" id="cerrar" href=""><i class="mdi mdi-power text-danger">Cerrar sesión</i></a>
-                            <div class="dropdown dropdown-executive bg-light d-none">
-                                <div class="dropdown-executive__top p-3 d-flex justify-content-between align-items-start flex-wrap"><img class="rounded-circle m-r-5 dropdown-executive__top-left" src="/src/assets/images/users/usr_06.png" alt="Ejecutivo">
-                                    <div class="dropdown-executive__top-middle">
-                                        <h4 class="m-0 dropdown-executive__top-middle-title">Ejecutivo asignado</h4>
-                                        <p class="m-0">
-                                            <div id="nombre_ejecuivo"></div>
-                                        </p>
-                                    </div><a class="dropdown-executive__top-right text-danger" href=""><i class="mdi mdi-close text-danger">Cerrar</i></a></div>
-                                <div class="dropdown-executive__bottom p-3">
-                                    <div class="m-0">Email: <span id="email_ejecuivo"></span>
-                                        <div class="m-0">Oficina: <span id="oficina_ejecuivo"></span>
-                                            <div class="m-0">Teléfono: <span id="telefono_ejecuivo"></span>
+                                              <v-list-item>
+                                                <v-list-item-title>
+                                                    <router-link to="#">
+                                                        <i class="mdi mdi-settings-outline m-r-5"></i>
+                                                        Configuración
+                                                    </router-link>
+                                                </v-list-item-title>
+                                              </v-list-item>
+                                            </v-list>
+                                        </v-menu>
+                                    </div>
+                                </v-row>
+                            </v-app>
+                            <!--<div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                                <a class="dropdown-item waves-effect" href="">
+                                    <img class="rounded-circle m-r-5" id="foto_logueado2" alt="user" height="25px">
+                                    Mi perfil
+                                </a>
+
+                                <a class="dropdown-item waves-effect" href="" id="ejecutivo"><i class="mdi mdi-account-supervisor m-r-5"></i>Mi ejecutivo</a>
+
+                                <a class="dropdown-item waves-effect" href=""><i class="mdi mdi-settings-outline m-r-5"></i>Configuración</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item waves-effect text-danger" id="cerrar" href=""><i class="mdi mdi-power text-danger">Cerrar sesión</i></a>
+                                <div class="dropdown dropdown-executive bg-light d-none">
+                                    <div class="dropdown-executive__top p-3 d-flex justify-content-between align-items-start flex-wrap"><img class="rounded-circle m-r-5 dropdown-executive__top-left" src="/src/assets/images/users/usr_06.png" alt="Ejecutivo">
+                                        <div class="dropdown-executive__top-middle">
+                                            <h4 class="m-0 dropdown-executive__top-middle-title">Ejecutivo asignado</h4>
+                                            <p class="m-0">
+                                                <div id="nombre_ejecuivo"></div>
+                                            </p>
+                                        </div><a class="dropdown-executive__top-right text-danger" href=""><i class="mdi mdi-close text-danger">Cerrar</i></a></div>
+                                    <div class="dropdown-executive__bottom p-3">
+                                        <div class="m-0">Email: <span id="email_ejecuivo"></span>
+                                            <div class="m-0">Oficina: <span id="oficina_ejecuivo"></span>
+                                                <div class="m-0">Teléfono: <span id="telefono_ejecuivo"></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>-->
-                    </div>
+                            </div>-->
+                        </div>
 
-                </li>
-            </ul>
+                    </li>
+                </ul>
         
             </v-app-bar>
 

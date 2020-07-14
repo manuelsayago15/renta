@@ -1,7 +1,8 @@
 <template>
-  <div id="wrapper">
-    <Topbar></Topbar>
-    <!--<SideMenu></SideMenu>-->
+    <v-app id="inspire">
+      <Topbar></Topbar>
+      <!--<SideMenu></SideMenu>-->
+      <div class="wrapper">
       <div :class="$store.state.val">
         <div class="content">
           <div class="container-fluid">
@@ -17,6 +18,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -30,7 +32,7 @@
                     </div>
                     <div class="">
                       <template>
-                        <v-app id="inspire">
+                        
                           <v-card>
                             <div class="col-md-6 search-table">
                               <v-card-title>
@@ -45,7 +47,7 @@
                               
                             </div>
                             <div class="col-md-6 show-columns">
-                              <v-app id="inspire">
+                              
                                 <v-card>
                                 <div style="height: 55px;" v-click-outside="onClickOutsideStandard" @click="models.base = true">
                                   <v-select v-model="selectedHeaders" :items="headersButton" label="Mostrar Columnas" multiple outlined return-object >
@@ -59,7 +61,7 @@
                                   
                                 </div>
                               </v-card>
-                              </v-app>
+                              
                             </div>
 
                             <v-data-table :headers="showHeaders" :items="data" :items-per-page="10" :search="search" class="elevation-1" >
@@ -92,10 +94,10 @@
                               </template>-->
                             </v-data-table>
                           </v-card>
-                        </v-app>
+                        
                         <!-- Modal Adjuntos -->
 
-                        <v-app id="inspire">
+                        
                           <div class="text-xs-center">
                             <v-dialog
                               v-model="modal"
@@ -143,7 +145,7 @@
                               </v-card>
                             </v-dialog>
                           </div>
-                        </v-app>
+                       
                       </template>
 
 
@@ -152,10 +154,13 @@
                 </div>
               </div>
             </div>
+         
           </div>
         </div>
       </div>
-  </div>
+      </div>
+    </v-app>
+  
 
   
 
@@ -167,9 +172,9 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
-    import moment from 'moment'
+    //import moment from 'moment'
     //import VueTableDynamic from 'vue-table-dynamic'
-    import image from '@/assets/images/bandeja-iconos/pendiente.png'
+    //import image from '@/assets/images/bandeja-iconos/pendiente.png'
     Vue.use(VueAxios, axios)
 
     export default {
@@ -186,7 +191,7 @@
           tokenDown: '',
           status: '',
           tipoPropuesta: '',
-          image: image,
+          //image: image,
           modal: false,
           rutLogged : '',
 

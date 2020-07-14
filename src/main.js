@@ -72,6 +72,7 @@ import Liquidadores from '@/components/menuAgenda/liquidadores/Liquidadores';
 
 
 //Styles
+import '@/assets/css/styles.css';
 import '../src/assets/css/test.css';
 import '../src/assets/scss/style.scss';
 import '../src/assets/css/developers.css';
@@ -90,6 +91,8 @@ import VueAxios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import VueTableDynamic from 'vue-table-dynamic'
+
+
 //Vuex
 import { store } from './store/store'
 
@@ -114,6 +117,10 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue)
 
 //Global Components
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+Vue.use(VueSidebarMenu)
+
 Vue.component('Topbar', require('./components/Topbar.vue').default);
 Vue.component('SideMenu', require('./components/SideMenu.vue').default);
 
