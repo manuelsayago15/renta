@@ -132,19 +132,17 @@
 </script>
 
 <style>
-    .content-page-left {
-        margin-left: 0;
-    }
+    
     @media (max-width: 576px) { 
         .content-page-left {
-          margin-left: 0;
+          margin-left: 50px;
         }
     }
-    @media (max-width: 1263px) { 
+    /*@media (max-width: 1263px) { 
         .fix-menu{
-          margin-left: 0;
+          margin-left: 50px;
         }
-    }
+    }*/
     
 
 </style>

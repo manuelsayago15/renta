@@ -1,663 +1,181 @@
 <template>
-    <div>
-        <v-app id="inspire">
-            <v-navigation-drawer
-                v-model="drawer"
-                   
-                app>
-                <v-list dense>
+    
+        <div >
+            
+              
+                <v-app-bar app color="#ececf1" :class="$store.state.iconBar" class="sidebar-transform">
+                    <v-app-bar-nav-icon @click="$store.commit('value'), toggle()" class="d-none d-md-block d-lg-block d-xl-block"></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon color="grey" class="d-block d-md-none d-sm-block d-lg-none">
+                    </v-app-bar-nav-icon>
+                    
 
-                    <v-app >
-                    <v-card >
-                      <v-sheet
-                        >
-                          <v-container style="height: 1000px;">
-                             <div class="topbar-left d-none d-lg-block d-xl-none"><a class="logo" :href="'/home'"><span>
-                                <img src="/src/assets/images/logo-renta-nacional.png" alt="Logo renta" width="150">
-                                </span><i>
+                    <!--<v-toolbar-title>Title</v-toolbar-title>-->
 
-                                    <!--<img src="/src/assets/images/logo-renta-nacional-sm.png" alt="Logo-sm" height="42">-->
-                                </i></a>
+                    <v-spacer></v-spacer>
 
-                            </div>
-                            <img src="/src/assets/images/logo-renta-nacional.png" class="d-block d-md-block d-sm-block d-lg-none" alt="Logo renta" width="150">
-                            <v-list>
-                                
-                                    <span style="margin-left: 15px;">
-                                        <i class="renta-icon-deashboard"></i>
-                                        <router-link to="/intermediario" style="font-color:#343a40;">
-                                            Dashboard
-                                        </router-link>
-                                    </span>
-                                    <span v-if="this.id_userType == 1" style="margin-left: 15px;">
-                                        <i class="renta-icon-deashboard"></i>
-                                        <router-link to="/gerente-sucursal" style="font-color:#343a40;">
-                                            Dashboard
-                                        </router-link>
-                                    </span>
-                                    <span v-if="this.id_userType == 11" style="margin-left: 15px;">
-                                        <i class="renta-icon-deashboard"></i>
-                                        <router-link to="/gerente-zonal" style="font-color:#343a40;">
-                                            Dashboard
-                                        </router-link>
-                                    </span>
-                                    <span v-if="this.id_userType == 2" style="margin-left: 15px;">
-                                        <i class="renta-icon-deashboard" style="font-color:#343a40;"></i>
-                                        <router-link to="/ejecutivo">
-                                            Dashboard 
-                                        </router-link>
-                                    </span>
-                                    <span v-if="this.id_userType == 4" style="margin-left: 15px;">
-                                        <i class="renta-icon-deashboard" style="font-color:#343a40;"></i>
-                                        <router-link to="/admin-liquidadores">
-                                            Dashboard
-                                        </router-link>
-                                    </span>
-                                
-                              <!--<v-list-item>
-                                <v-list-item-icon>
-                                  <v-icon>mdi-home</v-icon>
-                                </v-list-item-icon>
-                        
-                                <v-list-item-title>Home</v-list-item-title>
-                              </v-list-item>-->
-                        
-                              <v-list-group class="group"
-                                :value="false"> 
-                                <template v-slot:activator>
-                                  <v-list-item-title >
-                                    <span>
-                                      <i class="renta-icon-security-log"></i>
-                                    </span>
-                                    Producción
-                                  </v-list-item-title>
-                                </template>
-                        
-                                <v-list-group
-                                  style="font-size: 10px;"
-                                  no-action
-                                  sub-group
-                                  :value="false">
-                                  <template v-slot:activator>
-                                    <v-list-item-content>
-                                      <v-list-item-title >Ingreso de Propuestas</v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>
-                        
-                                  <!--<v-list-item
-                                    v-for="(ingreso, i) in ingresoPropuestas"
-                                    :key="i"
-                                    link>
-                                    <v-list-item-title v-text="ingreso"></v-list-item-title>
-                                      
-                                  </v-list-item>-->
-                                  
-                                  <ul class="submenu submenu-2">
-                                    <li >
-                                      <router-link to="/descarga-formularios">
-                                        Descarga de formularios
-                                      </router-link>
-                                    </li>
-                                    <li v-if="this.id_userType == 3">
-                                      <router-link to="/formulario-web">
-                                        Formulario web
-                                      </router-link>
-                                    </li>
-                                    <li v-if="this.id_userType == 3">
-                                      <router-link to="/carga-formularios">
-                                        Carga de formulario
-                                      </router-link>
-                                    </li>
-                                  </ul>
-                                </v-list-group>
-                        
-                                <!--<v-list-group
-                                  sub-group
-                                  no-action>
-                                  <template v-slot:activator>
-                                    <v-list-item-content>
-                                      <v-list-item-title>Actions</v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>
-                                </v-list-group>-->
-                                
-                                  <v-list-item class="item-size">
-                                    <template>
-                                      <v-list-item-content>
-                                        <v-list-item-title>
-                                          <router-link to="/bandeja-propuestas" class="color-a">
-                                            Bandeja de Propuestas
-                                          </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item-content>
-                                    </template> 
-                                  </v-list-item>
+                    <ul class="navbar-right d-flex list-inline float-right mb-0 md-col-6">
+                        <li class="notification-list">
+                            <router-link to="/informe-produccion" class="nav-link waves-effect">
+                                Informe de producción
+                            </router-link>
+                        </li>
 
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/solicitud-cotizacion" class="color-a">Solicitud de cotización</router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-group
-                                  no-action
-                                  sub-group
-                                  :value="false">
-                                  <template v-slot:activator>
-                                    <v-list-item-content>
-                                      <v-list-item-title >Renovación de Pólizas</v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>
-                                  
-                                  <ul class="submenu submenu-2">
-                                    <li >
-                                      <router-link to="/bandeja-renovaciones">
-                                        Bandeja de Renovaciones
-                                      </router-link>
-                                    </li>
-                                    <li>
-                                      <router-link to="/polizas-vencidas">
-                                        Pólizas Vencidas
-                                      </router-link>
-                                    </li>
-                                    <li>
-                                      <router-link to="/reporte-polizas-vencidas">
-                                        Reporte Renovación Pólizas Vencidas
-                                      </router-link>
-                                    </li>
-                                  </ul>
-                                </v-list-group>  
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">Solicitud de Endoso</router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/cotizacion-linea" class="color-a">Cotización en Línea</router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-                                
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/emision-linea" class="color-a">Emisión en Línea</router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-                              </v-list-group>
-
-                            <v-list-group
-                                :value="false">
-                                <template v-slot:activator>
-                                  <v-list-item-title>
-                                    <span>
-                                      <i class="renta-icon-wallet"></i>
-                                    </span>
-                                    Cobranza
-                                  </v-list-item-title>
-                                </template>
-
-                                <v-list-item class="item-size">
-                                    <template>
-                                      <v-list-item-content>
-                                        <v-list-item-title>
-                                          <router-link to="/planes-pago" class="color-a">
-                                            Confirmación planes de<br>pago
-                                          </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item-content>
-                                    </template> 
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                    <template>
-                                      <v-list-item-content>
-                                        <v-list-item-title>
-                                          <router-link to="/ingreso-pat" class="color-a">
-                                            Ingreso PAT
-                                          </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item-content>
-                                    </template> 
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                    <template>
-                                      <v-list-item-content>
-                                        <v-list-item-title>
-                                          <router-link to="/descarga-envio-facturas" class="color-a">
-                                            Descarga / envío de<br>facturas
-                                          </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item-content>
-                                    </template> 
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                    <template>
-                                      <v-list-item-content>
-                                        <v-list-item-title>
-                                          <router-link to="/envio-vencimientos" class="color-a">
-                                            Envío de vencimientos
-                                          </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item-content>
-                                    </template> 
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                    <template>
-                                      <v-list-item-content>
-                                        <v-list-item-title>
-                                          <router-link to="/estado-cuentas" class="color-a">
-                                            Estados de cuenta
-                                          </router-link>
-                                        </v-list-item-title>
-                                      </v-list-item-content>
-                                    </template> 
-                                </v-list-item>
-                            </v-list-group>
-
-                              <v-list-group class="group"
-                                :value="false"> 
-                                <template v-slot:activator>
-                                  <v-list-item-title >
-                                    <span>
-                                      <i class="renta-icon-security-log"></i>
-                                    </span>
-                                    Gestión
-                                  </v-list-item-title>
-                                </template>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/consulta-polizas" class="color-a">
-                                          Consulta Pólizas
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/informe-siniestralidad" class="color-a">
-                                          Informe de Siniestralidad
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/certificado-honorarios" class="color-a">
-                                          Descarga Fecu /<br>certificado de<br>honorarios
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/cartera-clientes" class="color-a">
-                                          Cartera de Clientes
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/listado-polizas" class="color-a">
-                                          Listado de pólizas
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/cuotas-morosas" class="color-a">
-                                          Informe de cuotas<br>morosas
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/polizas-canceladas" class="color-a">
-                                          Informe de pólizas <br>canceladas
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/informe-renovaciones" class="color-a">
-                                          Informe de<br>renovaciones
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-group
-                                  no-action
-                                  sub-group
-                                  :value="false">
-                                  <template v-slot:activator>
-                                    <v-list-item-content>
-                                      <v-list-item-title >Informe de Propuestas</v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>
-
-                                  <ul class="submenu submenu-2">
-                                    <li>
-                                      <router-link to="/cotizaciones-pendientes">
-                                        Cotizaciones Pendientes
-                                      </router-link> 
-                                    </li>
-                                  </ul>
-
-                                </v-list-group>
-
-                                <v-list-group
-                                  no-action
-                                  sub-group
-                                  :value="false">
-                                  <template v-slot:activator>
-                                    <v-list-item-content>
-                                      <v-list-item-title >Liquidación de <br>Comisiones</v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>
-
-                                  <ul class="submenu submenu-2">
-                                    <li>
-                                      <router-link to="/liquidaciones-por-pagar">
-                                        Liquidaciones por Pagar
-                                      </router-link> 
-                                    </li>
-                                    <li>
-                                      <router-link to="/liquidaciones-fecha">
-                                        Informe de Comisiones a la Fecha
-                                      </router-link> 
-                                    </li>
-                                    <li>
-                                      <router-link to="/liquidaciones-historicas">
-                                        Liquidaciones Históricas
-                                      </router-link> 
-                                    </li>
-                                  </ul>
-
-                                </v-list-group>
-
-                              </v-list-group>
-
-                             
-                              
-                              <v-list-group
-                                :value="false">
-                                <template v-slot:activator>
-                                  <v-list-item-title>
-                                    <span>
-                                      <i class="renta-icon-book"></i>
-                                    </span>
-                                    Menú Agenda
-                                  </v-list-item-title>
-                                </template>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
-                                          Talleres
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/solicitud-endoso" class="color-a">
-                                          Carteras de Clientes
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/liquidadores" class="color-a">
-                                          Liquidadores
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                                <v-list-item class="item-size">
-                                  <template>
-                                    <v-list-item-content>
-                                      <v-list-item-title>
-                                        <router-link to="/oficinas" class="color-a">
-                                          Oficinas
-                                        </router-link>
-                                      </v-list-item-title>
-                                    </v-list-item-content>
-                                  </template>  
-                                </v-list-item>
-
-                              </v-list-group>
-
-                            </v-list>
-                          </v-container>
-                        </v-sheet>
-                      
-                    </v-card>
-                  </v-app>
-                </v-list>
-            </v-navigation-drawer>
-
-            <v-app-bar
-                app
-                color="#ececf1"
-                dark>
-                <v-app-bar-nav-icon color="grey" class="d-none d-lg-block d-xl-none" @click="$store.commit('value')" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-                <v-app-bar-nav-icon color="grey" class="d-block d-md-block d-sm-block d-lg-none" style="height: 80px;" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-                
-                <v-spacer></v-spacer>
-                
-                <ul class="navbar-right d-flex list-inline float-right mb-0">
-                    <li class="notification-list">
-                        <router-link to="/informe-produccion" class="nav-link waves-effect">
-                            Informe de producción
-                        </router-link>
-                    </li>
-
-                    <li class="notification-list">
-                        <router-link to="/mensajes" class="nav-link waves-effect">
-                            <i class="ti-email font-20"></i><span class="notification-badge badge badge-pill badge-primary">990</span>
-                        </router-link>
-                    </li>
-                    <li class="dropdown notification-list d-none d-md-block">
-                        <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
-                            <i class="mdi mdi-fullscreen noti-icon"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown notification-list">
-                        <div class="dropdown notification-list nav-pro-img">
-                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                
+                        <li class="notification-list">
+                            <router-link to="/mensajes" class="nav-link waves-effect">
+                                <i class="ti-email font-20"></i><span class="notification-badge badge badge-pill badge-primary">990</span>
+                            </router-link>
+                        </li>
+                        <li class="dropdown notification-list d-none d-md-block">
+                            <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
+                                <i class="mdi mdi-fullscreen noti-icon"></i>
                             </a>
-                            <v-app id="inspire">
-                                <v-row justify="space-around">
-                                    <div class="d-flex justify-center align-center">
-                                        <v-menu
-                                            bottom
-                                            origin="center center"
-                                            transition="scale-transition"
-                                            offset-y>
-                                            <template v-slot:activator="{ on, attrs }">
-                                                <v-btn
-                                                    color="#ececf1"
-                                                    dark
-                                                    v-bind="attrs"
-                                                    v-on="on">
-                                                    <img class="rounded-circle" height="35px" id="foto_logueado" alt="user" src="/src/assets/images/users/usr_06.png">
-                                                </v-btn>
-                                            </template>
-                                      
-                                            <v-list>
-                                              <v-list-item>
-                                                <v-list-item-title>
-                                                    <router-link to="/perfil">
-                                                        <img class="rounded-circle m-r-5" id="foto" alt="user" src="/src/assets/images/users/usr_06.png" height="25px">
-                                                        Mi Perfil
-                                                    </router-link>
-                                                </v-list-item-title>
-                                              </v-list-item>
-
-                                              <v-list-item>
-                                                <v-list-item-title>
-                                                    <router-link to="/perfil">
-                                                        <router-link to="#">
-                                                            <i class="mdi mdi-account-supervisor m-r-5"></i>
-                                                            Mi Ejecutivo
-                                                        </router-link>
-                                                    </router-link>
-                                                </v-list-item-title>
-                                              </v-list-item>
-
-                                              <v-list-item>
-                                                <v-list-item-title>
-                                                    <router-link to="#">
-                                                        <i class="mdi mdi-settings-outline m-r-5"></i>
-                                                        Configuración
-                                                    </router-link>
-                                                </v-list-item-title>
-                                              </v-list-item>
-                                            </v-list>
-                                        </v-menu>
-                                    </div>
-                                </v-row>
-                            </v-app>
-                            <!--<div class="dropdown-menu dropdown-menu-right profile-dropdown">
-                                <a class="dropdown-item waves-effect" href="">
-                                    <img class="rounded-circle m-r-5" id="foto_logueado2" alt="user" height="25px">
-                                    Mi perfil
+                        </li>
+                        <li class="dropdown notification-list">
+                            <div class="dropdown notification-list nav-pro-img">
+                                <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    
                                 </a>
+                                
+                                    <v-row justify="space-around">
+                                        <div class="d-flex justify-center align-center">
+                                            <v-menu
+                                                bottom
+                                                origin="center center"
+                                                transition="scale-transition"
+                                                offset-y>
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn
+                                                        color="#ececf1"
+                                                        dark
+                                                        v-bind="attrs"
+                                                        v-on="on">
+                                                        <img class="rounded-circle" height="35px" id="foto_logueado" alt="user" src="/src/assets/images/users/usr_06.png">
+                                                    </v-btn>
+                                                </template>
+                                          
+                                                <v-list>
+                                                  <v-list-item>
+                                                    <v-list-item-title>
+                                                        <router-link to="/perfil">
+                                                            <img class="rounded-circle m-r-5" id="foto" alt="user" src="/src/assets/images/users/usr_06.png" height="25px">
+                                                            Mi Perfil
+                                                        </router-link>
+                                                    </v-list-item-title>
+                                                  </v-list-item>
 
-                                <a class="dropdown-item waves-effect" href="" id="ejecutivo"><i class="mdi mdi-account-supervisor m-r-5"></i>Mi ejecutivo</a>
+                                                  <v-list-item>
+                                                    <v-list-item-title>
+                                                        <router-link to="/perfil">
+                                                            <router-link to="#">
+                                                                <i class="mdi mdi-account-supervisor m-r-5"></i>
+                                                                Mi Ejecutivo
+                                                            </router-link>
+                                                        </router-link>
+                                                    </v-list-item-title>
+                                                  </v-list-item>
 
-                                <a class="dropdown-item waves-effect" href=""><i class="mdi mdi-settings-outline m-r-5"></i>Configuración</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item waves-effect text-danger" id="cerrar" href=""><i class="mdi mdi-power text-danger">Cerrar sesión</i></a>
-                                <div class="dropdown dropdown-executive bg-light d-none">
-                                    <div class="dropdown-executive__top p-3 d-flex justify-content-between align-items-start flex-wrap"><img class="rounded-circle m-r-5 dropdown-executive__top-left" src="/src/assets/images/users/usr_06.png" alt="Ejecutivo">
-                                        <div class="dropdown-executive__top-middle">
-                                            <h4 class="m-0 dropdown-executive__top-middle-title">Ejecutivo asignado</h4>
-                                            <p class="m-0">
-                                                <div id="nombre_ejecuivo"></div>
-                                            </p>
-                                        </div><a class="dropdown-executive__top-right text-danger" href=""><i class="mdi mdi-close text-danger">Cerrar</i></a></div>
-                                    <div class="dropdown-executive__bottom p-3">
-                                        <div class="m-0">Email: <span id="email_ejecuivo"></span>
-                                            <div class="m-0">Oficina: <span id="oficina_ejecuivo"></span>
-                                                <div class="m-0">Teléfono: <span id="telefono_ejecuivo"></span>
+                                                  <v-list-item>
+                                                    <v-list-item-title>
+                                                        <router-link to="#">
+                                                            <i class="mdi mdi-settings-outline m-r-5"></i>
+                                                            Configuración
+                                                        </router-link>
+                                                    </v-list-item-title>
+                                                  </v-list-item>
+                                                </v-list>
+                                            </v-menu>
+                                        </div>
+                                    </v-row>
+                                
+                                <!--<div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                                    <a class="dropdown-item waves-effect" href="">
+                                        <img class="rounded-circle m-r-5" id="foto_logueado2" alt="user" height="25px">
+                                        Mi perfil
+                                    </a>
+
+                                    <a class="dropdown-item waves-effect" href="" id="ejecutivo"><i class="mdi mdi-account-supervisor m-r-5"></i>Mi ejecutivo</a>
+
+                                    <a class="dropdown-item waves-effect" href=""><i class="mdi mdi-settings-outline m-r-5"></i>Configuración</a>
+                                    <div class="dropdown-divider"></div><a class="dropdown-item waves-effect text-danger" id="cerrar" href=""><i class="mdi mdi-power text-danger">Cerrar sesión</i></a>
+                                    <div class="dropdown dropdown-executive bg-light d-none">
+                                        <div class="dropdown-executive__top p-3 d-flex justify-content-between align-items-start flex-wrap"><img class="rounded-circle m-r-5 dropdown-executive__top-left" src="/src/assets/images/users/usr_06.png" alt="Ejecutivo">
+                                            <div class="dropdown-executive__top-middle">
+                                                <h4 class="m-0 dropdown-executive__top-middle-title">Ejecutivo asignado</h4>
+                                                <p class="m-0">
+                                                    <div id="nombre_ejecuivo"></div>
+                                                </p>
+                                            </div><a class="dropdown-executive__top-right text-danger" href=""><i class="mdi mdi-close text-danger">Cerrar</i></a></div>
+                                        <div class="dropdown-executive__bottom p-3">
+                                            <div class="m-0">Email: <span id="email_ejecuivo"></span>
+                                                <div class="m-0">Oficina: <span id="oficina_ejecuivo"></span>
+                                                    <div class="m-0">Teléfono: <span id="telefono_ejecuivo"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>-->
-                        </div>
+                                </div>-->
+                            </div>
 
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </v-app-bar >
+            
+            <!--<v-navigation-drawer
+                v-model="drawer"
+                :class="$store.state.navigationDrawerMargin"
+                app>
+                
+                
+                
+                
+            </v-navigation-drawer>-->
+            <div>
+                <logo></logo>
+                <sidebar-menu :menu="menu" :collapsed="collapsed" :theme="theme" :width="width" @toggle-collapse="onToggleCollapse" @item-click="onItemClick">
+                    
+                    <div slot="header" class="logo" >
+                        <router-link to="/home">
+                            <img :src="'/src/assets/images/' + $store.state.logo" alt="Logo renta" :class="$store.state.logoSize">
+                        </router-link>
+                    </div>
+                    <span slot="toggle-icon" :ref="$store.state.toggle">toggle-icon</span>
+                     <span slot="toggle-collapse">footer</span>
+                </sidebar-menu>
+            </div>
+            
+            
+
+            <!--<v-app-bar
+                app
+                color="#ececf1"
+                dark>
+                
+                
+                <v-spacer></v-spacer>
+                
+                
         
-            </v-app-bar>
+            </v-app-bar>-->
 
-            <v-main>
-                <v-container
-                  class="fill-height"
-                  fluid
-                >
-                    <v-row
-                        align="center"
-                        justify="center">
-                        <v-col class="text-center">
-                            <v-tooltip left>
-                                <template v-slot:activator="{ on }">
-                                  <v-btn
-                                    :href="source"
-                                    icon
-                                    large
-                                    target="_blank"
-                                    v-on="on"
-                                  >
-                                    <v-icon large>mdi-code-tags</v-icon>
-                                  </v-btn>
-                                </template>
-                                <span>Source</span>
-                            </v-tooltip>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-main>
-        </v-app>    
-    </div>
+        </div>   
+    
     
 </template>
 
 <script>
+    Vue.component('logo',{
+        template: `
+        <div>
+            
+        </div>
+        `,
+        data() {
+            return {
+                imagenRenta: '' 
+            }
+        }
+    });
     import Vue from 'vue'
 	export default{
 	  name: 'Topbar',
@@ -669,11 +187,74 @@
             drawer: true,
             mini: true,
             count: 0,
+            windowWidth: 0,
+            collapsed: false,
+            count: 0,
+            menu: [
+                {
+                    header: true,
+                    hiddenOnCollapse: true,
+                },
+                {
+                    href: '/',
+                    title: 'Dashboard',
+                    icon: 'renta-icon-deashboard'
+                },
+                {
+                    href: '',
+                    title: 'Producción',
+                    icon: 'renta-icon-security-log',
+                    child: [
+                        {
+                            href: '',
+                            title: 'Ingreso de Propuestas',
+                            child: [
+                                {
+                                    href: { path: '/descarga-formularios' },
+                                    title: 'Descarga Formularios'
+                                },
+                                {
+                                    href: '/formulario-web',
+                                    title: 'Formulario Web'
+                                },
+                                {
+
+                                }
+                            ]
+                        }
+                    ]
+                },
+            ]
         }
       },
 
       props: {
         source: String,
+        width: {
+          type: String,
+          default: '256px'
+        },
+
+        // Sidebar width (collapsed)
+        widthCollapsed: {
+          type: String,
+          default: '50px'
+        },
+
+        theme: {
+          type: String,
+          default: 'white-theme'
+        },
+      },
+
+      mounted() {
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowWidth);
+
+          //Init
+          this.getWindowWidth()
+        })
+
       },
 
       methods: {
@@ -681,7 +262,61 @@
         dashboardProfile() {
             this.id_userType = JSON.parse(window.localStorage.getItem('id_tipo_usuario'));
             console.log(this.id_userType);
+            this.menu[1].href="descarga-formularios";
+            console.log(this.menu);
          },
+
+         toggle() {
+            //this.$refs.toggle.click();
+            this.collapsed = !this.collapsed;
+            if (this.collapsed == true) {
+                this.count = 1;
+            } else {
+
+                this.count = 0;
+            }
+            
+         },
+         getWindowWidth(event) {
+            this.windowWidth = document.documentElement.clientWidth;
+            console.log(this.windowWidth);
+            console.log(window.innerWidth);
+            var w = window.innerWidth;
+             if (w <= 768 && this.count == 0) {
+
+                this.collapsed = true;
+                
+                console.log(this.count);
+                console.log(this.collapsed);
+            }  else if (w >= 768 && this.count == 1 || w <= 768 && this.count == 1) {
+                this.collapsed = true;
+                console.log("con click");
+                console.log(this.collapsed);
+                console.log(this.count);
+            } else {
+                this.collapsed = false;
+                console.log("sin click");
+                console.log(this.collapsed);
+                console.log(this.count);
+            }
+
+            
+          },
+           beforeDestroy() {
+            window.removeEventListener('resize', this.getWindowWidth);
+          },
+
+         onItemClick () {
+            console.log("hey");
+         },
+
+         onToggleCollapse(collapsed) {
+            console.log("test");
+
+         },
+
+         
+
 
          value() {
 
@@ -707,10 +342,57 @@
 
       created () {
         this.dashboardProfile();
+
       },
 	}
 </script>
 <style>
+    .logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo-size {
+        width: 150px;
+    }
+
+    .logo-sm {
+        height: 42px;
+    }
+
+    .icon-bar {
+        margin-left: 256px;
+    }
+
+    .icon-bar-collapsed {
+        margin-left: 50px;
+    }
+
+    /*.navigation-drawer-margin {
+        width: 50px !important;
+    }*/
+
+    .theme--light.v-navigation-drawer {
+        background-color: transparent;
+    }
+
+    .vsm--toggle-btn {
+        display: none;
+    }
+
+
+
+    .v-sidebar-menu.vsm_white-theme .vsm--link_level-1 .vsm--icon  {
+         background-color: #fff; 
+        font-size: 25px;
+    }
+
+    .v-sidebar-menu.vsm_collapsed {
+        /* background-image: url('/src/assets/images/logo-renta-nacional-sm.png'); */
+        
+        background-position: center;
+    }
+
     .v-application--wrap {
         min-height: 0;
         background: #ececf1;
@@ -725,7 +407,12 @@
     }
 
     .content-page .content {
-        margin-top: 0px;
+        margin-top: 80px;
+    }
+
+    .content-page-left {
+        margin-left: 50px;
+        margin-top: 80px;
     }
 
     .hide-sideMenu{
@@ -792,15 +479,21 @@
         color: #343a40;
     }
 
-      @media (max-width: 576px) { 
-        .hide-sideMenu {
-          left: -240px;
-        }
-      }
+    .v-application {
+        font-family: Open Sans,sans-serif;
+        color: #5b626b;
+    }
 
-    @media (max-width: 1263px) { 
+    @media (max-width: 768px) {
+       .sidebar-transform {
+          margin-left: 50px;
+        }
+
         .content-page{
-          margin-left: 0;
+          margin-left: 55px !important;
         }
     }
+
+    
+
 </style>

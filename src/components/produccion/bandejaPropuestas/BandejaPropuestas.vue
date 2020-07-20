@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                   <h4 class="page-title">Bandeja de Propuestas</h4>
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Produción</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Producción</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0);">Bandeja de Propuestas</a></li>
                     <li class="breadcrumb-item active"><span></span></li>
                   </ol>
@@ -532,10 +532,6 @@
   .v-text-field {
     padding-top: 0px;
      margin-top: 0px;
-  }
-
-  .v-applicaction {
-    font-family: Roboto,sans-serif;
   }
 
   .v-card__title {
